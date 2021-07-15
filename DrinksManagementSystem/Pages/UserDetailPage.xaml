@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:controls="clr-namespace:DrinksManagementSystem.Controls;assembly=DrinksManagementSystem"
+    xmlns:converters="clr-namespace:DrinksManagementSystem.Converter"
+    ios:Page.UseSafeArea="True"
+    ios:Page.LargeTitleDisplay="Never"
+    x:Class="DrinksManagementSystem.Pages.UserDetailPage">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Text="Speichern"
+            Order="Default"
+            Priority="0"
+            Clicked="OnUpdateClicked"
+        />
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <ScrollView BackgroundColor="Transparent">
+            <StackLayout Padding="20">
+
+                <controls:EditPictureView x:Name="editPictureView" ImageChanged="OnImageChanged" />
+
+                <Entry FontSize="30" FontAttributes="Bold" BackgroundColor="Transparent" x:Name="Name" Placeholder="Name" Text="{Binding Path=User.Name, Mode=TwoWay}" ></Entry>
+
+                <StackLayout Margin="0, 10, 0, 0" Orientation="Horizontal" Padding="5">
+                    <Label HorizontalOptions="StartAndExpand" VerticalTextAlignment="Center">Admin</Label>
+                    <Switch IsToggled="{Binding Path=IsAdmin}" Toggled="OnIsAdminToggled" HorizontalOptions="EndAndExpand"></Switch>
+                </StackLayout>
+
+                <Button
+                    Margin="0, 50, 0, 0"
+                    TextColor="Red"
+                    Text="Löschen"
+                    Clicked="OnDeleteClicked"
+                    >
+                </Button>
+            </StackLayout>
+
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

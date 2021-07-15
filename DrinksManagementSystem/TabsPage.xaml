@@ -3,10 +3,34 @@
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             xmlns:local="clr-namespace:DrinksManagementSystem.Pages;assembly=DrinksManagementSystem"
+            xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+            xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+            ios:TabbedPage.TranslucencyMode="Translucent"
+            android:TabbedPage.ToolbarPlacement="Bottom"
             x:Class="DrinksManagementSystem.TabsPage">
-    <NavigationPage Title="Start" IconImageSource="home.png">
+
+    <TabbedPage.BarBackgroundColor>
+        <OnPlatform x:TypeArguments="Color">
+            <On Platform="Android">#FFFFFF</On>
+        </OnPlatform>
+    </TabbedPage.BarBackgroundColor>
+
+    <NavigationPage Title="Start" IconImageSource="home.png" ios:NavigationPage.PrefersLargeTitles="true">
         <x:Arguments>
             <local:StartPage />
+        </x:Arguments>
+    </NavigationPage>
+
+    <NavigationPage Title="Nutzer" IconImageSource="people.png" ios:NavigationPage.PrefersLargeTitles="true">
+        <x:Arguments>
+            <local:UsersPage />
+        </x:Arguments>
+    </NavigationPage>
+
+
+    <NavigationPage Title="Getränke" IconImageSource="beer.png" ios:NavigationPage.PrefersLargeTitles="true">
+        <x:Arguments>
+            <local:DrinksPage />
         </x:Arguments>
     </NavigationPage>
 </TabbedPage>

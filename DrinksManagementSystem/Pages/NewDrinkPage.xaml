@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DrinksManagementSystem.Pages.NewDrinkPage"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:controls="clr-namespace:DrinksManagementSystem.Controls"
+             ios:Page.UseSafeArea="False"
+             Title="Neues Getränk">
+    <ContentPage.Content>
+        <ScrollView BackgroundColor="Transparent">
+            <StackLayout Padding="20">
+                <controls:EditPictureView x:Name="editPictureView" ImageChanged="OnImageChanged" />
+
+                <Entry x:Name="name"
+                       Placeholder="Name"
+                       FontSize="30"
+                       FontAttributes="Bold"
+                       BackgroundColor="Transparent"
+                       Text="{Binding Drink.Name, Mode=TwoWay}"
+                />
+
+                <Grid Margin="0, 30, 0, 0"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    ColumnDefinitions="*, Auto, Auto"
+                >
+                    <Label Grid.Column="0"
+                           Grid.Row="0"
+                           Opacity="0.7"
+                           FontAttributes="Bold"
+                           VerticalTextAlignment="Center"
+                    >
+                        Preis
+                    </Label>
+
+                    <Entry Grid.Column="1"
+                           Grid.Row="0"
+                           Placeholder="Preis"
+                           Keyboard="Numeric"
+                           HorizontalTextAlignment="Center"
+                           Text="{Binding Drink.Price, Mode=TwoWay}"
+                    />
+
+                    <Label Grid.Column="2"
+                           Grid.Row="0"
+                           VerticalTextAlignment="Center"
+                    >
+                        €
+                    </Label>
+
+
+                    <Label Grid.Column="0"
+                           Grid.Row="1"
+                           Opacity="0.7"
+                           FontAttributes="Bold"
+                           VerticalTextAlignment="Center"
+                    >
+                        Admin Preis
+                    </Label>
+
+                    <Entry Grid.Column="1"
+                           Grid.Row="1"
+                           Placeholder="Preis"
+                           Keyboard="Numeric"
+                           HorizontalTextAlignment="Center"
+                           Text="{Binding Drink.AdminPrice, Mode=TwoWay}"
+                    />
+
+                    <Label Grid.Column="2"
+                           Grid.Row="1"
+                           VerticalTextAlignment="Center"
+                    >
+                        €
+                    </Label>
+
+
+                    <Label Grid.Column="0"
+                           Grid.Row="2"
+                           Opacity="0.7"
+                           FontAttributes="Bold"
+                           VerticalTextAlignment="Center"
+                    >
+                        Alkohol Gehalt
+                    </Label>
+
+                    <Entry Grid.Column="1"
+                           Grid.Row="2"
+                           Keyboard="Numeric"
+                           HorizontalTextAlignment="Center"
+                           Text="{Binding Drink.AlcoholContent, Mode=TwoWay}"
+                    />
+
+                    <Label Grid.Column="2"
+                           Grid.Row="2"
+                           VerticalTextAlignment="Center"
+                    >
+                        %
+                    </Label>
+
+
+                    <Label Grid.Column="0"
+                           Grid.Row="3"
+                           Opacity="0.7"
+                           FontAttributes="Bold"
+                           VerticalTextAlignment="Center"
+                    >
+                        Anzahl
+                    </Label>
+
+                    <Entry Grid.Column="1"
+                           Grid.Row="3"
+                           Placeholder="Anzahl"
+                           Keyboard="Numeric"
+                           HorizontalTextAlignment="Center"
+                           Text="{Binding Drink.Quantity, Mode=TwoWay}"
+                    />
+
+
+                    <Label Grid.Column="0"
+                           Grid.Row="4"
+                           Opacity="0.7"
+                           FontAttributes="Bold"
+                           VerticalTextAlignment="Center"
+                    >
+                        Kategorie
+                    </Label>
+
+                    <Picker Grid.Column="1"
+                            Grid.Row="4"
+                            Title="Wählen"
+                            HorizontalTextAlignment="Center"
+                            ItemsSource="{Binding DrinkTypes}"
+                     />
+
+
+                    <Label Grid.Column="0"
+                           Grid.Row="5"
+                           Opacity="0.7"
+                           FontAttributes="Bold"
+                           VerticalTextAlignment="Center"
+                    >
+                        Marke
+                    </Label>
+
+                    <Button Grid.Column="1"
+                            Grid.Row="5"
+                            Text="Wählen"
+                    />
+                </Grid>
+
+
+                <Button Margin="0, 60, 0, 0"
+                        Style="{StaticResource ButtonStyle}"
+                        Text="Hinzufügen"
+                        Clicked="OnAddDrinkClicked"
+                />
+
+
+            </StackLayout>
+
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

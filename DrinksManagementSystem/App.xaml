@@ -3,6 +3,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DrinksManagementSystem.App">
     <Application.Resources>
+        <ResourceDictionary>
+            <OnPlatform x:TypeArguments="x:Int32" x:Key="iOSBorderRadius">
+                <On Platform="iOS">13</On>
+                <On Platform="Android">5</On>
+            </OnPlatform>
 
+            <Style x:Key="ButtonStyle" TargetType="Button">
+                <Setter Property="BorderRadius" Value="{StaticResource iOSBorderRadius}" />
+                <Setter Property="BackgroundColor" Value="DodgerBlue" />
+                <Setter Property="TextColor" Value="White" />
+            </Style>
+
+            <Color x:Key="SecondaryColorLight">#F2F1F6</Color>
+            <Color x:Key="SecondaryColorDark">#1C1C1E</Color>
+
+            <Style x:Key="SecondaryBackgroundStyle" TargetType="View">
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource SecondaryColorLight}, Dark={StaticResource SecondaryColorDark}}" />
+            </Style>
+
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

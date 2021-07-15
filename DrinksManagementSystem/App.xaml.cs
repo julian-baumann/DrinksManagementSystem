@@ -1,4 +1,5 @@
 ﻿using System;
+using DrinksManagementSystem.Core;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -8,6 +9,7 @@ namespace DrinksManagementSystem
     {
         public App()
         {
+            AppCore.Initialize().Wait();
             InitializeComponent();
 
             MainPage = new TabsPage();

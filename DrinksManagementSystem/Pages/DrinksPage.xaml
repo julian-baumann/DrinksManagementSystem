@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DrinksManagementSystem.Pages.DrinksPage"
+             Title="Getränke">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Text="Neu"
+            Order="Default"
+            Priority="0"
+            Clicked="OnAddNewDrinkClicked"
+        />
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <ListView>
+            <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <StackLayout Margin="10, 0, 0, 0" Orientation="Horizontal">
+                        <Frame
+                            CornerRadius="25"
+                            WidthRequest="50"
+                            HeightRequest="50"
+                            Margin="5"
+                            HasShadow="False"
+                            HorizontalOptions="Center"
+                            BackgroundColor="Gray"
+                            IsClippedToBounds="True"
+                            Padding="0"
+                        >
+                            <Image
+                                Margin="0"
+                                Aspect="AspectFill"
+                                x:Name="ProfileImage"
+                            >
+                                <Image.Source>
+                                    <FileImageSource File="{Binding FullImagePath}" />
+                                </Image.Source>
+                            </Image>
+                        </Frame>
+
+                        <StackLayout VerticalOptions="Center">
+                            <Label FontAttributes="Bold" VerticalTextAlignment="Center" Text="{Binding Name}"/>
+                        </StackLayout>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage.Content>
+</ContentPage>
