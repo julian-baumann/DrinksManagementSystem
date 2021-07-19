@@ -6,11 +6,11 @@ namespace Database.Services
 {
     public interface IUserDatabaseService
     {
-        void Connect(string path);
-        Task<List<UserDto>> GetUsers();
-        Task<UserDto> GetUser(int id);
-        Task<int> CreateUser(UserDto user);
-        Task<int> UpdateUser(UserDto user);
+        void Start();
+        Task<List<User>> GetUsers();
+        Task<User> GetUser(int id);
+        Task<int?> CreateUser(User user);
+        Task<int> UpdateUser(User user);
         Task<int> RemoveUser(int id);
     }
 }

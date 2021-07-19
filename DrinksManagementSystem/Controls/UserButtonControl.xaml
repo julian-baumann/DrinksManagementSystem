@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DrinksManagementSystem.Controls.UserButtonControl"
+             x:Name="ThisUserButtonControl">
+    <ContentView.Content>
+        <Frame
+            HeightRequest="150"
+            WidthRequest="120"
+            Margin="10"
+            CornerRadius="30"
+            HasShadow="False"
+            Style="{StaticResource SecondaryBackgroundStyle}"
+            >
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnClicked"></TapGestureRecognizer>
+            </Frame.GestureRecognizers>
+            <StackLayout VerticalOptions="Center">
+                <Frame
+                    CornerRadius="50"
+                    HeightRequest="100"
+                    WidthRequest="100"
+                    BackgroundColor="DarkGray"
+                    HasShadow="False"
+                    HorizontalOptions="Center"
+                    IsClippedToBounds="True"
+                    Padding="0"
+                >
+                    <Image
+                        Margin="0"
+                        Aspect="AspectFill"
+                        x:Name="profileImage"
+                    >
+                        <Image.Source>
+                            <FileImageSource File="{Binding Source={x:Reference ThisUserButtonControl}, Path=User.FullImagePath}" />
+                        </Image.Source>
+                    </Image>
+                </Frame>
+
+                <Label
+                    Margin="0, 10, 0, 0"
+                    HorizontalTextAlignment="Center"
+                    LineBreakMode="TailTruncation"
+                    FontAttributes="Bold"
+                    Text="{Binding Source={x:Reference ThisUserButtonControl}, Path=User.Name}"
+                >
+                </Label>
+
+            </StackLayout>
+        </Frame>
+
+    </ContentView.Content>
+</ContentView>

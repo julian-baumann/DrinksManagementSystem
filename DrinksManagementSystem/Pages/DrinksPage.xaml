@@ -2,6 +2,7 @@
 
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converter="clr-namespace:DrinksManagementSystem.Converter;assembly=DrinksManagementSystem"
              x:Class="DrinksManagementSystem.Pages.DrinksPage"
              Title="Getränke">
     <ContentPage.ToolbarItems>
@@ -14,7 +15,11 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <ListView>
+        <ListView
+            SelectionMode="None"
+            RowHeight="60"
+            ItemsSource="{Binding Drinks}"
+            ItemTapped="OnItemSelectionChange">
             <ListView.ItemTemplate>
             <DataTemplate>
                 <ViewCell>
@@ -43,6 +48,10 @@
 
                         <StackLayout VerticalOptions="Center">
                             <Label FontAttributes="Bold" VerticalTextAlignment="Center" Text="{Binding Name}"/>
+                            <StackLayout Orientation="Horizontal" IsVisible="{Binding Quantity, Converter={converter:IsNotNullConverter}}">
+                                <Label FontAttributes="Bold" Opacity="0.6" Text="{Binding Quantity}"/>
+                                <Label Opacity="0.6" Text="übrig" />
+                            </StackLayout>
                         </StackLayout>
                     </StackLayout>
                 </ViewCell>

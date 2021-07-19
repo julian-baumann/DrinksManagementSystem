@@ -70,6 +70,7 @@
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\drawable\add.png" />
     <AndroidResource Include="Resources\drawable\beer.png" />
     <AndroidResource Include="Resources\drawable\camera.png" />
     <AndroidResource Include="Resources\drawable\home.png">
@@ -78,6 +79,7 @@
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\images.png" />
     <AndroidResource Include="Resources\drawable\people.png" />
+    <AndroidResource Include="Resources\drawable\remove.png" />
     <AndroidResource Include="Resources\values\styles.xml" />
     <AndroidResource Include="Resources\values\colors.xml" />
     <AndroidResource Include="Resources\mipmap-anydpi-v26\icon.xml" />

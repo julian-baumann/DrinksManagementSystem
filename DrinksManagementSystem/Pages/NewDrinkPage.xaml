@@ -5,12 +5,13 @@
              x:Class="DrinksManagementSystem.Pages.NewDrinkPage"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              xmlns:controls="clr-namespace:DrinksManagementSystem.Controls"
+             xmlns:converter="clr-namespace:DrinksManagementSystem.Converter;assembly=DrinksManagementSystem"
              ios:Page.UseSafeArea="False"
              Title="Neues Getränk">
     <ContentPage.Content>
         <ScrollView BackgroundColor="Transparent">
             <StackLayout Padding="20">
-                <controls:EditPictureView x:Name="editPictureView" ImageChanged="OnImageChanged" />
+                <controls:EditPictureControl x:Name="editPictureView" ImageChanged="OnImageChanged" />
 
                 <Entry x:Name="name"
                        Placeholder="Name"
@@ -21,9 +22,9 @@
                 />
 
                 <Grid Margin="0, 30, 0, 0"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    ColumnDefinitions="*, Auto, Auto"
+                      HorizontalOptions="Center"
+                      VerticalOptions="Center"
+                      ColumnDefinitions="*, *, Auto"
                 >
                     <Label Grid.Column="0"
                            Grid.Row="0"
@@ -39,7 +40,7 @@
                            Placeholder="Preis"
                            Keyboard="Numeric"
                            HorizontalTextAlignment="Center"
-                           Text="{Binding Drink.Price, Mode=TwoWay}"
+                           Text="{Binding Price, Mode=TwoWay}"
                     />
 
                     <Label Grid.Column="2"
@@ -64,7 +65,7 @@
                            Placeholder="Preis"
                            Keyboard="Numeric"
                            HorizontalTextAlignment="Center"
-                           Text="{Binding Drink.AdminPrice, Mode=TwoWay}"
+                           Text="{Binding AdminPrice, Mode=TwoWay}"
                     />
 
                     <Label Grid.Column="2"
@@ -88,7 +89,7 @@
                            Grid.Row="2"
                            Keyboard="Numeric"
                            HorizontalTextAlignment="Center"
-                           Text="{Binding Drink.AlcoholContent, Mode=TwoWay}"
+                           Text="{Binding AlcoholContent, Mode=TwoWay}"
                     />
 
                     <Label Grid.Column="2"
@@ -128,8 +129,10 @@
 
                     <Picker Grid.Column="1"
                             Grid.Row="4"
+                            x:Name="typePicker"
                             Title="Wählen"
                             HorizontalTextAlignment="Center"
+                            SelectedItem="{Binding Drink.Type, Mode=TwoWay}"
                             ItemsSource="{Binding DrinkTypes}"
                      />
 
@@ -145,17 +148,24 @@
 
                     <Button Grid.Column="1"
                             Grid.Row="5"
+                            x:Name="brandButton"
                             Text="Wählen"
+                            Clicked="OnChooseBrandClicked"
                     />
                 </Grid>
 
 
                 <Button Margin="0, 60, 0, 0"
                         Style="{StaticResource ButtonStyle}"
-                        Text="Hinzufügen"
+                        Text="Speichern"
                         Clicked="OnAddDrinkClicked"
                 />
-
+                <Button Margin="0, 10, 0, 0"
+                        IsVisible="{Binding IsNewDrink, Converter={converter:InverseBooleanConverter}}"
+                        TextColor="Red"
+                        Text="Löschen"
+                        Clicked="OnRemoveDrinkClicked"
+                />
 
             </StackLayout>
 

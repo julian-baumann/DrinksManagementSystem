@@ -13,16 +13,8 @@ using Xamarin.Forms.Xaml;
 namespace DrinksManagementSystem.Controls
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class EditPictureView : ContentView
+    public partial class EditPictureControl : ContentView
     {
-        public static readonly BindableProperty ImagePathProperty = BindableProperty.Create(
-            propertyName: nameof(ImagePath),
-            returnType: typeof(string),
-            declaringType: typeof(EditPictureView),
-            defaultValue: string.Empty,
-            defaultBindingMode: BindingMode.TwoWay
-            );
-
         private string _imagePath;
 
         public string ImagePath
@@ -44,7 +36,7 @@ namespace DrinksManagementSystem.Controls
 
         public event EventHandler<FileBase> ImageChanged = delegate { };
 
-        public EditPictureView()
+        public EditPictureControl()
         {
             InitializeComponent();
             BindingContext = this;

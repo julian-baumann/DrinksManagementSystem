@@ -2,45 +2,61 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Common.Core;
 using Database.Entities;
+using Database.Services.Database;
 using SQLite;
 
 namespace Database.Services
 {
     public class UserDatabaseService : IUserDatabaseService
     {
-        private SQLiteAsyncConnection _database;
+        private readonly SQLiteAsyncConnection _database;
 
-        public void Connect(string path)
+        public UserDatabaseService(IDatabaseService databaseService)
         {
-            _database = new SQLiteAsyncConnection(path);
-            _database.CreateTableAsync<UserDto>();
+            _database = databaseService.Database;
         }
 
-        public Task<List<UserDto>> GetUsers()
+        public void Start()
         {
-            return _database.Table<UserDto>().ToListAsync();
+            _database.CreateTableAsync<User>();
         }
 
-        public Task<UserDto> GetUser(int id)
+        public Task<List<User>> GetUsers()
         {
-            return _database.Table<UserDto>()
+            return _database.Table<User>().ToListAsync();
+        }
+
+        public Task<User> GetUser(int id)
+        {
+            return _database.Table<User>()
                 .Where(i => i.Id == id)
                 .FirstOrDefaultAsync();
         }
 
-        public Task<int> CreateUser(UserDto user)
+        public Task<User> GetUserId(int row)
         {
-            return _database.InsertAsync(user);
+            return _database.Table<User>().ElementAtAsync(row);
         }
 
-        public Task<int> UpdateUser(UserDto user)
+        public async Task<int?> CreateUser(User user)
+        {
+            var result = await _database.InsertAsync(user);
+            if (result >= 0)
+            {
+                return user.Id;
+            }
+
+            return null;
+        }
+
+        public Task<int> UpdateUser(User user)
         {
             return _database.UpdateAsync(user);
         }
 
         public Task<int> RemoveUser(int id)
         {
-            return _database.Table<UserDto>()
+            return _database.Table<User>()
                 .Where(i => i.Id == id)
                 .DeleteAsync();
         }

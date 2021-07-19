@@ -18,8 +18,18 @@
             <Color x:Key="SecondaryColorLight">#F2F1F6</Color>
             <Color x:Key="SecondaryColorDark">#1C1C1E</Color>
 
+
+            <Color x:Key="TertiaryColorLight">#F2F1F6</Color>
+            <Color x:Key="TertiaryColorDark">#2E2E2E</Color>
+
+
             <Style x:Key="SecondaryBackgroundStyle" TargetType="View">
                 <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource SecondaryColorLight}, Dark={StaticResource SecondaryColorDark}}" />
+            </Style>
+
+
+            <Style x:Key="TertiaryBackgroundStyle" TargetType="View">
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource TertiaryColorLight}, Dark={StaticResource TertiaryColorDark}}" />
             </Style>
 
         </ResourceDictionary>

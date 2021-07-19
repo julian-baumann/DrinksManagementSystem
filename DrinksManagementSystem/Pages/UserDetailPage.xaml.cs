@@ -8,6 +8,7 @@ using DrinksManagementSystem.Services.Storage;
 using DrinksManagementSystem.Services.User;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using User = DrinksManagementSystem.Entities.User;
 
 namespace DrinksManagementSystem.Pages
 {
@@ -30,8 +31,10 @@ namespace DrinksManagementSystem.Pages
             User = user.Clone();
             IsAdmin = User.Role == UserRoles.Admin;
 
-            InitializeComponent();
             BindingContext = this;
+            InitializeComponent();
+
+            unpaidInfoControl.UserId = User.Id;
             editPictureView.ImagePath = User.ImagePath;
         }
 
@@ -56,14 +59,14 @@ namespace DrinksManagementSystem.Pages
 
                 if (User.ImagePath != null)
                 {
-                    await _storageService.RemoveProfilePicture(User.ImagePath);
+                    await _storageService.RemovePicture(User.ImagePath);
                 }
 
-                var newImagePath = await _storageService.StoreProfilePicture(_newImageFile.FileName, stream);
+                var newImagePath = await _storageService.StorePicture(_newImageFile.FileName, stream);
                 User.ImagePath = newImagePath;
             }
 
-            var result = await _userService.UpdateUser(User);
+            var result = await _userService.Update(User);
 
             if (result >= 0)
             {
@@ -78,19 +81,13 @@ namespace DrinksManagementSystem.Pages
 
         private async void OnDeleteClicked(object sender, EventArgs args)
         {
-            var result = await _userService.RemoveUser(User);
+            var answer = await DisplayAlert("Löschen", "Bist du dir sicher?", "Ja", "Nein");
+            if (!answer) return;
+
+            var result = await _userService.Remove(User);
 
             if (result >= 0)
             {
-                try
-                {
-                    await _storageService.RemoveProfilePicture(User.ImagePath);
-                }
-                catch (Exception exception)
-                {
-                    Logger.Exception(exception);
-                }
-
                 Navigation.PopAsync();
             }
             else

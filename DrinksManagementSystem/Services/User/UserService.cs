@@ -19,20 +19,20 @@ namespace DrinksManagementSystem.Services.User
         public ObservableCollection<Entities.User> Users { get; set; } = new ObservableCollection<Entities.User>();
 
         public UserService(
-            IUserDatabaseService userUserDatabaseService,
+            IUserDatabaseService userDatabaseService,
             IStorageService storageService
             )
         {
-            _userDatabaseService = userUserDatabaseService;
+            _userDatabaseService = userDatabaseService;
             _storageService = storageService;
         }
 
-        public void Connect(string path)
+        public void Start()
         {
-            _userDatabaseService.Connect(path);
+            _userDatabaseService.Start();
         }
 
-        public async Task<ObservableCollection<Entities.User>> GetUsers()
+        public async Task<ObservableCollection<Entities.User>> GetAll()
         {
             var users = await _userDatabaseService.GetUsers();
 
@@ -44,35 +44,35 @@ namespace DrinksManagementSystem.Services.User
             return Users;
         }
 
-        public async Task<Entities.User> GetUser(int id)
+        public async Task<Entities.User> Get(int id)
         {
             var userDto = await _userDatabaseService.GetUser(id);
             return new Entities.User(userDto);
         }
 
-        public async Task<int> CreateUser(Entities.User user)
+        public async Task<bool> Create(Entities.User user)
         {
             try
             {
-                var result = await _userDatabaseService.CreateUser(user.ToDto());
+                var newId = await _userDatabaseService.CreateUser(user.ToDto());
 
-                if (result >= 0)
-                {
-                    Users.Add(user);
-                }
+                if (newId == null) return false;
 
-                return result;
+                user.Id = (int)newId;
+                Users.Add(user);
+
+                return true;
             }
             catch(Exception exception)
             {
                 Logger.Exception(exception);
             }
 
-            return -1;
+            return false;
         }
 
 
-        public async Task<int> UpdateUser(Entities.User user)
+        public async Task<int> Update(Entities.User user)
         {
             try
             {
@@ -98,16 +98,23 @@ namespace DrinksManagementSystem.Services.User
             return -1;
         }
 
-        public async Task<int> RemoveUser(Entities.User user)
+        public async Task<int> Remove(Entities.User user)
         {
-            await _storageService.RemoveProfilePicture(user.ImagePath);
+            if (user.ImagePath != null)
+            {
+                await _storageService.RemovePicture(user.ImagePath);
+            }
 
             var result = await _userDatabaseService.RemoveUser(user.Id);
 
             if (result < 0) return result;
 
-            var index = Users.IndexOf(Users.FirstOrDefault(u => u.Id == user.Id));
-            Users.RemoveAt(index);
+            var index = Users.IndexOf(Users.First(u => u.Id == user.Id));
+
+            if (index >= 0)
+            {
+                Users.RemoveAt(index);
+            }
 
             return result;
         }

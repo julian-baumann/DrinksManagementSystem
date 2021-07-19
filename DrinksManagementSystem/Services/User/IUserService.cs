@@ -8,11 +8,11 @@ namespace DrinksManagementSystem.Services.User
     {
         ObservableCollection<Entities.User> Users { get; set; }
 
-        void Connect(string path);
-        Task<ObservableCollection<Entities.User>> GetUsers();
-        Task<Entities.User> GetUser(int id);
-        Task<int> CreateUser(Entities.User user);
-        Task<int> UpdateUser(Entities.User user);
-        Task<int> RemoveUser(Entities.User userId);
+        void Start();
+        Task<ObservableCollection<Entities.User>> GetAll();
+        Task<Entities.User> Get(int id);
+        Task<bool> Create(Entities.User user);
+        Task<int> Update(Entities.User user);
+        Task<int> Remove(Entities.User user);
     }
 }

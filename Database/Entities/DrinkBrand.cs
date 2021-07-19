@@ -2,9 +2,10 @@ using SQLite;
 
 namespace Database.Entities
 {
-    public class DrinkTypeDto
+    public class DrinkBrand
     {
-        [PrimaryKey, NotNull]
+        [PrimaryKey]
+        public string Id { get; set; }
         public string Name { get; set; }
     }
 }

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converter="clr-namespace:DrinksManagementSystem.Converter;assembly=DrinksManagementSystem"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             x:Class="DrinksManagementSystem.Pages.BuyDrinkPage"
+             ios:Page.UseSafeArea="True"
+             Title="Kaufen">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Text="Abbrechen"
+            Order="Default"
+            Priority="0"
+            Clicked="OnCloseClicked"
+        />
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <StackLayout x:Name="baseContent">
+                    <Frame
+                        Margin="15, 20, 15, 0"
+                        CornerRadius="18"
+                        HasShadow="False"
+                        Padding="2"
+                        Style="{StaticResource TertiaryBackgroundStyle}">
+                        <StackLayout Orientation="Horizontal">
+                            <Frame
+                                CornerRadius="18"
+                                WidthRequest="35"
+                                HeightRequest="35"
+                                Margin="5"
+                                HasShadow="False"
+                                HorizontalOptions="Center"
+                                BackgroundColor="Gray"
+                                IsClippedToBounds="True"
+                                Padding="0"
+                            >
+                                <Image
+                                    Margin="0"
+                                    Aspect="AspectFill"
+                                >
+                                    <Image.Source>
+                                        <FileImageSource File="{Binding SelectedUser.FullImagePath}" />
+                                    </Image.Source>
+                                </Image>
+                            </Frame>
+                            <Label
+                                Text="{Binding SelectedUser.Name}"
+                                FontAttributes="Bold"
+                                VerticalTextAlignment="Center"
+                            />
+                            <Label
+                                Text="ausgewählt"
+                                FontAttributes="Bold"
+                                Opacity="0.5"
+                                VerticalTextAlignment="Center"
+                            />
+                        </StackLayout>
+                    </Frame>
+
+                    <Frame
+                        Margin="15, 10, 15, 0"
+                        CornerRadius="18"
+                        HasShadow="False"
+                        Padding="5"
+                        Style="{StaticResource TertiaryBackgroundStyle}">
+                        <StackLayout Orientation="Horizontal">
+                            <Frame
+                                CornerRadius="30"
+                                WidthRequest="60"
+                                HeightRequest="60"
+                                Margin="5"
+                                HasShadow="False"
+                                HorizontalOptions="Center"
+                                BackgroundColor="Gray"
+                                IsClippedToBounds="True"
+                                Padding="0"
+                            >
+                                <Image
+                                    Margin="0"
+                                    Aspect="AspectFill"
+                                >
+                                    <Image.Source>
+                                        <FileImageSource File="{Binding SelectedDrink.FullImagePath}" />
+                                    </Image.Source>
+                                </Image>
+                            </Frame>
+                            <StackLayout VerticalOptions="Center">
+                                <Label
+                                    Text="{Binding SelectedDrink.Name}"
+                                    FontAttributes="Bold"
+                                    VerticalTextAlignment="Center"
+                                />
+                                <Label
+                                    Text="{Binding SelectedDrink.Brand.Name}"
+                                    FontAttributes="Bold"
+                                    Opacity="0.5"
+                                    VerticalTextAlignment="Center"
+                                />
+                            </StackLayout>
+                        </StackLayout>
+                    </Frame>
+
+                    <Frame
+                        Margin="15, 10, 15, 0"
+                        CornerRadius="18"
+                        HasShadow="False"
+                        Padding="20"
+                        Style="{StaticResource TertiaryBackgroundStyle}"
+                    >
+                        <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                            <Label
+                                Text="{Binding Price, Converter={converter:PriceConverter}, Mode=OneWay}"
+                                FontAttributes="Bold"
+                                VerticalTextAlignment="Center"
+                                HorizontalOptions="Center"
+                                Margin="20, 0, 0, 0"
+                                FontSize="40"
+                            />
+                            <StackLayout Margin="0, 20, 0, 0" Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Center">
+                                <ImageButton
+                                    HeightRequest="50"
+                                    WidthRequest="50"
+                                    CornerRadius="25"
+                                    BackgroundColor="LightGray"
+                                    Source="remove.png"
+                                    Clicked="Remove"
+                                />
+                                <Label
+                                    Text="{Binding Quantity, Mode=OneWay}"
+                                    FontSize="40"
+                                    FontAttributes="Bold"
+                                    Opacity="0.6"
+                                    Margin="10, 0, 10, 0"
+                                    VerticalTextAlignment="Center"
+                                />
+                                <ImageButton
+                                    HeightRequest="50"
+                                    WidthRequest="50"
+                                    CornerRadius="25"
+                                    BackgroundColor="LightGray"
+                                    Source="add.png"
+                                    Clicked="Add"
+                                />
+                            </StackLayout>
+                        </StackLayout>
+                    </Frame>
+
+                    <Button
+                        Margin="30"
+                        Style="{StaticResource ButtonStyle}"
+                        Text="Kaufen"
+                        Clicked="OnBuyClicked"
+                    />
+                </StackLayout>
+
+                <StackLayout x:Name="loadingScreen" IsVisible="False" VerticalOptions="Center" HorizontalOptions="Center">
+                    <ActivityIndicator IsRunning="true" />
+                    <Label>Kaufen...</Label>
+                </StackLayout>
+
+
+                <StackLayout x:Name="doneScreen" IsVisible="False" VerticalOptions="Center" HorizontalOptions="Center">
+                    <Label>Danke!</Label>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

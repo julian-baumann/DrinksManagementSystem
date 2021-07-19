@@ -12,18 +12,15 @@ namespace DrinksManagementSystem.Entities
         public int Id { get; set; }
 
         private string _name;
-        public string Name
-        {
-            get => _name;
-            set => Set(ref _name, value);
-        }
-
         private string _imagePath;
-        public string ImagePath
-        {
-            get => _imagePath;
-            set => Set(ref _imagePath, value);
-        }
+        private UserRoles _role = UserRoles.Guest;
+
+
+        public string Name { get => _name; set => Set(ref _name, value); }
+        public string ImagePath { get => _imagePath; set => Set(ref _imagePath, value); }
+        public UserRoles Role { get => _role; set => Set(ref _role, value); }
+        public DateTime DateCreated { get; set; }
+        public DateTime DateModified { get; set; }
 
         public string FullImagePath
         {
@@ -38,27 +35,14 @@ namespace DrinksManagementSystem.Entities
             }
         }
 
-        private UserRoles _role = UserRoles.Guest;
-        public UserRoles Role
-        {
-            get => _role;
-            set => Set(ref _role, value);
-        }
-
-
-        public DateTime DateCreated { get; set; }
-        public DateTime DateModified { get; set; }
-
-
-
         public User() { }
 
-        public User(UserDto dto)
+        public User(Database.Entities.User dto)
         {
             FromDto(dto);
         }
 
-        public void FromDto(UserDto dto)
+        public void FromDto(Database.Entities.User dto)
         {
             Id = dto.Id;
             Name = dto.Name;
@@ -72,9 +56,9 @@ namespace DrinksManagementSystem.Entities
 
         }
 
-        public UserDto ToDto()
+        public Database.Entities.User ToDto()
         {
-            var dto = new UserDto
+            var dto = new Database.Entities.User
             {
                 Id = Id,
                 Name = Name,

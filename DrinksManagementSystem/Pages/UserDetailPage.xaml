@@ -22,7 +22,7 @@
         <ScrollView BackgroundColor="Transparent">
             <StackLayout Padding="20">
 
-                <controls:EditPictureView x:Name="editPictureView" ImageChanged="OnImageChanged" />
+                <controls:EditPictureControl x:Name="editPictureView" ImageChanged="OnImageChanged" />
 
                 <Entry FontSize="30" FontAttributes="Bold" BackgroundColor="Transparent" x:Name="Name" Placeholder="Name" Text="{Binding Path=User.Name, Mode=TwoWay}" ></Entry>
 
@@ -31,12 +31,18 @@
                     <Switch IsToggled="{Binding Path=IsAdmin}" Toggled="OnIsAdminToggled" HorizontalOptions="EndAndExpand"></Switch>
                 </StackLayout>
 
+                <controls:UserUnpaidInfoControl
+                    x:Name="unpaidInfoControl"
+                    Margin="0, 50, 0, 0"
+                    UserId="{Binding Id}"
+                />
+
                 <Button
                     Margin="0, 50, 0, 0"
                     TextColor="Red"
-                    Text="Löschen"
+                    Text=" Nutzer Löschen"
                     Clicked="OnDeleteClicked"
-                    >
+                >
                 </Button>
             </StackLayout>
 

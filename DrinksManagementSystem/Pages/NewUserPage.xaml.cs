@@ -13,6 +13,7 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using static Xamarin.Essentials.Permissions;
+using User = DrinksManagementSystem.Entities.User;
 
 namespace DrinksManagementSystem.Pages
 {
@@ -44,7 +45,7 @@ namespace DrinksManagementSystem.Pages
         private void AddPhoto(FileBase file)
         {
             if (file == null) return;
-            
+
            _imageFile = file;
         }
 
@@ -70,15 +71,15 @@ namespace DrinksManagementSystem.Pages
             {
                 using var stream = await _imageFile.OpenReadAsync();
 
-                var newImagePath = await _storageService.StoreProfilePicture(_imageFile.FileName, stream);
+                var newImagePath = await _storageService.StorePicture(_imageFile.FileName, stream);
                 User.ImagePath = newImagePath;
             }
 
             User.DateCreated = DateTime.Now;
 
-            var result = await _userService.CreateUser(User);
+            var result = await _userService.Create(User);
 
-            if (result >= 0)
+            if (result)
             {
                 Navigation.PopModalAsync();
             }

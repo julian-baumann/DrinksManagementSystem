@@ -6,7 +6,7 @@ namespace DrinksManagementSystem.Services.Storage
 {
     public interface IStorageService
     {
-        Task<string> StoreProfilePicture(string name, Stream fileSream);
-        Task RemoveProfilePicture(string filePath);
+        Task<string> StorePicture(string name, Stream fileSream);
+        Task RemovePicture(string filePath);
     }
 }

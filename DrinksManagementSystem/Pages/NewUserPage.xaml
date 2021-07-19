@@ -21,7 +21,7 @@
         <ScrollView BackgroundColor="Transparent">
             <StackLayout Padding="20">
 
-                <controls:EditPictureView x:Name="editPictureView" ImageChanged="OnImageChanged" />
+                <controls:EditPictureControl x:Name="editPictureView" ImageChanged="OnImageChanged" />
 
                 <Entry FontSize="30" FontAttributes="Bold" BackgroundColor="Transparent" x:Name="name" Placeholder="Name" Text="{Binding Path=User.Name, Mode=TwoWay}" ></Entry>
 

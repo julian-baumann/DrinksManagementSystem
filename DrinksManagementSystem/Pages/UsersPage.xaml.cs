@@ -13,6 +13,7 @@ using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using Xamarin.Forms.Xaml;
 using NavigationPage = Xamarin.Forms.NavigationPage;
+using User = DrinksManagementSystem.Entities.User;
 
 namespace DrinksManagementSystem.Pages
 {
@@ -21,7 +22,7 @@ namespace DrinksManagementSystem.Pages
     {
         private readonly IUserService _userService;
 
-        public ObservableCollection<User> Users { get; set; }
+        public ObservableCollection<User> Users { get; set; } = new ObservableCollection<User>();
 
         public UsersPage()
         {
@@ -32,11 +33,10 @@ namespace DrinksManagementSystem.Pages
 
         private async Task Initialize()
         {
-            await _userService.GetUsers();
+            await _userService.GetAll();
             Users = _userService.Users;
-            InitializeComponent();
             BindingContext = this;
-            userList.ItemsSource = Users;
+            InitializeComponent();
         }
 
         private void OnAddNewUserClicked(object sender, EventArgs e)
