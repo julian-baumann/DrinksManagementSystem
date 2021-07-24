@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Common.Core;
 using Database.Services.BoughtDrinkDatabase;
+using DrinksManagementSystem.Services.Drink;
 
 namespace DrinksManagementSystem.Services.BoughtDrink
 {
@@ -11,7 +12,9 @@ namespace DrinksManagementSystem.Services.BoughtDrink
     {
         private readonly IBoughtDrinkDatabaseService _databaseService;
 
-        public BoughtDrinkService(IBoughtDrinkDatabaseService boughtDrinkDatabaseService)
+        public BoughtDrinkService(
+            IBoughtDrinkDatabaseService boughtDrinkDatabaseService
+        )
         {
             _databaseService = boughtDrinkDatabaseService;
         }

@@ -15,6 +15,7 @@
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
     <ProvisioningType>automatic</ProvisioningType>
+    <ReleaseVersion>0.1.1</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -69,6 +70,7 @@
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Renderers\NativeNavigationBarRenderer.cs" />
+    <Compile Include="Services\iOSImageResizer.cs" />
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -145,6 +147,9 @@
     <BundleResource Include="Resources\camera.png" />
     <BundleResource Include="Resources\camera@2x.png" />
     <BundleResource Include="Resources\camera@3x.png" />
+    <BundleResource Include="Resources\cog.png" />
+    <BundleResource Include="Resources\cog@2x.png" />
+    <BundleResource Include="Resources\cog@3x.png" />
     <BundleResource Include="Resources\home.png" />
     <BundleResource Include="Resources\images.png" />
     <BundleResource Include="Resources\images@2x.png" />

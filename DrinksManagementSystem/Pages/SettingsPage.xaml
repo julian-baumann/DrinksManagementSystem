@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DrinksManagementSystem.Pages.SettingsPage"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="True"
+             Title="Einstellungen"
+>
+    <ContentPage.Content>
+        <StackLayout Padding="20">
+            <Button
+                x:Name="exportButton"
+                Style="{StaticResource ButtonStyle}"
+                Text="Daten exportieren"
+                Clicked="OnExportDataClicked"
+            />
+
+            <ActivityIndicator
+                x:Name="exportActivityIndicator"
+                IsVisible="False"
+                IsRunning="True"
+            />
+
+            <Button
+                Margin="0, 30, 0, 0"
+                x:Name="importButton"
+                Style="{StaticResource ButtonStyle}"
+                Text="Daten importieren"
+                Clicked="OnImportDataClicked"
+            />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -33,4 +33,11 @@
             <local:DrinksPage />
         </x:Arguments>
     </NavigationPage>
+
+
+    <NavigationPage Title="Einstellungen" IconImageSource="cog.png" ios:NavigationPage.PrefersLargeTitles="true">
+        <x:Arguments>
+            <local:SettingsPage />
+        </x:Arguments>
+    </NavigationPage>
 </TabbedPage>

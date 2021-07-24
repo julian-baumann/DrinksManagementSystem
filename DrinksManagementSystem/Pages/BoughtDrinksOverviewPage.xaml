@@ -18,30 +18,13 @@
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout Margin="10, 0, 0, 0" Orientation="Horizontal">
-                            <Frame
-                                CornerRadius="25"
-                                WidthRequest="50"
-                                HeightRequest="50"
-                                Margin="5"
-                                HasShadow="False"
-                                HorizontalOptions="Center"
-                                BackgroundColor="Gray"
-                                IsClippedToBounds="True"
-                                Padding="0"
-                            >
-                                <Image
-                                    Margin="0"
-                                    Aspect="AspectFill"
-                                    x:Name="profileImage"
-                                >
-                                    <Image.Source>
-                                        <FileImageSource File="{Binding FullImagePath}" />
-                                    </Image.Source>
-                                </Image>
-                            </Frame>
-
+                            <Label IsVisible="False" Text="{Binding Id}"/>
                             <StackLayout VerticalOptions="Center">
-                                <Label FontAttributes="Bold" VerticalTextAlignment="Center" Text="{Binding DrinkName}"/>
+                                <StackLayout Spacing="2" Orientation="Horizontal">
+                                    <Label FontAttributes="Bold" VerticalTextAlignment="Center" Text="{Binding Quantity}"/>
+                                    <Label Text="x" />
+                                    <Label FontAttributes="Bold" VerticalTextAlignment="Center" Text="{Binding DrinkName}"/>
+                                </StackLayout>
                                 <Label
                                     Opacity="0.7"
                                     FontAttributes="Bold"
@@ -56,7 +39,7 @@
                                 Padding="0, 0, 20, 0"
                             >
                                 <Button
-                                    Text="Bezahlen"
+                                    Text="Bezahlt"
                                     Clicked="Pay"
                                 />
                             </StackLayout>

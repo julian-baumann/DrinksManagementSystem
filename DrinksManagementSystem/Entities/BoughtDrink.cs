@@ -7,6 +7,7 @@ namespace DrinksManagementSystem.Entities
         public int Id { get; set; }
         public int UserId { get; set; }
         public int DrinkId { get; set; }
+        public Drink Drink { get; set; }
         public int Quantity { get; set; }
         public double FullPrice { get; set; }
         public string DrinkName { get; set; }

@@ -40,7 +40,8 @@ namespace DrinksManagementSystem.Pages
             "Wein",
             "Mischgetränke",
             "Schnaps",
-            "Antialkohol"
+            "Antialkohol",
+            "Cocktails"
         };
 
         public NewDrinkPage()

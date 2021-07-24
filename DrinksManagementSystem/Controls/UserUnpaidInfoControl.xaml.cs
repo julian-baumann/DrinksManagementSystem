@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -20,7 +21,7 @@ namespace DrinksManagementSystem.Controls
     {
         private readonly IBoughtDrinkService _boughtDrinkService;
 
-        private BoughtDrink[] _boughtDrinks;
+        private ObservableCollection<BoughtDrink> _boughtDrinks;
 
         public static readonly BindableProperty UserIdProperty = BindableProperty.Create(
             propertyName: nameof(UserId),
@@ -55,8 +56,18 @@ namespace DrinksManagementSystem.Controls
         {
             if (id is < 0) return;
 
-            _boughtDrinks = await _boughtDrinkService.GetAllByUser((int)id);
+            _boughtDrinks = new ObservableCollection<BoughtDrink>(await _boughtDrinkService.GetAllByUser((int)id));
 
+            _boughtDrinks.CollectionChanged += (sender, args) =>
+            {
+                CalculateFullPrice();
+            };
+
+            CalculateFullPrice();
+        }
+
+        private void CalculateFullPrice()
+        {
             TotalCosts = 0;
 
             foreach (var boughtDrink in _boughtDrinks)

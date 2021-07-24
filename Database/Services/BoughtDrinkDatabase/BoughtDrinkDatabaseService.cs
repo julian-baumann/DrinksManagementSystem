@@ -36,6 +36,7 @@ namespace Database.Services.BoughtDrinkDatabase
         {
             return _database.Table<BoughtDrink>()
                 .Where(i => i.Id == id)
+                .OrderByDescending(x => x.DatePurchased)
                 .FirstOrDefaultAsync();
         }
 

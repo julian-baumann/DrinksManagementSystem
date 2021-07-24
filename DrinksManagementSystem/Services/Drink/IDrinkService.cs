@@ -10,6 +10,7 @@ namespace DrinksManagementSystem.Services.Drink
         void Start();
         Task<ObservableCollection<Entities.Drink>> GetAll();
         Task<Entities.Drink> Get(int id);
+        Task<Entities.BoughtDrink[]> ApplyFromBoughtDrinks(Entities.BoughtDrink[] drinks);
         Task<bool> Create(Entities.Drink drink);
         Task<bool> Update(Entities.Drink drink);
         Task<int> Remove(Entities.Drink drink);

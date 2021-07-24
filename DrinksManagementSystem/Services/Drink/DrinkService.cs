@@ -59,11 +59,27 @@ namespace DrinksManagementSystem.Services.Drink
 
         public async Task<Entities.Drink> Get(int id)
         {
+            if (Drinks?.Count > 0)
+            {
+                return Drinks.FirstOrDefault(drink => drink.Id == id);
+            }
+
             var drinkDto = await _databaseService.GetDrink(id);
             var drink = new Entities.Drink(drinkDto);
             drink.Brand = await _brandService.Get(drink.BrandId);
 
             return drink;
+        }
+
+
+        public async Task<Entities.BoughtDrink[]> ApplyFromBoughtDrinks(Entities.BoughtDrink[] drinks)
+        {
+            foreach (var boughtDrink in drinks)
+            {
+                boughtDrink.Drink = await Get(boughtDrink.DrinkId);
+            }
+
+            return drinks;
         }
 
         public async Task<bool> Create(Entities.Drink drink)

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Common.Core;
 using DrinksManagementSystem.Entities;
 using DrinksManagementSystem.Services.BoughtDrink;
+using DrinksManagementSystem.Services.Drink;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -19,18 +20,39 @@ namespace DrinksManagementSystem.Pages
 
         public ObservableCollection<BoughtDrink> BoughtDrinks { get; set; } = new ObservableCollection<BoughtDrink>();
 
-        public BoughtDrinksOverviewPage(BoughtDrink[] boughtDrinks)
+        public BoughtDrinksOverviewPage(ObservableCollection<BoughtDrink> boughtDrinks)
         {
             _boughtDrinkService = Ioc.Resolve<IBoughtDrinkService>();
 
-            BoughtDrinks = new ObservableCollection<BoughtDrink>(boughtDrinks);
+            BoughtDrinks = boughtDrinks;
 
             BindingContext = this;
             InitializeComponent();
         }
 
-        private void Pay(object sender, EventArgs e)
+        private async void Pay(object sender, EventArgs e)
         {
+            try
+            {
+                var button = (Button)sender;
+                var preParent = (StackLayout)button.Parent;
+                var listViewItem = (StackLayout)preParent.Parent;
+                var label = (Label)listViewItem.Children[0];
+
+                var id = int.Parse(label.Text);
+                var result = await _boughtDrinkService.Remove(id);
+
+                if (result < 0) return;
+
+                var drink = BoughtDrinks.FirstOrDefault(drink => drink.Id == id);
+                BoughtDrinks.Remove(drink);
+
+            }
+            catch (Exception exception)
+            {
+                Logger.Exception(exception);
+            }
+
         }
     }
 }

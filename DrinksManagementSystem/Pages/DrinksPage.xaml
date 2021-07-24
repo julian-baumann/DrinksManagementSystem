@@ -48,7 +48,7 @@
 
                         <StackLayout VerticalOptions="Center">
                             <Label FontAttributes="Bold" VerticalTextAlignment="Center" Text="{Binding Name}"/>
-                            <StackLayout Orientation="Horizontal" IsVisible="{Binding Quantity, Converter={converter:IsNotNullConverter}}">
+                            <StackLayout Spacing="3" Orientation="Horizontal" IsVisible="{Binding Quantity, Converter={converter:IsNotNullConverter}}">
                                 <Label FontAttributes="Bold" Opacity="0.6" Text="{Binding Quantity}"/>
                                 <Label Opacity="0.6" Text="übrig" />
                             </StackLayout>

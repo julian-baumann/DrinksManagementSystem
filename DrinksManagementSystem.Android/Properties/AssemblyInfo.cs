@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using Android.App;
 
-// General Information about an assembly is controlled through the following 
+// General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("DrinksManagementSystem.Android")]
@@ -19,7 +19,7 @@ using Android.App;
 // Version information for an assembly consists of the following four values:
 //
 //      Major Version
-//      Minor Version 
+//      Minor Version
 //      Build Number
 //      Revision
 [assembly: AssemblyVersion("1.0.0.0")]
@@ -39,5 +39,4 @@ using Android.App;
 // Add these properties if you would like to filter out devices that do not have cameras, or set to false to make them optional
 [assembly: UsesFeature("android.hardware.camera", Required = true)]
 [assembly: UsesFeature("android.hardware.camera.autofocus", Required = true)]
-
 

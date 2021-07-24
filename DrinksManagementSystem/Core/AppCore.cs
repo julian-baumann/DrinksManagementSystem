@@ -10,9 +10,9 @@ using Database.Services.DrinksDatabase;
 using DrinksManagementSystem.Services.BoughtDrink;
 using DrinksManagementSystem.Services.Drink;
 using DrinksManagementSystem.Services.DrinkBrand;
+using DrinksManagementSystem.Services.Share;
 using DrinksManagementSystem.Services.Storage;
 using DrinksManagementSystem.Services.User;
-using PCLStorage;
 
 namespace DrinksManagementSystem.Core
 {
@@ -34,6 +34,7 @@ namespace DrinksManagementSystem.Core
             Ioc.Register<IDrinkService, DrinkService>();
             Ioc.Register<IDrinkBrandService, DrinkBrandService>();
             Ioc.Register<IBoughtDrinkService, BoughtDrinkService>();
+            Ioc.Register<IShareService, ShareService>();
 
             Logger.Info("Services Registered");
 

@@ -46,6 +46,11 @@ namespace DrinksManagementSystem.Services.User
 
         public async Task<Entities.User> Get(int id)
         {
+            if (Users?.Count > 0)
+            {
+                return Users.FirstOrDefault(drink => drink.Id == id);
+            }
+
             var userDto = await _userDatabaseService.GetUser(id);
             return new Entities.User(userDto);
         }
