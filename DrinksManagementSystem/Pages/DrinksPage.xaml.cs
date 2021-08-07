@@ -15,21 +15,14 @@ namespace DrinksManagementSystem.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class DrinksPage : ContentPage
     {
-        private readonly IDrinkService _drinkService;
-
-        public ObservableCollection<Drink> Drinks { get; set; } = new ObservableCollection<Drink>();
+        public ObservableCollection<Drink> Drinks { get; set; }
 
         public DrinksPage()
         {
-            _drinkService = Ioc.Resolve<IDrinkService>();
-            Initialize();
+            var drinkService = Ioc.Resolve<IDrinkService>();
 
-        }
-
-        private async Task Initialize()
-        {
-            await _drinkService.GetAll();
-            Drinks = _drinkService.Drinks;
+            drinkService.GetAll();
+            Drinks = drinkService.Drinks;
             BindingContext = this;
             InitializeComponent();
         }

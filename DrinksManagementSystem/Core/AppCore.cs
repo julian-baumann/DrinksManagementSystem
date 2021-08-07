@@ -2,11 +2,13 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using Common.Core;
+using Database;
 using Database.Services;
 using Database.Services.BoughtDrinkDatabase;
 using Database.Services.Database;
 using Database.Services.DrinkBrandDatabase;
 using Database.Services.DrinksDatabase;
+using Database.Services.UserDatabase;
 using DrinksManagementSystem.Services.BoughtDrink;
 using DrinksManagementSystem.Services.Drink;
 using DrinksManagementSystem.Services.DrinkBrand;
@@ -20,11 +22,10 @@ namespace DrinksManagementSystem.Core
     {
         public static string StoragePath { get; set; }
 
-        public static async Task Initialize()
+        public static void Initialize()
         {
             Logger.Info("Registering Services...");
 
-            Ioc.Register<IDatabaseService, DatabaseService>();
             Ioc.Register<IUserDatabaseService, UserDatabaseService>();
             Ioc.Register<IDrinkDatabaseService, DrinkDatabaseService>();
             Ioc.Register<IDrinkBrandDatabaseService, DrinkBrandDatabaseService>();
@@ -46,12 +47,7 @@ namespace DrinksManagementSystem.Core
 
             var databaseLocation = Path.Combine(StoragePath, "DMSDB.db3");
 
-            Ioc.Resolve<IDatabaseService>().Connect(databaseLocation);
-            Ioc.Resolve<IUserService>().Start();
-            Ioc.Resolve<IDrinkService>().Start();
-            Ioc.Resolve<IDrinkBrandService>().Start();
-            Ioc.Resolve<IBoughtDrinkService>().Start();
-
+            DatabaseContext.SetDatabasePath(databaseLocation);
 
             Logger.Success("Finished Setup");
 

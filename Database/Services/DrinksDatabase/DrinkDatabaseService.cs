@@ -1,59 +1,91 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Common.Core;
 using Database.Entities;
 using Database.Services.Database;
-using SQLite;
 
 namespace Database.Services.DrinksDatabase
 {
     public class DrinkDatabaseService : IDrinkDatabaseService
     {
-        private readonly SQLiteAsyncConnection _database;
-
-        public DrinkDatabaseService(IDatabaseService databaseService)
+        public List<DrinkDto> GetDrinks()
         {
-            _database = databaseService.Database;
-        }
-
-        public void Start()
-        {
-            _database.CreateTableAsync<Drink>();
-        }
-
-        public Task<List<Drink>> GetDrinks()
-        {
-            return _database.Table<Drink>().ToListAsync();
-        }
-
-        public Task<Drink> GetDrink(int id)
-        {
-            return _database.Table<Drink>()
-                .Where(i => i.Id == id)
-                .FirstOrDefaultAsync();
-        }
-
-        public async Task<int?> CreateDrink(Drink drink)
-        {
-
-            var result = await _database.InsertAsync(drink);
-            if (result >= 0)
+            try
             {
-                return drink.Id;
+                using var database = new DatabaseContext();
+                return database.Drinks.ToList();
             }
-
-            return null;
+            catch (Exception exception)
+            {
+                Logger.Exception(exception);
+                return null;
+            }
         }
 
-        public Task<int> UpdateDrink(Drink drink)
+        public DrinkDto GetDrink(int id)
         {
-            return _database.UpdateAsync(drink);
+            try
+            {
+                using var database = new DatabaseContext();
+                return database.Drinks.Single(entry => entry.Id == id);
+            }
+            catch (Exception exception)
+            {
+                Logger.Exception(exception);
+                return null;
+            }
         }
 
-        public Task<int> RemoveDrink(int id)
+        public async Task<int?> CreateDrink(DrinkDto drinkDto)
         {
-            return _database.Table<Drink>()
-                .Where(i => i.Id == id)
-                .DeleteAsync();
+            try
+            {
+                await using var database = new DatabaseContext();
+                var result = database.Drinks.Add(drinkDto);
+                await database.SaveChangesAsync();
+
+                return result?.Entity?.Id;
+            }
+            catch (Exception exception)
+            {
+                Logger.Exception(exception);
+                return null;
+            }
+        }
+
+        public async Task<bool> UpdateDrink(DrinkDto drinkDto)
+        {
+            try
+            {
+                await using var database = new DatabaseContext();
+                database.Drinks.Update(drinkDto);
+                var result = await database.SaveChangesAsync();
+
+                return result > 0;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> RemoveDrink(int id)
+        {
+            try
+            {
+                await using var database = new DatabaseContext();
+                database.Drinks.Update(GetDrink(id));
+                var result = await database.SaveChangesAsync();
+
+                return result > 0;
+            }
+            catch (Exception exception)
+            {
+                Logger.Exception(exception);
+                return false;
+            }
         }
     }
 }

@@ -21,138 +21,152 @@
                        Text="{Binding Drink.Name, Mode=TwoWay}"
                 />
 
-                <Grid Margin="0, 30, 0, 0"
-                      HorizontalOptions="Center"
-                      VerticalOptions="Center"
-                      ColumnDefinitions="*, *, Auto"
+                <Frame
+                    Margin="0, 10, 0, 0"
+                    Style="{StaticResource SecondaryBackgroundStyle}"
+                    HasShadow="False"
+                    CornerRadius="13"
+                    Padding="20"
+                    VerticalOptions="CenterAndExpand"
+                    >
+                    <Grid
+                          ColumnDefinitions="*, *, Auto"
+                    >
+                        <Label Grid.Column="0"
+                               Grid.Row="0"
+                               Opacity="0.7"
+                               FontAttributes="Bold"
+                               VerticalTextAlignment="Center"
+                        >
+                            Preis
+                        </Label>
+
+                        <Entry Grid.Column="1"
+                               Grid.Row="0"
+                               Placeholder="Preis"
+                               Keyboard="Numeric"
+                               BackgroundColor="Transparent"
+                               HorizontalTextAlignment="Center"
+                               Text="{Binding Price, Mode=TwoWay}"
+                        />
+
+                        <Label Grid.Column="2"
+                               Grid.Row="0"
+                               VerticalTextAlignment="Center"
+                        >
+                            €
+                        </Label>
+
+
+                        <Label Grid.Column="0"
+                               Grid.Row="1"
+                               Opacity="0.7"
+                               FontAttributes="Bold"
+                               VerticalTextAlignment="Center"
+                        >
+                            Admin Preis
+                        </Label>
+
+                        <Entry Grid.Column="1"
+                               Grid.Row="1"
+                               Placeholder="Preis"
+                               Keyboard="Numeric"
+                               HorizontalTextAlignment="Center"
+                               Text="{Binding AdminPrice, Mode=TwoWay}"
+                        />
+
+                        <Label Grid.Column="2"
+                               Grid.Row="1"
+                               VerticalTextAlignment="Center"
+                        >
+                            €
+                        </Label>
+
+
+                        <Label Grid.Column="0"
+                               Grid.Row="2"
+                               Opacity="0.7"
+                               FontAttributes="Bold"
+                               VerticalTextAlignment="Center"
+                        >
+                            Alkohol Gehalt
+                        </Label>
+
+                        <Entry Grid.Column="1"
+                               Grid.Row="2"
+                               Keyboard="Numeric"
+                               HorizontalTextAlignment="Center"
+                               Text="{Binding AlcoholContent, Mode=TwoWay}"
+                        />
+
+                        <Label Grid.Column="2"
+                               Grid.Row="2"
+                               VerticalTextAlignment="Center"
+                        >
+                            %
+                        </Label>
+
+
+                        <Label Grid.Column="0"
+                               Grid.Row="3"
+                               Opacity="0.7"
+                               FontAttributes="Bold"
+                               VerticalTextAlignment="Center"
+                        >
+                            Anzahl
+                        </Label>
+
+                        <Entry Grid.Column="1"
+                               Grid.Row="3"
+                               Placeholder="Anzahl"
+                               Keyboard="Numeric"
+                               HorizontalTextAlignment="Center"
+                               Text="{Binding Drink.Quantity, Mode=TwoWay}"
+                        />
+
+
+                        <Label Grid.Column="0"
+                               Grid.Row="4"
+                               Opacity="0.7"
+                               FontAttributes="Bold"
+                               VerticalTextAlignment="Center"
+                        >
+                            Kategorie
+                        </Label>
+
+                        <Picker Grid.Column="1"
+                                Grid.Row="4"
+                                x:Name="typePicker"
+                                Title="Wählen"
+                                HorizontalTextAlignment="Center"
+                                SelectedItem="{Binding Drink.Type, Mode=TwoWay}"
+                                ItemsSource="{Binding DrinkTypes}"
+                         />
+
+                    </Grid>
+                </Frame>
+
+                <Frame
+                    Margin="0, 10, 0, 0"
+                    CornerRadius="13"
+                    HasShadow="False"
+                    Padding="20"
+                    VerticalOptions="CenterAndExpand"
+                    Style="{StaticResource SecondaryBackgroundStyle}"
                 >
-                    <Label Grid.Column="0"
-                           Grid.Row="0"
-                           Opacity="0.7"
-                           FontAttributes="Bold"
-                           VerticalTextAlignment="Center"
-                    >
-                        Preis
-                    </Label>
-
-                    <Entry Grid.Column="1"
-                           Grid.Row="0"
-                           Placeholder="Preis"
-                           Keyboard="Numeric"
-                           HorizontalTextAlignment="Center"
-                           Text="{Binding Price, Mode=TwoWay}"
-                    />
-
-                    <Label Grid.Column="2"
-                           Grid.Row="0"
-                           VerticalTextAlignment="Center"
-                    >
-                        €
-                    </Label>
-
-
-                    <Label Grid.Column="0"
-                           Grid.Row="1"
-                           Opacity="0.7"
-                           FontAttributes="Bold"
-                           VerticalTextAlignment="Center"
-                    >
-                        Admin Preis
-                    </Label>
-
-                    <Entry Grid.Column="1"
-                           Grid.Row="1"
-                           Placeholder="Preis"
-                           Keyboard="Numeric"
-                           HorizontalTextAlignment="Center"
-                           Text="{Binding AdminPrice, Mode=TwoWay}"
-                    />
-
-                    <Label Grid.Column="2"
-                           Grid.Row="1"
-                           VerticalTextAlignment="Center"
-                    >
-                        €
-                    </Label>
-
-
-                    <Label Grid.Column="0"
-                           Grid.Row="2"
-                           Opacity="0.7"
-                           FontAttributes="Bold"
-                           VerticalTextAlignment="Center"
-                    >
-                        Alkohol Gehalt
-                    </Label>
-
-                    <Entry Grid.Column="1"
-                           Grid.Row="2"
-                           Keyboard="Numeric"
-                           HorizontalTextAlignment="Center"
-                           Text="{Binding AlcoholContent, Mode=TwoWay}"
-                    />
-
-                    <Label Grid.Column="2"
-                           Grid.Row="2"
-                           VerticalTextAlignment="Center"
-                    >
-                        %
-                    </Label>
-
-
-                    <Label Grid.Column="0"
-                           Grid.Row="3"
-                           Opacity="0.7"
-                           FontAttributes="Bold"
-                           VerticalTextAlignment="Center"
-                    >
-                        Anzahl
-                    </Label>
-
-                    <Entry Grid.Column="1"
-                           Grid.Row="3"
-                           Placeholder="Anzahl"
-                           Keyboard="Numeric"
-                           HorizontalTextAlignment="Center"
-                           Text="{Binding Drink.Quantity, Mode=TwoWay}"
-                    />
-
-
-                    <Label Grid.Column="0"
-                           Grid.Row="4"
-                           Opacity="0.7"
-                           FontAttributes="Bold"
-                           VerticalTextAlignment="Center"
-                    >
-                        Kategorie
-                    </Label>
-
-                    <Picker Grid.Column="1"
-                            Grid.Row="4"
-                            x:Name="typePicker"
-                            Title="Wählen"
-                            HorizontalTextAlignment="Center"
-                            SelectedItem="{Binding Drink.Type, Mode=TwoWay}"
-                            ItemsSource="{Binding DrinkTypes}"
-                     />
-
-
-                    <Label Grid.Column="0"
-                           Grid.Row="5"
-                           Opacity="0.7"
-                           FontAttributes="Bold"
-                           VerticalTextAlignment="Center"
-                    >
-                        Marke
-                    </Label>
-
-                    <Button Grid.Column="1"
-                            Grid.Row="5"
-                            x:Name="brandButton"
-                            Text="Wählen"
-                            Clicked="OnChooseBrandClicked"
-                    />
-                </Grid>
+                    <StackLayout>
+                        <Label
+                            Text="{Binding Drink.Brands, Converter={converter:BrandsConverter}, Mode=TwoWay}"
+                            FontAttributes="Bold"
+                            HorizontalOptions="Center"
+                        />
+                        <Button
+                            Margin="0"
+                            Text="Marken verwalten"
+                            Clicked="OnAddBrandClicked"
+                        />
+                    </StackLayout>
+                </Frame>
 
 
                 <Button Margin="0, 60, 0, 0"

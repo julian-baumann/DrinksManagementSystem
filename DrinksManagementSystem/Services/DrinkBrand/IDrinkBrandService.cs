@@ -7,11 +7,10 @@ namespace DrinksManagementSystem.Services.DrinkBrand
     {
         ObservableCollection<Entities.DrinkBrand> Brands { get; set; }
 
-        void Start();
-        Task<ObservableCollection<Entities.DrinkBrand>> GetAll();
-        Task<Entities.DrinkBrand> Get(string id);
-        Task<int> Create(Entities.DrinkBrand brand);
-        Task<int> Update(Entities.DrinkBrand brand);
-        Task<int> Remove(Entities.DrinkBrand brand);
+        ObservableCollection<Entities.DrinkBrand> GetAll();
+        Entities.DrinkBrand Get(string id);
+        Task<string> Create(Entities.DrinkBrand brand);
+        Task<bool> Update(Entities.DrinkBrand brand);
+        Task<bool> Remove(string id);
     }
 }

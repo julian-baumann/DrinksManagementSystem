@@ -16,12 +16,12 @@ namespace DrinksManagementSystem.Entities
 
         public BoughtDrink() { }
 
-        public BoughtDrink(Database.Entities.BoughtDrink dto)
+        public BoughtDrink(Database.Entities.BoughtDrinkDto dto)
         {
             FromDto(dto);
         }
 
-        public void FromDto(Database.Entities.BoughtDrink dto)
+        public void FromDto(Database.Entities.BoughtDrinkDto dto)
         {
             Id = dto.Id;
             UserId = dto.UserId;
@@ -29,12 +29,12 @@ namespace DrinksManagementSystem.Entities
             Quantity = dto.Quantity;
             FullPrice = dto.FullPrice;
             DrinkName = dto.DrinkName;
-            DatePurchased = dto.DatePurchased;
+            // DatePurchased = dto.DatePurchased;
         }
 
-        public Database.Entities.BoughtDrink ToDto()
+        public Database.Entities.BoughtDrinkDto ToDto()
         {
-            return new Database.Entities.BoughtDrink()
+            return new Database.Entities.BoughtDrinkDto()
             {
                 Id = Id,
                 UserId = UserId,
@@ -42,7 +42,7 @@ namespace DrinksManagementSystem.Entities
                 Quantity = Quantity,
                 FullPrice = FullPrice,
                 DrinkName = DrinkName,
-                DatePurchased = DatePurchased
+                // DatePurchased = DatePurchased
             };
         }
     }

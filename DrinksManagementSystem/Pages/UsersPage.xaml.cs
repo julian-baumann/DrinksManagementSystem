@@ -1,11 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Common.Core;
-using Database.Entities;
 using DrinksManagementSystem.Entities;
 using DrinksManagementSystem.Services.User;
 using Xamarin.Forms;
@@ -13,7 +8,6 @@ using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using Xamarin.Forms.Xaml;
 using NavigationPage = Xamarin.Forms.NavigationPage;
-using User = DrinksManagementSystem.Entities.User;
 
 namespace DrinksManagementSystem.Pages
 {
@@ -27,13 +21,8 @@ namespace DrinksManagementSystem.Pages
         public UsersPage()
         {
             _userService = Ioc.Resolve<IUserService>();
-            Initialize();
 
-        }
-
-        private async Task Initialize()
-        {
-            await _userService.GetAll();
+            _userService.GetAll();
             Users = _userService.Users;
             BindingContext = this;
             InitializeComponent();

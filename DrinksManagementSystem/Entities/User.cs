@@ -37,12 +37,12 @@ namespace DrinksManagementSystem.Entities
 
         public User() { }
 
-        public User(Database.Entities.User dto)
+        public User(Database.Entities.UserDto dto)
         {
             FromDto(dto);
         }
 
-        public void FromDto(Database.Entities.User dto)
+        public void FromDto(Database.Entities.UserDto dto)
         {
             Id = dto.Id;
             Name = dto.Name;
@@ -56,9 +56,9 @@ namespace DrinksManagementSystem.Entities
 
         }
 
-        public Database.Entities.User ToDto()
+        public Database.Entities.UserDto ToDto()
         {
-            var dto = new Database.Entities.User
+            var dto = new Database.Entities.UserDto
             {
                 Id = Id,
                 Name = Name,

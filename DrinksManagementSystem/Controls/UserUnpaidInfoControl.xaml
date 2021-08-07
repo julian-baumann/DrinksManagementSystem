@@ -9,7 +9,7 @@
         <Frame
             x:Name="container"
             IsVisible="True"
-            CornerRadius="30"
+            CornerRadius="13"
             HasShadow="False"
             Padding="20"
             Style="{StaticResource SecondaryBackgroundStyle}"

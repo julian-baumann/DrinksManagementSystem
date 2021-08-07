@@ -1,52 +1,92 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Common.Core;
 using Database.Entities;
-using Database.Services.Database;
-using SQLite;
 
 namespace Database.Services.DrinkBrandDatabase
 {
     public class DrinkBrandDatabaseService : IDrinkBrandDatabaseService
     {
-        private readonly SQLiteAsyncConnection _database;
-
-        public DrinkBrandDatabaseService(IDatabaseService databaseService)
+        public List<DrinkBrandDto> GetDrinkBrands()
         {
-            _database = databaseService.Database;
+            try
+            {
+                using var database = new DatabaseContext();
+                return database.Brands.ToList();
+            }
+            catch (Exception exception)
+            {
+                Logger.Exception(exception);
+                return null;
+            }
         }
 
-        public void Start()
+        public DrinkBrandDto GetDrinkBrand(string id)
         {
-            _database.CreateTableAsync<DrinkBrand>();
+            try
+            {
+                using var database = new DatabaseContext();
+                return database.Brands
+                    .FirstOrDefault(entry => entry.Id == id);
+            }
+            catch (Exception exception)
+            {
+                Logger.Exception(exception);
+                return null;
+            }
         }
 
-        public Task<List<DrinkBrand>> GetDrinkBrands()
+        public async Task<string> CreateDrinkBrand(DrinkBrandDto brandDto)
         {
-            return _database.Table<DrinkBrand>().ToListAsync();
+            try
+            {
+                await using var database = new DatabaseContext();
+                var result = database.Brands.Add(brandDto);
+                await database.SaveChangesAsync();
+
+                return result?.Entity?.Id;
+            }
+            catch (Exception exception)
+            {
+                Logger.Exception(exception);
+                return null;
+            }
         }
 
-        public Task<DrinkBrand> GetDrinkBrand(string id)
+        public async Task<bool> UpdateDrinkBrand(DrinkBrandDto brandDto)
         {
-            return _database.Table<DrinkBrand>()
-                .Where(i => i.Id == id)
-                .FirstOrDefaultAsync();
+            try
+            {
+                await using var database = new DatabaseContext();
+                database.Brands.Update(brandDto);
+                var result = await database.SaveChangesAsync();
+
+                return result > 0;
+            }
+            catch (Exception exception)
+            {
+                Logger.Exception(exception);
+                return false;
+            }
         }
 
-        public Task<int> CreateDrinkBrand(DrinkBrand brand)
+        public async Task<bool> RemoveDrinkBrand(string id)
         {
-            return _database.InsertAsync(brand);
-        }
+            try
+            {
+                await using var database = new DatabaseContext();
+                database.Brands.Remove(GetDrinkBrand(id));
+                var result = await database.SaveChangesAsync();
 
-        public Task<int> UpdateDrinkBrand(DrinkBrand brand)
-        {
-            return _database.UpdateAsync(brand);
-        }
-
-        public Task<int> RemoveDrinkBrand(string id)
-        {
-            return _database.Table<DrinkBrand>()
-                .Where(i => i.Id == id)
-                .DeleteAsync();
+                return result > 0;
+            }
+            catch (Exception exception)
+            {
+                Logger.Exception(exception);
+                return false;
+            }
         }
     }
 }

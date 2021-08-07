@@ -4,34 +4,27 @@ using System.Linq;
 using System.Threading.Tasks;
 using Common.Core;
 using Database.Services.DrinkBrandDatabase;
-using DrinksManagementSystem.Services.Storage;
 
 namespace DrinksManagementSystem.Services.DrinkBrand
 {
     public class DrinkBrandService : IDrinkBrandService
     {
         private readonly IDrinkBrandDatabaseService _brandDatabaseService;
-        private readonly IStorageService _storageService;
 
         public ObservableCollection<Entities.DrinkBrand> Brands { get; set; } = new ObservableCollection<Entities.DrinkBrand>();
 
         public DrinkBrandService(
-            IDrinkBrandDatabaseService drinkBrandDatabaseService,
-            IStorageService storageService
+            IDrinkBrandDatabaseService drinkBrandDatabaseService
         )
         {
             _brandDatabaseService = drinkBrandDatabaseService;
-            _storageService = storageService;
         }
 
-        public void Start()
+        public ObservableCollection<Entities.DrinkBrand> GetAll()
         {
-            _brandDatabaseService.Start();
-        }
+            var drinks = _brandDatabaseService.GetDrinkBrands();
 
-        public async Task<ObservableCollection<Entities.DrinkBrand>> GetAll()
-        {
-            var drinks = await _brandDatabaseService.GetDrinkBrands();
+            if (drinks == null) return null;
 
             Brands.Clear();
 
@@ -43,45 +36,45 @@ namespace DrinksManagementSystem.Services.DrinkBrand
             return Brands;
         }
 
-        public async Task<Entities.DrinkBrand> Get(string id)
+        public Entities.DrinkBrand Get(string id)
         {
             if (Brands?.Count > 0)
             {
                 return Brands.First((brand) => brand.Id == id);
             }
 
-            var brandDto = await _brandDatabaseService.GetDrinkBrand(id);
+            var brandDto = _brandDatabaseService.GetDrinkBrand(id);
             return new Entities.DrinkBrand(brandDto);
         }
 
-        public async Task<int> Create(Entities.DrinkBrand drink)
+        public async Task<string> Create(Entities.DrinkBrand drink)
         {
             try
             {
                 var result = await _brandDatabaseService.CreateDrinkBrand(drink.ToDto());
 
-                if (result >= 0)
+                if (result != null)
                 {
                     Brands.Add(drink);
                 }
 
-                return result;
+                return null;
             }
             catch(Exception exception)
             {
                 Logger.Exception(exception);
             }
 
-            return -1;
+            return null;
         }
 
-        public async Task<int> Update(Entities.DrinkBrand brand)
+        public async Task<bool> Update(Entities.DrinkBrand brand)
         {
             try
             {
                 var result = await _brandDatabaseService.UpdateDrinkBrand(brand.ToDto());
 
-                if (result < 0) return result;
+                if (!result) return false;
 
                 var drinkFromList = Brands.FirstOrDefault(u => u.Id == brand.Id);
                 var index = Brands.IndexOf(drinkFromList);
@@ -91,26 +84,26 @@ namespace DrinksManagementSystem.Services.DrinkBrand
                     Brands[index] = brand;
                 }
 
-                return result;
+                return true;
             }
             catch (Exception exception)
             {
                 Logger.Exception(exception);
             }
 
-            return -1;
+            return false;
         }
 
-        public async Task<int> Remove(Entities.DrinkBrand brand)
+        public async Task<bool> Remove(string id)
         {
-            var result = await _brandDatabaseService.RemoveDrinkBrand(brand.Id);
+            var result = await _brandDatabaseService.RemoveDrinkBrand(id);
 
-            if (result < 0) return result;
+            if (!result) return false;
 
-            var index = Brands.IndexOf(Brands.FirstOrDefault(u => u.Id == brand.Id));
+            var index = Brands.IndexOf(Brands.FirstOrDefault(u => u.Id == id));
             Brands.RemoveAt(index);
 
-            return result;
+            return true;
         }
     }
 }

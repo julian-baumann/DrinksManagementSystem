@@ -3,9 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Common.Core;
-using Database.Services.BoughtDrinkDatabase;
 using Database.Services.DrinksDatabase;
-using DrinksManagementSystem.Entities;
 using DrinksManagementSystem.Services.BoughtDrink;
 using DrinksManagementSystem.Services.DrinkBrand;
 using DrinksManagementSystem.Services.Storage;
@@ -34,49 +32,55 @@ namespace DrinksManagementSystem.Services.Drink
             _brandService = brandService;
         }
 
-        public void Start()
+        public ObservableCollection<Entities.Drink> GetAll()
         {
-            _databaseService.Start();
-        }
+            var drinks = _databaseService.GetDrinks();
 
-        public async Task<ObservableCollection<Entities.Drink>> GetAll()
-        {
-            var drinks = await _databaseService.GetDrinks();
+            if (drinks == null) return null;
 
             Drinks.Clear();
 
             foreach (var drink in drinks.Select(drinkDto => new Entities.Drink(drinkDto)))
             {
-                if (drink.BrandId != null)
+                if (drink.BrandIds != null)
                 {
-                    drink.Brand = await _brandService.Get(drink.BrandId);
+                    foreach (var brandId in drink.BrandIds)
+                    {
+                        drink.Brands.Add(_brandService.Get(brandId));
+                    }
                 }
+
                 Drinks.Add(drink);
             }
 
             return Drinks;
         }
 
-        public async Task<Entities.Drink> Get(int id)
+        public Entities.Drink Get(int id)
         {
             if (Drinks?.Count > 0)
             {
                 return Drinks.FirstOrDefault(drink => drink.Id == id);
             }
 
-            var drinkDto = await _databaseService.GetDrink(id);
+            var drinkDto = _databaseService.GetDrink(id);
             var drink = new Entities.Drink(drinkDto);
-            drink.Brand = await _brandService.Get(drink.BrandId);
+
+            foreach (var brandId in drink.BrandIds)
+            {
+                drink.Brands.Add(_brandService.Get(brandId));
+            }
+
 
             return drink;
         }
 
 
-        public async Task<Entities.BoughtDrink[]> ApplyFromBoughtDrinks(Entities.BoughtDrink[] drinks)
+        public Entities.BoughtDrink[] ApplyFromBoughtDrinks(Entities.BoughtDrink[] drinks)
         {
             foreach (var boughtDrink in drinks)
             {
-                boughtDrink.Drink = await Get(boughtDrink.DrinkId);
+                boughtDrink.Drink = Get(boughtDrink.DrinkId);
             }
 
             return drinks;
@@ -109,7 +113,7 @@ namespace DrinksManagementSystem.Services.Drink
             {
                 var result = await _databaseService.UpdateDrink(drink.ToDto());
 
-                if (result < 0) return false;
+                if (!result) return false;
 
                 var drinkFromList = Drinks.FirstOrDefault(u => u.Id == drink.Id);
                 var index = Drinks.IndexOf(drinkFromList);
@@ -129,7 +133,7 @@ namespace DrinksManagementSystem.Services.Drink
             return false;
         }
 
-        public async Task<int> Remove(Entities.Drink drink)
+        public async Task<bool> Remove(Entities.Drink drink)
         {
             if (drink.ImagePath != null)
             {
@@ -138,7 +142,7 @@ namespace DrinksManagementSystem.Services.Drink
 
             var result = await _databaseService.RemoveDrink(drink.Id);
 
-            if (result < 0) return result;
+            if (!result) return false;
 
             var index = Drinks.IndexOf(Drinks.First(u => u.Id == drink.Id));
             if (index >= 0)
@@ -146,7 +150,7 @@ namespace DrinksManagementSystem.Services.Drink
                 Drinks.RemoveAt(index);
             }
 
-            return result;
+            return true;
         }
 
         public async Task<bool> Buy(Entities.User user, Entities.Drink drink, int quantity, double price)

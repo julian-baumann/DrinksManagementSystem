@@ -26,10 +26,19 @@
 
                 <Entry FontSize="30" FontAttributes="Bold" BackgroundColor="Transparent" x:Name="Name" Placeholder="Name" Text="{Binding Path=User.Name, Mode=TwoWay}" ></Entry>
 
-                <StackLayout Margin="0, 10, 0, 0" Orientation="Horizontal" Padding="5">
-                    <Label HorizontalOptions="StartAndExpand" VerticalTextAlignment="Center">Admin</Label>
-                    <Switch IsToggled="{Binding Path=IsAdmin}" Toggled="OnIsAdminToggled" HorizontalOptions="EndAndExpand"></Switch>
-                </StackLayout>
+                <Frame
+                    Margin="0, 10, 0, 0"
+                    CornerRadius="13"
+                    HasShadow="False"
+                    Padding="10"
+                    VerticalOptions="CenterAndExpand"
+                    Style="{StaticResource SecondaryBackgroundStyle}"
+                >
+                    <StackLayout Orientation="Horizontal">
+                        <Label HorizontalOptions="StartAndExpand" VerticalTextAlignment="Center">Admin</Label>
+                        <Switch IsToggled="{Binding Path=IsAdmin}" Toggled="OnIsAdminToggled" HorizontalOptions="EndAndExpand"></Switch>
+                    </StackLayout>
+                </Frame>
 
                 <controls:UserUnpaidInfoControl
                     x:Name="unpaidInfoControl"

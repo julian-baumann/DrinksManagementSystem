@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using Database.Entities;
 using DrinksManagementSystem.Core;
 
@@ -16,8 +19,8 @@ namespace DrinksManagementSystem.Entities
         public double? Price { get; set; }
         public double? AdminPrice { get; set; }
         public int? Quantity { get; set; }
-        public string? BrandId { get; set; }
-        public DrinkBrand? Brand { get; set; }
+        public string[] BrandIds { get; set; }
+        public ObservableCollection<DrinkBrand> Brands { get; set; } = new();
         public string Type { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
@@ -37,12 +40,12 @@ namespace DrinksManagementSystem.Entities
 
         public Drink() { }
 
-        public Drink(Database.Entities.Drink dto)
+        public Drink(Database.Entities.DrinkDto dto)
         {
             FromDto(dto);
         }
 
-        public void FromDto(Database.Entities.Drink dto)
+        public void FromDto(Database.Entities.DrinkDto dto)
         {
             Id = dto.Id;
             Name = dto.Name;
@@ -51,15 +54,17 @@ namespace DrinksManagementSystem.Entities
             Price = dto.Price;
             AdminPrice = dto.AdminPrice;
             Quantity = dto.Quantity;
-            BrandId = dto.BrandId;
+            BrandIds = dto.BrandIds;
             Type = dto.Type;
             DateCreated = dto.DateCreated;
             DateModified = dto.DateModified;
         }
 
-        public Database.Entities.Drink ToDto()
+        public Database.Entities.DrinkDto ToDto()
         {
-            var dto = new Database.Entities.Drink()
+            var brandIds = Brands.Select(brand => brand.Id).ToList();
+
+            var dto = new Database.Entities.DrinkDto()
             {
                 Id = Id,
                 Name = Name,
@@ -68,7 +73,7 @@ namespace DrinksManagementSystem.Entities
                 Price = Price,
                 AdminPrice = AdminPrice,
                 Quantity = Quantity,
-                BrandId = Brand?.Id,
+                BrandIds = brandIds.ToArray(),
                 Type = Type,
                 DateCreated = DateCreated,
                 DateModified = DateModified
@@ -88,12 +93,19 @@ namespace DrinksManagementSystem.Entities
                 Price = Price,
                 AdminPrice = AdminPrice,
                 Quantity = Quantity,
-                BrandId = BrandId,
-                Brand = Brand?.Clone(),
+                BrandIds = BrandIds,
                 Type = Type,
                 DateCreated = DateCreated,
                 DateModified = DateModified
             };
+
+            if (Brands?.Count > 0)
+            {
+                foreach (var brand in Brands)
+                {
+                    Brands.Add(brand.Clone());
+                }
+            }
 
             return dto;
         }

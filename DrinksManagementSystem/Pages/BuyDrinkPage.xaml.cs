@@ -1,10 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using Common.Core;
 using DrinksManagementSystem.Entities;
 using DrinksManagementSystem.Services.Drink;
@@ -53,6 +49,8 @@ namespace DrinksManagementSystem.Pages
 
         private double _price;
         public double Price { get => _price; set => Set(ref _price, value); }
+
+        public event EventHandler OnClose = delegate { };
 
         public BuyDrinkPage(User user, Drink drink)
         {
@@ -125,6 +123,13 @@ namespace DrinksManagementSystem.Pages
                 baseContent.IsVisible = true;
             }
         }
+
+        private async void OnBackToHomeScreenClicked(object sender, EventArgs e)
+        {
+            Navigation.PopModalAsync();
+            OnClose.Invoke(this, null);
+        }
+
 
         private void Set<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
         {

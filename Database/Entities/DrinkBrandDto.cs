@@ -1,10 +1,10 @@
-using SQLite;
+using System.ComponentModel.DataAnnotations;
 
 namespace Database.Entities
 {
-    public class DrinkBrand
+    public class DrinkBrandDto
     {
-        [PrimaryKey]
+        [Key]
         public string Id { get; set; }
         public string Name { get; set; }
     }

@@ -35,9 +35,11 @@ namespace DrinksManagementSystem.Controls
             BindingContext = this;
         }
 
-        private void OnClicked(object sender, EventArgs e)
+        private async void OnClicked(object sender, EventArgs e)
         {
             Clicked.Invoke(this, User);
+            await outerFrame.ScaleTo(0.8, 100);
+            await outerFrame.ScaleTo(1, 100);
         }
     }
 }

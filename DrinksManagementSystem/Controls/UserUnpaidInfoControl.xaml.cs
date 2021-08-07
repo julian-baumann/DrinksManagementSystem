@@ -52,11 +52,11 @@ namespace DrinksManagementSystem.Controls
             InitializeComponent();
         }
 
-        private async Task Initialize(int? id)
+        private void Initialize(int? id)
         {
             if (id is < 0) return;
 
-            _boughtDrinks = new ObservableCollection<BoughtDrink>(await _boughtDrinkService.GetAllByUser((int)id));
+            _boughtDrinks = new ObservableCollection<BoughtDrink>(_boughtDrinkService.GetAllByUser((int)id));
 
             _boughtDrinks.CollectionChanged += (sender, args) =>
             {

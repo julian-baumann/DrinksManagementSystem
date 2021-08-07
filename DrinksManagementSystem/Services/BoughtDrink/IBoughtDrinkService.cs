@@ -4,12 +4,11 @@ namespace DrinksManagementSystem.Services.BoughtDrink
 {
     public interface IBoughtDrinkService
     {
-        void Start();
-        Task<Entities.BoughtDrink[]> GetAll();
-        Task<Entities.BoughtDrink[]> GetAllByUser(int userId);
-        Task<Entities.BoughtDrink> Get(int id);
+        Entities.BoughtDrink[] GetAll();
+        Entities.BoughtDrink[] GetAllByUser(int userId);
+        Entities.BoughtDrink Get(int id);
         Task<bool> Create(Entities.BoughtDrink boughtDrink);
-        Task<int> Update(Entities.BoughtDrink boughtDrink);
-        Task<int> Remove(int id);
+        Task<bool> Update(Entities.BoughtDrink boughtDrink);
+        Task<bool> Remove(int id);
     }
 }

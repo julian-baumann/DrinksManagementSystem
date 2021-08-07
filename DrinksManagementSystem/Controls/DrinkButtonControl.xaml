@@ -7,10 +7,12 @@
              x:Name="ThisDrinkButtonControl">
     <ContentView.Content>
         <Frame
+            x:Name="outerFrame"
             WidthRequest="120"
             Margin="10"
             CornerRadius="30"
             HasShadow="False"
+            Opacity="{Binding Source={x:Reference ThisDrinkButtonControl}, Path=Drink.Quantity, Converter={converter:ShowDrinkConverter}}"
             Style="{StaticResource SecondaryBackgroundStyle}"
         >
             <Frame.GestureRecognizers>
@@ -58,6 +60,7 @@
                 </Label>
 
                 <Label
+                    x:Name="priceLabel"
                     Margin="0, 0, 0, 0"
                     HorizontalTextAlignment="Center"
                     LineBreakMode="TailTruncation"

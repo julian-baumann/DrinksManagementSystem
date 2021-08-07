@@ -18,7 +18,7 @@ namespace DrinksManagementSystem.Pages
     {
         private readonly IBoughtDrinkService _boughtDrinkService;
 
-        public ObservableCollection<BoughtDrink> BoughtDrinks { get; set; } = new ObservableCollection<BoughtDrink>();
+        public ObservableCollection<BoughtDrink> BoughtDrinks { get; set; }
 
         public BoughtDrinksOverviewPage(ObservableCollection<BoughtDrink> boughtDrinks)
         {
@@ -42,7 +42,7 @@ namespace DrinksManagementSystem.Pages
                 var id = int.Parse(label.Text);
                 var result = await _boughtDrinkService.Remove(id);
 
-                if (result < 0) return;
+                if (!result) return;
 
                 var drink = BoughtDrinks.FirstOrDefault(drink => drink.Id == id);
                 BoughtDrinks.Remove(drink);

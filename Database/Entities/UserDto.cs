@@ -1,11 +1,11 @@
 using System;
-using SQLite;
+using System.ComponentModel.DataAnnotations;
 
 namespace Database.Entities
 {
-    public class User
+    public class UserDto
     {
-        [PrimaryKey, AutoIncrement]
+        [Key]
         public int Id { get; set; }
         public string Name { get; set; }
         public string ImagePath { get; set; }

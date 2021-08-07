@@ -1,11 +1,11 @@
 using System;
-using SQLite;
+using System.ComponentModel.DataAnnotations;
 
 namespace Database.Entities
 {
-    public class BoughtDrink
+    public class BoughtDrinkDto
     {
-        [PrimaryKey, AutoIncrement]
+        [Key]
         public int Id { get; set; }
         public int UserId { get; set; }
         public int DrinkId { get; set; }

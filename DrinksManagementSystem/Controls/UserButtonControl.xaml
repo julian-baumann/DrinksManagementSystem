@@ -6,6 +6,7 @@
              x:Name="ThisUserButtonControl">
     <ContentView.Content>
         <Frame
+            x:Name="outerFrame"
             HeightRequest="150"
             WidthRequest="120"
             Margin="10"

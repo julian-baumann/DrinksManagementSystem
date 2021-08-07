@@ -7,13 +7,12 @@ namespace DrinksManagementSystem.Services.Drink
     {
         ObservableCollection<Entities.Drink> Drinks { get; set; }
 
-        void Start();
-        Task<ObservableCollection<Entities.Drink>> GetAll();
-        Task<Entities.Drink> Get(int id);
-        Task<Entities.BoughtDrink[]> ApplyFromBoughtDrinks(Entities.BoughtDrink[] drinks);
+        ObservableCollection<Entities.Drink> GetAll();
+        Entities.Drink Get(int id);
+        Entities.BoughtDrink[] ApplyFromBoughtDrinks(Entities.BoughtDrink[] drinks);
         Task<bool> Create(Entities.Drink drink);
         Task<bool> Update(Entities.Drink drink);
-        Task<int> Remove(Entities.Drink drink);
+        Task<bool> Remove(Entities.Drink drink);
         Task<bool> Buy(Entities.User user, Entities.Drink drink, int quantity, double price);
     }
 }

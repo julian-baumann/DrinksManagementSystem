@@ -31,7 +31,7 @@
                             <ViewCell.ContextActions>
                                 <MenuItem Clicked="OnDelete"
                                           CommandParameter="{Binding .}"
-                                          Text="Delete"
+                                          Text="Löschen"
                                           IsDestructive="True" />
                             </ViewCell.ContextActions>
                             <Label Margin="20, 0, 0, 0" FontAttributes="Bold" VerticalTextAlignment="Center" Text="{Binding Path=Name}"/>

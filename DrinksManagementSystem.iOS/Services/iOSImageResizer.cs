@@ -18,15 +18,15 @@ namespace DrinksManagementSystem.iOS.Services
 
         private UIImage Crop(UIImage image, int x, int y, int width, int height)
         {
-            CGSize imgSize = image.Size;
+            var imgSize = image.Size;
 
             UIGraphics.BeginImageContext(new SizeF(width, height));
             var imgToCrop = UIGraphics.GetCurrentContext();
 
-            RectangleF croppingRectangle = new RectangleF(0, 0, width, height);
+            var croppingRectangle = new RectangleF(0, 0, width, height);
             imgToCrop.ClipToRect(croppingRectangle);
 
-            RectangleF drawRectangle = new RectangleF(-x, -y, (float)imgSize.Width, (float)imgSize.Height);
+            var drawRectangle = new RectangleF(-x, -y, (float)imgSize.Width, (float)imgSize.Height);
 
             image.Draw(drawRectangle);
             var croppedImg = UIGraphics.GetImageFromCurrentImageContext();

@@ -6,6 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Common.Core;
 using DrinksManagementSystem.Core;
+using DrinksManagementSystem.Services.Drink;
+using DrinksManagementSystem.Services.User;
 using Xamarin.Essentials;
 
 namespace DrinksManagementSystem.Services.Share
@@ -68,7 +70,7 @@ namespace DrinksManagementSystem.Services.Share
 
         public async Task ShareDatabase()
         {
-            var zipPath = Path.Combine(FileSystem.CacheDirectory, "Database.zip");
+            var zipPath = Path.Combine(FileSystem.CacheDirectory, "Database.dms");
             var databasePath = Path.Combine(AppCore.StoragePath, "DMSDB.db3");
             var photosPath = Path.Combine(AppCore.StoragePath, "Pictures");
 
@@ -93,6 +95,8 @@ namespace DrinksManagementSystem.Services.Share
                 var result = await FilePicker.PickAsync();
 
                 if (result == null) return null;
+
+                if (!result.FileName.EndsWith(".dms")) return null;
 
                 Extract(result.FullPath);
 

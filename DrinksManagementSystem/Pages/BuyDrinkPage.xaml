@@ -20,7 +20,7 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
-                <StackLayout x:Name="baseContent">
+                <StackLayout x:Name="baseContent" IsVisible="True">
                     <Frame
                         Margin="15, 20, 15, 0"
                         CornerRadius="18"
@@ -158,14 +158,44 @@
                     />
                 </StackLayout>
 
-                <StackLayout x:Name="loadingScreen" IsVisible="False" VerticalOptions="Center" HorizontalOptions="Center">
-                    <ActivityIndicator IsRunning="true" />
-                    <Label>Kaufen...</Label>
+                <StackLayout
+                    x:Name="loadingScreen"
+                    IsVisible="False"
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="Center"
+                >
+                    <ActivityIndicator
+                        IsRunning="true"
+                    />
+                    <Label FontSize="20" FontAttributes="Bold" Opacity="0.6" >Kaufen</Label>
                 </StackLayout>
 
 
-                <StackLayout x:Name="doneScreen" IsVisible="False" VerticalOptions="Center" HorizontalOptions="Center">
-                    <Label>Danke!</Label>
+                <StackLayout
+                    x:Name="doneScreen"
+                    IsVisible="False"
+                    VerticalOptions="Center"
+                    HorizontalOptions="CenterAndExpand"
+                    Padding="0, 50, 0, 0"
+                >
+                    <Image
+                        WidthRequest="150"
+                        Source="checkmark_green.png"
+                    />
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        Opacity="0.6"
+                        Text="Erfolgreich gekauft!"
+                        HorizontalTextAlignment="Center"
+                    />
+
+                    <Button
+                        Style="{StaticResource ButtonStyle}"
+                        Margin="0, 50, 0, 0"
+                        Text="Zurück zur Startseite"
+                        Clicked="OnBackToHomeScreenClicked"
+                    />
                 </StackLayout>
             </StackLayout>
         </ScrollView>

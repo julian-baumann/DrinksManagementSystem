@@ -1,11 +1,11 @@
 using System;
-using SQLite;
+using System.ComponentModel.DataAnnotations;
 
 namespace Database.Entities
 {
-    public class Drink
+    public class DrinkDto
     {
-        [PrimaryKey, AutoIncrement]
+        [Key]
         public int Id { get; set; }
         public string Name { get; set; }
         public string ImagePath { get; set; }
@@ -13,7 +13,7 @@ namespace Database.Entities
         public double? Price { get; set; }
         public double? AdminPrice { get; set; }
         public int? Quantity { get; set; }
-        public string? BrandId { get; set; }
+        public string[] BrandIds { get; set; }
         public string Type { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }

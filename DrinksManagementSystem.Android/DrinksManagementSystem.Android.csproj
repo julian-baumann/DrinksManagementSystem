@@ -54,10 +54,13 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2083" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
     <PackageReference Include="sqlite-net-pcl">
       <Version>1.7.335</Version>
+    </PackageReference>
+    <PackageReference Include="System.Runtime.Loader" Version="4.3.0">
+      <ExcludeAssets>all</ExcludeAssets>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -76,6 +79,7 @@
     <AndroidResource Include="Resources\drawable\add.png" />
     <AndroidResource Include="Resources\drawable\beer.png" />
     <AndroidResource Include="Resources\drawable\camera.png" />
+    <AndroidResource Include="Resources\drawable\checkmark_green.png" />
     <AndroidResource Include="Resources\drawable\cog.png" />
     <AndroidResource Include="Resources\drawable\home.png">
       <SubType>Designer</SubType>

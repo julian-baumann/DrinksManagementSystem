@@ -1,10 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Common.Core;
 using Database.Services.BoughtDrinkDatabase;
-using DrinksManagementSystem.Services.Drink;
 
 namespace DrinksManagementSystem.Services.BoughtDrink
 {
@@ -19,28 +17,22 @@ namespace DrinksManagementSystem.Services.BoughtDrink
             _databaseService = boughtDrinkDatabaseService;
         }
 
-        public void Start()
+        public Entities.BoughtDrink[] GetAll()
         {
-            _databaseService.Start();
+            var users = _databaseService.GetAll();
+            return users.Select(dto => new Entities.BoughtDrink(dto)).ToArray();
         }
 
-        public async Task<Entities.BoughtDrink[]> GetAll()
+        public Entities.BoughtDrink[] GetAllByUser(int userId)
         {
-            var users = await _databaseService.GetAll();
+            var users = _databaseService.GetAllByUser(userId);
 
             return users.Select(dto => new Entities.BoughtDrink(dto)).ToArray();
         }
 
-        public async Task<Entities.BoughtDrink[]> GetAllByUser(int userId)
+        public Entities.BoughtDrink Get(int id)
         {
-            var users = await _databaseService.GetAllByUser(userId);
-
-            return users.Select(dto => new Entities.BoughtDrink(dto)).ToArray();
-        }
-
-        public async Task<Entities.BoughtDrink> Get(int id)
-        {
-            var userDto = await _databaseService.Get(id);
+            var userDto = _databaseService.Get(id);
             return new Entities.BoughtDrink(userDto);
         }
 
@@ -52,7 +44,7 @@ namespace DrinksManagementSystem.Services.BoughtDrink
 
                 if (newId == null) return false;
 
-                boughtDrink.Id = (int)newId;
+                boughtDrink.Id = (int) newId;
 
                 return true;
             }
@@ -64,14 +56,11 @@ namespace DrinksManagementSystem.Services.BoughtDrink
             return false;
         }
 
-        public async Task<int> Update(Entities.BoughtDrink boughtDrink)
+        public async Task<bool> Update(Entities.BoughtDrink boughtDrink)
         {
             try
             {
                 var result = await _databaseService.Update(boughtDrink.ToDto());
-
-                if (result < 0) return result;
-
                 return result;
             }
             catch (Exception exception)
@@ -79,10 +68,10 @@ namespace DrinksManagementSystem.Services.BoughtDrink
                 Logger.Exception(exception);
             }
 
-            return -1;
+            return false;
         }
 
-        public Task<int> Remove(int id)
+        public Task<bool> Remove(int id)
         {
             return _databaseService.Remove(id);
         }

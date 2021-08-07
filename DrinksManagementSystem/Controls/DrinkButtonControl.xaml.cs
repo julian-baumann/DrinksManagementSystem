@@ -39,9 +39,14 @@ namespace DrinksManagementSystem.Controls
             InitializeComponent();
         }
 
-        private void OnClicked(object sender, EventArgs e)
+        private async void OnClicked(object sender, EventArgs e)
         {
-            Clicked.Invoke(this, Drink);
+            if (Drink.Quantity > 0)
+            {
+                Clicked.Invoke(this, Drink);
+                await outerFrame.ScaleTo(0.8, 100);
+                await outerFrame.ScaleTo(1, 100);
+            }
         }
     }
 }

@@ -9,10 +9,7 @@ using DrinksManagementSystem.Services.DrinkBrand;
 using DrinksManagementSystem.Services.Storage;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using Xamarin.Forms.PlatformConfiguration;
-using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using Xamarin.Forms.Xaml;
-using NavigationPage = Xamarin.Forms.NavigationPage;
 
 namespace DrinksManagementSystem.Pages
 {
@@ -54,6 +51,7 @@ namespace DrinksManagementSystem.Pages
         {
             Drink = drink.Clone();
             Initialize();
+            Title = "Details";
             editPictureView.ImagePath = Drink.ImagePath;
             InitializeExistingDrink(drink);
         }
@@ -66,11 +64,9 @@ namespace DrinksManagementSystem.Pages
 
             InitializeComponent();
             BindingContext = this;
-
-            Title = "Details";
         }
 
-        private async Task InitializeExistingDrink(Drink drink)
+        private void InitializeExistingDrink(Drink drink)
         {
             if (drink.Type != null)
             {
@@ -78,12 +74,15 @@ namespace DrinksManagementSystem.Pages
                 typePicker.SelectedIndex = index;
             }
 
-            if (Drink.Brand == null && Drink.BrandId != null)
+            if (Drink.BrandIds != null)
             {
-                Drink.Brand = await _drinkBrandService.Get(Drink.BrandId);
+                foreach (var brandId in Drink.BrandIds)
+                {
+                    Drink.Brands.Add(_drinkBrandService.Get(brandId));
+                }
             }
 
-            brandButton.Text = Drink?.Brand?.Name ?? "Wählen";
+            // brandButton.Text = Drink?.Brand?.Name ?? "Wählen";
         }
 
 
@@ -165,19 +164,9 @@ namespace DrinksManagementSystem.Pages
             _imageFile = file;
         }
 
-        private async void OnChooseBrandClicked(object sender, EventArgs e)
+        private async void OnAddBrandClicked(object sender, EventArgs e)
         {
-            var choosePage = new DrinkBrandChooserPage();
-            choosePage.Brand += (o, brand) =>
-            {
-                Drink.Brand = brand;
-                brandButton.Text = brand.Name;
-            };
-
-            var page = new NavigationPage(choosePage);
-            page.On<iOS>().SetModalPresentationStyle(UIModalPresentationStyle.PageSheet);
-            await Navigation.PushModalAsync(page);
-
+            await Navigation.PushAsync(new ManageDrinkBrandsPage(Drink));
         }
 
         private async void OnRemoveDrinkClicked(object sender, EventArgs e)
@@ -187,9 +176,9 @@ namespace DrinksManagementSystem.Pages
 
             var result = await _drinkService.Remove(Drink);
 
-            if (result >= 0)
+            if (result)
             {
-                Navigation.PopAsync();
+                await Navigation.PopAsync();
             }
             else
             {

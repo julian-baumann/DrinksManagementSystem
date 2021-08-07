@@ -4,6 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:DrinksManagementSystem.Controls;assembly=DrinksManagementSystem"
              x:Class="DrinksManagementSystem.Pages.DrinkChooserPage"
+             x:Name="ThisDrinkChooserPage"
              Title="Getränk wählen">
     <ContentPage.Content>
         <ScrollView>
@@ -57,7 +58,10 @@
                 >
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
-                            <controls:DrinkButtonControl Drink="{Binding}" Clicked="OnDrinkClicked" />
+                            <controls:DrinkButtonControl
+                                Drink="{Binding}"
+                                Clicked="OnDrinkClicked"
+                            />
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
                 </FlexLayout>

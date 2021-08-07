@@ -1,13 +1,10 @@
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Common.Core;
-using Database.Services;
+using Database.Services.UserDatabase;
 using DrinksManagementSystem.Services.Storage;
-using DrinksManagementSystem.Entities;
-using System.Linq;
 
 namespace DrinksManagementSystem.Services.User
 {
@@ -27,14 +24,11 @@ namespace DrinksManagementSystem.Services.User
             _storageService = storageService;
         }
 
-        public void Start()
+        public ObservableCollection<Entities.User> GetAll()
         {
-            _userDatabaseService.Start();
-        }
+            var users = _userDatabaseService.GetUsers();
 
-        public async Task<ObservableCollection<Entities.User>> GetAll()
-        {
-            var users = await _userDatabaseService.GetUsers();
+            if (users == null) return null;
 
             foreach (var userDto in users)
             {
@@ -44,14 +38,14 @@ namespace DrinksManagementSystem.Services.User
             return Users;
         }
 
-        public async Task<Entities.User> Get(int id)
+        public Entities.User Get(int id)
         {
             if (Users?.Count > 0)
             {
                 return Users.FirstOrDefault(drink => drink.Id == id);
             }
 
-            var userDto = await _userDatabaseService.GetUser(id);
+            var userDto = _userDatabaseService.GetUser(id);
             return new Entities.User(userDto);
         }
 
@@ -77,13 +71,13 @@ namespace DrinksManagementSystem.Services.User
         }
 
 
-        public async Task<int> Update(Entities.User user)
+        public async Task<bool> Update(Entities.User user)
         {
             try
             {
                 var result = await _userDatabaseService.UpdateUser(user.ToDto());
 
-                if (result < 0) return result;
+                if (!result) return false;
 
                 var userFromList = Users.FirstOrDefault(u => u.Id == user.Id);
                 var index = Users.IndexOf(userFromList);
@@ -93,17 +87,17 @@ namespace DrinksManagementSystem.Services.User
                     Users[index] = user;
                 }
 
-                return result;
+                return true;
             }
             catch (Exception exception)
             {
                 Logger.Exception(exception);
             }
 
-            return -1;
+            return true;
         }
 
-        public async Task<int> Remove(Entities.User user)
+        public async Task<bool> Remove(Entities.User user)
         {
             if (user.ImagePath != null)
             {
@@ -112,7 +106,7 @@ namespace DrinksManagementSystem.Services.User
 
             var result = await _userDatabaseService.RemoveUser(user.Id);
 
-            if (result < 0) return result;
+            if (!result) return false;
 
             var index = Users.IndexOf(Users.First(u => u.Id == user.Id));
 
@@ -121,7 +115,7 @@ namespace DrinksManagementSystem.Services.User
                 Users.RemoveAt(index);
             }
 
-            return result;
+            return true;
         }
     }
 }

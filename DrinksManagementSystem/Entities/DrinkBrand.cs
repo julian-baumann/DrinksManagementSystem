@@ -12,20 +12,20 @@ namespace DrinksManagementSystem.Entities
         {
         }
 
-        public DrinkBrand(Database.Entities.DrinkBrand dto)
+        public DrinkBrand(Database.Entities.DrinkBrandDto dto)
         {
             FromDto(dto);
         }
 
-        public void FromDto(Database.Entities.DrinkBrand dto)
+        public void FromDto(Database.Entities.DrinkBrandDto dto)
         {
             Id = dto.Id;
             Name = dto.Name;
         }
 
-        public Database.Entities.DrinkBrand ToDto()
+        public Database.Entities.DrinkBrandDto ToDto()
         {
-            return new Database.Entities.DrinkBrand()
+            return new Database.Entities.DrinkBrandDto()
             {
                 Id = Id,
                 Name = Name

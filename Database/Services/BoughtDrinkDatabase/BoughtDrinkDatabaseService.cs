@@ -1,67 +1,112 @@
-using System.Collections.Generic;
+using System;
+using System.Linq;
 using System.Threading.Tasks;
+using Common.Core;
 using Database.Entities;
 using Database.Services.Database;
-using SQLite;
+using Microsoft.EntityFrameworkCore;
 
 namespace Database.Services.BoughtDrinkDatabase
 {
     public class BoughtDrinkDatabaseService : IBoughtDrinkDatabaseService
     {
-        private readonly SQLiteAsyncConnection _database;
-
-        public BoughtDrinkDatabaseService(IDatabaseService databaseService)
+        public BoughtDrinkDto[] GetAll()
         {
-            _database = databaseService.Database;
-        }
-
-        public void Start()
-        {
-            _database.CreateTableAsync<BoughtDrink>();
-        }
-
-        public Task<BoughtDrink[]> GetAll()
-        {
-            return _database.Table<BoughtDrink>().ToArrayAsync();
-        }
-
-        public Task<BoughtDrink[]> GetAllByUser(int userId)
-        {
-            return _database.Table<BoughtDrink>()
-                .Where(i => i.UserId == userId)
-                .ToArrayAsync();
-        }
-
-        public Task<BoughtDrink> Get(int id)
-        {
-            return _database.Table<BoughtDrink>()
-                .Where(i => i.Id == id)
-                .OrderByDescending(x => x.DatePurchased)
-                .FirstOrDefaultAsync();
-        }
-
-
-        public async Task<int?> Create(BoughtDrink user)
-        {
-            var result = await _database.InsertAsync(user);
-            if (result >= 0)
+            try
             {
-                return user.Id;
+                using var database = new DatabaseContext();
+                return database.BoughtDrinks.ToArray();
             }
-
-            return null;
+            catch (Exception exception)
+            {
+                Logger.Exception(exception);
+                return null;
+            }
         }
 
-        public Task<int> Update(BoughtDrink user)
+        public BoughtDrinkDto[] GetAllByUser(int userId)
         {
-            return _database.UpdateAsync(user);
+            try
+            {
+                using var database = new DatabaseContext();
+                return database.BoughtDrinks
+                    .Where(i => i.UserId == userId)
+                    .ToArray();
+            }
+            catch (Exception exception)
+            {
+                Logger.Exception(exception);
+                return null;
+            }
         }
 
-        public Task<int> Remove(int id)
+        public BoughtDrinkDto Get(int id)
         {
-            return _database.Table<BoughtDrink>()
-                .Where(i => i.Id == id)
-                .DeleteAsync();
+            try
+            {
+                using var database = new DatabaseContext();
+                return database.BoughtDrinks
+                    .Where(i => i.Id == id)
+                    .OrderByDescending(x => x.DatePurchased)
+                    .FirstOrDefault();
+            }
+            catch (Exception exception)
+            {
+                Logger.Exception(exception);
+                return null;
+            }
+        }
+
+
+        public async Task<int?> Create(BoughtDrinkDto boughtDrinkDto)
+        {
+            try
+            {
+                await using var database = new DatabaseContext();
+                var result = database.BoughtDrinks.Add(boughtDrinkDto);
+                await database.SaveChangesAsync();
+
+                return result?.Entity?.Id;
+            }
+            catch (Exception exception)
+            {
+                Logger.Exception(exception);
+                return null;
+            }
+        }
+
+        public async Task<bool> Update(BoughtDrinkDto boughtDrinkDto)
+        {
+            try
+            {
+                await using var database = new DatabaseContext();
+                database.BoughtDrinks.Update(boughtDrinkDto);
+                var result = await database.SaveChangesAsync();
+
+                return result > 0;
+            }
+            catch (Exception exception)
+            {
+                Logger.Exception(exception);
+                return false;
+            }
+        }
+
+        public async Task<bool> Remove(int id)
+        {
+            try
+            {
+                await using var database = new DatabaseContext();
+                database.BoughtDrinks.Remove(Get(id));
+                var result = await database.SaveChangesAsync();
+
+                return result > 0;
+            }
+            catch (Exception exception)
+            {
+                Logger.Exception(exception);
+                return false;
+            }
         }
     }
 }

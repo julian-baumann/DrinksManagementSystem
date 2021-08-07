@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using Common.Core;
-using Database.Entities;
 using DrinksManagementSystem.Entities;
 using DrinksManagementSystem.Services.Storage;
 using DrinksManagementSystem.Services.User;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using User = DrinksManagementSystem.Entities.User;
 
 namespace DrinksManagementSystem.Pages
 {
@@ -68,9 +64,9 @@ namespace DrinksManagementSystem.Pages
 
             var result = await _userService.Update(User);
 
-            if (result >= 0)
+            if (result)
             {
-                Navigation.PopAsync();
+                await Navigation.PopAsync();
             }
             else
             {
@@ -86,9 +82,9 @@ namespace DrinksManagementSystem.Pages
 
             var result = await _userService.Remove(User);
 
-            if (result >= 0)
+            if (result)
             {
-                Navigation.PopAsync();
+                await Navigation.PopAsync();
             }
             else
             {
