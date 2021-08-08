@@ -1,7 +1,4 @@
-using System;
-using System.Drawing;
 using System.IO;
-using System.Threading.Tasks;
 using Android.Graphics;
 using DrinksManagementSystem.Droid.Services;
 using DrinksManagementSystem.Services.ImageResizer;

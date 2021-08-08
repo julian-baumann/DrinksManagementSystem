@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Database.Migrations
 {
@@ -7,7 +8,7 @@ namespace Database.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "BoughtDrink",
+                name: "BoughtDrinks",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -17,15 +18,16 @@ namespace Database.Migrations
                     Quantity = table.Column<int>(nullable: false),
                     FullPrice = table.Column<double>(nullable: false),
                     DrinkName = table.Column<string>(nullable: true),
-                    DatePurchased = table.Column<long>(nullable: false)
+                    DatePurchased = table.Column<DateTime>(nullable: false),
+                    DatePayed = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BoughtDrink", x => x.Id);
+                    table.PrimaryKey("PK_BoughtDrinks", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Brand",
+                name: "Brands",
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
@@ -33,11 +35,11 @@ namespace Database.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Brand", x => x.Id);
+                    table.PrimaryKey("PK_Brands", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Drink",
+                name: "Drinks",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -48,18 +50,18 @@ namespace Database.Migrations
                     Price = table.Column<double>(nullable: true),
                     AdminPrice = table.Column<double>(nullable: true),
                     Quantity = table.Column<int>(nullable: true),
-                    BrandId = table.Column<string>(nullable: true),
+                    BrandIds = table.Column<string>(nullable: true),
                     Type = table.Column<string>(nullable: true),
-                    DateCreated = table.Column<long>(nullable: false),
-                    DateModified = table.Column<long>(nullable: false)
+                    DateCreated = table.Column<DateTime>(nullable: false),
+                    DateModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Drink", x => x.Id);
+                    table.PrimaryKey("PK_Drinks", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "User",
+                name: "Users",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -67,28 +69,28 @@ namespace Database.Migrations
                     Name = table.Column<string>(nullable: true),
                     ImagePath = table.Column<string>(nullable: true),
                     Role = table.Column<string>(nullable: true),
-                    DateCreated = table.Column<long>(nullable: false),
-                    DateModified = table.Column<long>(nullable: false)
+                    DateCreated = table.Column<DateTime>(nullable: false),
+                    DateModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.Id);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "BoughtDrink");
+                name: "BoughtDrinks");
 
             migrationBuilder.DropTable(
-                name: "Brand");
+                name: "Brands");
 
             migrationBuilder.DropTable(
-                name: "Drink");
+                name: "Drinks");
 
             migrationBuilder.DropTable(
-                name: "User");
+                name: "Users");
         }
     }
 }

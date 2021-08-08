@@ -1,9 +1,8 @@
 ﻿using System;
-using System.ComponentModel;
 using System.IO;
-using System.Runtime.CompilerServices;
-using Database.Entities;
+using Database.Models;
 using DrinksManagementSystem.Core;
+using DrinksManagementSystem.Helpers;
 
 namespace DrinksManagementSystem.Entities
 {
@@ -37,33 +36,29 @@ namespace DrinksManagementSystem.Entities
 
         public User() { }
 
-        public User(Database.Entities.UserDto dto)
+        public User(UserModel model)
         {
-            FromDto(dto);
+            FromDto(model);
         }
 
-        public void FromDto(Database.Entities.UserDto dto)
+        public void FromDto(UserModel model)
         {
-            Id = dto.Id;
-            Name = dto.Name;
-            ImagePath = dto.ImagePath;
-            DateCreated = dto.DateCreated;
-            DateModified = dto.DateModified;
-
-            var role = UserRoles.Guest;
-            Enum.TryParse(dto.Role, true, out role);
-            Role = role;
-
+            Id = model.Id;
+            Name = model.Name;
+            ImagePath = model.ImagePath;
+            DateCreated = model.DateCreated;
+            DateModified = model.DateModified;
+            Role = model.Role.ToEnum<UserRoles>(UserRoles.Guest);
         }
 
-        public Database.Entities.UserDto ToDto()
+        public UserModel ToDto()
         {
-            var dto = new Database.Entities.UserDto
+            var dto = new UserModel
             {
                 Id = Id,
                 Name = Name,
                 ImagePath = ImagePath,
-                Role = Role.ToString(),
+                Role = Role.ToLowerCamelCaseString(),
                 DateCreated = DateCreated,
                 DateModified = DateModified
             };

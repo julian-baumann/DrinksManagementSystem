@@ -1,5 +1,6 @@
 ﻿using DrinksManagementSystem.Core;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
 
 namespace DrinksManagementSystem
 {

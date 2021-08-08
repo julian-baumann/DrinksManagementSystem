@@ -7,6 +7,7 @@
              xmlns:controls="clr-namespace:DrinksManagementSystem.Controls"
              xmlns:converter="clr-namespace:DrinksManagementSystem.Converter;assembly=DrinksManagementSystem"
              ios:Page.UseSafeArea="False"
+             ios:Page.LargeTitleDisplay="Always"
              Title="Neues Getränk">
     <ContentPage.Content>
         <ScrollView BackgroundColor="Transparent">
@@ -69,6 +70,7 @@
 
                         <Entry Grid.Column="1"
                                Grid.Row="1"
+                               BackgroundColor="Transparent"
                                Placeholder="Preis"
                                Keyboard="Numeric"
                                HorizontalTextAlignment="Center"
@@ -94,6 +96,7 @@
 
                         <Entry Grid.Column="1"
                                Grid.Row="2"
+                               BackgroundColor="Transparent"
                                Keyboard="Numeric"
                                HorizontalTextAlignment="Center"
                                Text="{Binding AlcoholContent, Mode=TwoWay}"
@@ -118,6 +121,7 @@
 
                         <Entry Grid.Column="1"
                                Grid.Row="3"
+                               BackgroundColor="Transparent"
                                Placeholder="Anzahl"
                                Keyboard="Numeric"
                                HorizontalTextAlignment="Center"
@@ -136,6 +140,7 @@
 
                         <Picker Grid.Column="1"
                                 Grid.Row="4"
+                                BackgroundColor="Transparent"
                                 x:Name="typePicker"
                                 Title="Wählen"
                                 HorizontalTextAlignment="Center"
@@ -156,7 +161,7 @@
                 >
                     <StackLayout>
                         <Label
-                            Text="{Binding Drink.Brands, Converter={converter:BrandsConverter}, Mode=TwoWay}"
+                            Text="{Binding Drink.Brands, Converter={converter:BrandsConverter}, Mode=OneWay}"
                             FontAttributes="Bold"
                             HorizontalOptions="Center"
                         />
@@ -169,7 +174,7 @@
                 </Frame>
 
 
-                <Button Margin="0, 60, 0, 0"
+                <Button Margin="0, 20, 0, 0"
                         Style="{StaticResource ButtonStyle}"
                         Text="Speichern"
                         Clicked="OnAddDrinkClicked"

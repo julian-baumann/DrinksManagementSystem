@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using Database.Entities;
+using Database.Models;
 using DrinksManagementSystem.Core;
-
-// ReSharper disable MemberCanBePrivate.Global
 
 namespace DrinksManagementSystem.Entities
 {
@@ -19,8 +17,8 @@ namespace DrinksManagementSystem.Entities
         public double? Price { get; set; }
         public double? AdminPrice { get; set; }
         public int? Quantity { get; set; }
-        public string[] BrandIds { get; set; }
-        public ObservableCollection<DrinkBrand> Brands { get; set; } = new();
+        public List<string> BrandIds { get; set; } = new ();
+        public ObservableCollection<DrinkBrand> Brands { get; set; } = new ();
         public string Type { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
@@ -40,31 +38,31 @@ namespace DrinksManagementSystem.Entities
 
         public Drink() { }
 
-        public Drink(Database.Entities.DrinkDto dto)
+        public Drink(DrinkModel model)
         {
-            FromDto(dto);
+            FromDto(model);
         }
 
-        public void FromDto(Database.Entities.DrinkDto dto)
+        public void FromDto(DrinkModel model)
         {
-            Id = dto.Id;
-            Name = dto.Name;
-            ImagePath = dto.ImagePath;
-            AlcoholContent = dto.AlcoholContent;
-            Price = dto.Price;
-            AdminPrice = dto.AdminPrice;
-            Quantity = dto.Quantity;
-            BrandIds = dto.BrandIds;
-            Type = dto.Type;
-            DateCreated = dto.DateCreated;
-            DateModified = dto.DateModified;
+            Id = model.Id;
+            Name = model.Name;
+            ImagePath = model.ImagePath;
+            AlcoholContent = model.AlcoholContent;
+            Price = model.Price;
+            AdminPrice = model.AdminPrice;
+            Quantity = model.Quantity;
+            BrandIds = model.BrandIds?.Split(';').ToList();
+            Type = model.Type;
+            DateCreated = model.DateCreated;
+            DateModified = model.DateModified;
         }
 
-        public Database.Entities.DrinkDto ToDto()
+        public DrinkModel ToDto()
         {
             var brandIds = Brands.Select(brand => brand.Id).ToList();
 
-            var dto = new Database.Entities.DrinkDto()
+            var dto = new DrinkModel()
             {
                 Id = Id,
                 Name = Name,
@@ -73,7 +71,7 @@ namespace DrinksManagementSystem.Entities
                 Price = Price,
                 AdminPrice = AdminPrice,
                 Quantity = Quantity,
-                BrandIds = brandIds.ToArray(),
+                BrandIds = string.Join(";", brandIds),
                 Type = Type,
                 DateCreated = DateCreated,
                 DateModified = DateModified
@@ -93,19 +91,11 @@ namespace DrinksManagementSystem.Entities
                 Price = Price,
                 AdminPrice = AdminPrice,
                 Quantity = Quantity,
-                BrandIds = BrandIds,
+                BrandIds = BrandIds != null ? new List<string>(BrandIds) : new List<string>(),
                 Type = Type,
                 DateCreated = DateCreated,
                 DateModified = DateModified
             };
-
-            if (Brands?.Count > 0)
-            {
-                foreach (var brand in Brands)
-                {
-                    Brands.Add(brand.Clone());
-                }
-            }
 
             return dto;
         }

@@ -1,18 +1,11 @@
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Common.Core;
-using Database.Entities;
 using DrinksManagementSystem.Entities;
 using DrinksManagementSystem.Services.Storage;
 using DrinksManagementSystem.Services.User;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using static Xamarin.Essentials.Permissions;
 using User = DrinksManagementSystem.Entities.User;
 
 namespace DrinksManagementSystem.Pages

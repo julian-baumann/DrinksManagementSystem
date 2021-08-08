@@ -32,7 +32,7 @@
                 Style="{StaticResource SecondaryBackgroundStyle}"
                 Padding="20, 0, 20, 0"
                 Margin="0, 0, 10, 0"
-                Source="images.png"
+                Source="{AppThemeBinding Light=image.png, Dark=imageDark.png}"
                 Clicked="OnChangeImageClicked"
                 >
             </ImageButton>
@@ -42,7 +42,7 @@
                 HeightRequest="40"
                 Style="{StaticResource SecondaryBackgroundStyle}"
                 Padding="20, 0, 20, 0"
-                Source="camera.png"
+                Source="{AppThemeBinding Light=camera.png, Dark=cameraDark.png}"
                 Clicked="OnTakePhotoClicked"
                 >
             </ImageButton>

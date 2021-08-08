@@ -1,6 +1,4 @@
-﻿using System;
-using DrinksManagementSystem.iOS.Renderers;
-using UIKit;
+﻿using DrinksManagementSystem.iOS.Renderers;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
@@ -16,8 +14,8 @@ namespace DrinksManagementSystem.iOS.Renderers
             if (Element is NavigationPage navigationPage)
             {
                 NavigationBar.StandardAppearance.ConfigureWithDefaultBackground();
-                NavigationBar.CompactAppearance.ConfigureWithDefaultBackground();
-                NavigationBar.ScrollEdgeAppearance.ConfigureWithTransparentBackground();
+                NavigationBar?.CompactAppearance?.ConfigureWithDefaultBackground();
+                NavigationBar?.ScrollEdgeAppearance?.ConfigureWithTransparentBackground();
 
                 NavigationBar.Translucent = true;
             }

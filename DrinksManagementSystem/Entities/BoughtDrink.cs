@@ -1,4 +1,5 @@
 using System;
+using Database.Models;
 
 namespace DrinksManagementSystem.Entities
 {
@@ -12,29 +13,31 @@ namespace DrinksManagementSystem.Entities
         public double FullPrice { get; set; }
         public string DrinkName { get; set; }
         public DateTime DatePurchased { get; set; }
+        public DateTime DatePayed { get; set; }
 
 
         public BoughtDrink() { }
 
-        public BoughtDrink(Database.Entities.BoughtDrinkDto dto)
+        public BoughtDrink(BoughtDrinkModel model)
         {
-            FromDto(dto);
+            FromDto(model);
         }
 
-        public void FromDto(Database.Entities.BoughtDrinkDto dto)
+        public void FromDto(BoughtDrinkModel model)
         {
-            Id = dto.Id;
-            UserId = dto.UserId;
-            DrinkId = dto.DrinkId;
-            Quantity = dto.Quantity;
-            FullPrice = dto.FullPrice;
-            DrinkName = dto.DrinkName;
-            // DatePurchased = dto.DatePurchased;
+            Id = model.Id;
+            UserId = model.UserId;
+            DrinkId = model.DrinkId;
+            Quantity = model.Quantity;
+            FullPrice = model.FullPrice;
+            DrinkName = model.DrinkName;
+            DatePurchased = model.DatePurchased;
+            DatePayed = model.DatePayed;
         }
 
-        public Database.Entities.BoughtDrinkDto ToDto()
+        public BoughtDrinkModel ToDto()
         {
-            return new Database.Entities.BoughtDrinkDto()
+            return new BoughtDrinkModel()
             {
                 Id = Id,
                 UserId = UserId,
@@ -42,7 +45,8 @@ namespace DrinksManagementSystem.Entities
                 Quantity = Quantity,
                 FullPrice = FullPrice,
                 DrinkName = DrinkName,
-                // DatePurchased = DatePurchased
+                DatePurchased = DatePurchased,
+                DatePayed = DatePayed
             };
         }
     }

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Common.Core;
-using Database.Entities;
+using Database.Models;
 
 namespace Database.Services.DrinkBrandDatabase
 {
     public class DrinkBrandDatabaseService : IDrinkBrandDatabaseService
     {
-        public List<DrinkBrandDto> GetDrinkBrands()
+        public List<DrinkBrandModel> GetDrinkBrands()
         {
             try
             {
@@ -23,7 +23,7 @@ namespace Database.Services.DrinkBrandDatabase
             }
         }
 
-        public DrinkBrandDto GetDrinkBrand(string id)
+        public DrinkBrandModel GetDrinkBrand(string id)
         {
             try
             {
@@ -38,12 +38,12 @@ namespace Database.Services.DrinkBrandDatabase
             }
         }
 
-        public async Task<string> CreateDrinkBrand(DrinkBrandDto brandDto)
+        public async Task<string> CreateDrinkBrand(DrinkBrandModel brandModel)
         {
             try
             {
                 await using var database = new DatabaseContext();
-                var result = database.Brands.Add(brandDto);
+                var result = database.Brands.Add(brandModel);
                 await database.SaveChangesAsync();
 
                 return result?.Entity?.Id;
@@ -55,12 +55,12 @@ namespace Database.Services.DrinkBrandDatabase
             }
         }
 
-        public async Task<bool> UpdateDrinkBrand(DrinkBrandDto brandDto)
+        public async Task<bool> UpdateDrinkBrand(DrinkBrandModel brandModel)
         {
             try
             {
                 await using var database = new DatabaseContext();
-                database.Brands.Update(brandDto);
+                database.Brands.Update(brandModel);
                 var result = await database.SaveChangesAsync();
 
                 return result > 0;

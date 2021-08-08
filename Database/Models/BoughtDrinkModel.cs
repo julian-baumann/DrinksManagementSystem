@@ -1,9 +1,9 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Database.Entities
+namespace Database.Models
 {
-    public class BoughtDrinkDto
+    public class BoughtDrinkModel
     {
         [Key]
         public int Id { get; set; }
@@ -13,5 +13,6 @@ namespace Database.Entities
         public double FullPrice { get; set; }
         public string DrinkName { get; set; }
         public DateTime DatePurchased { get; set; }
+        public DateTime DatePayed { get; set; }
     }
 }

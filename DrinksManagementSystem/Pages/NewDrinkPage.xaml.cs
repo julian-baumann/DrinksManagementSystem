@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Threading.Tasks;
 using Common.Core;
 using DrinksManagementSystem.Entities;
 using DrinksManagementSystem.Services.Drink;
@@ -45,15 +44,37 @@ namespace DrinksManagementSystem.Pages
         {
             IsNewDrink = true;
             Initialize();
+            BindingContext = this;
+            InitializeComponent();
         }
 
         public NewDrinkPage(Drink drink)
         {
             Drink = drink.Clone();
+
             Initialize();
+
+            if (Drink.BrandIds != null)
+            {
+                Drink.Brands.Clear();
+
+                foreach (var brandId in Drink.BrandIds)
+                {
+                    Drink.Brands.Add(_drinkBrandService.Get(brandId));
+                }
+            }
+
+            BindingContext = this;
+            InitializeComponent();
+
+            if (drink.Type != null)
+            {
+                var index = DrinkTypes.IndexOf(drink.Type);
+                typePicker.SelectedIndex = index;
+            }
+
             Title = "Details";
             editPictureView.ImagePath = Drink.ImagePath;
-            InitializeExistingDrink(drink);
         }
 
         private void Initialize()
@@ -61,28 +82,6 @@ namespace DrinksManagementSystem.Pages
             _storageService = Ioc.Resolve<IStorageService>();
             _drinkService = Ioc.Resolve<IDrinkService>();
             _drinkBrandService = Ioc.Resolve<IDrinkBrandService>();
-
-            InitializeComponent();
-            BindingContext = this;
-        }
-
-        private void InitializeExistingDrink(Drink drink)
-        {
-            if (drink.Type != null)
-            {
-                var index = DrinkTypes.IndexOf(drink.Type);
-                typePicker.SelectedIndex = index;
-            }
-
-            if (Drink.BrandIds != null)
-            {
-                foreach (var brandId in Drink.BrandIds)
-                {
-                    Drink.Brands.Add(_drinkBrandService.Get(brandId));
-                }
-            }
-
-            // brandButton.Text = Drink?.Brand?.Name ?? "Wählen";
         }
 
 

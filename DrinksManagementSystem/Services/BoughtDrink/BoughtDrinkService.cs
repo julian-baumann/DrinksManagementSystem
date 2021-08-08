@@ -23,10 +23,21 @@ namespace DrinksManagementSystem.Services.BoughtDrink
             return users.Select(dto => new Entities.BoughtDrink(dto)).ToArray();
         }
 
-        public Entities.BoughtDrink[] GetAllByUser(int userId)
+        public Entities.BoughtDrink[] GetAllUnpaidDrinksByUser(int userId)
         {
-            var users = _databaseService.GetAllByUser(userId);
+            var users = _databaseService.GetAllUnpaidByUser(userId);
+            return users.Select(dto => new Entities.BoughtDrink(dto)).ToArray();
+        }
 
+        public Entities.BoughtDrink[] GetAllPaidDrinks()
+        {
+            var users = _databaseService.GetAllPaid();
+            return users.Select(dto => new Entities.BoughtDrink(dto)).ToArray();
+        }
+
+        public Entities.BoughtDrink[] GetAllPaidDrinksByUser(int userId)
+        {
+            var users = _databaseService.GetAllPaidByUser(userId);
             return users.Select(dto => new Entities.BoughtDrink(dto)).ToArray();
         }
 

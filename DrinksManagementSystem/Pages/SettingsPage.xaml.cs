@@ -1,8 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Common.Core;
 using DrinksManagementSystem.Services.Share;
 using Xamarin.Forms;
@@ -24,11 +20,19 @@ namespace DrinksManagementSystem.Pages
 
         private async void OnExportDataClicked(object sender, EventArgs e)
         {
-            exportButton.IsEnabled = false;
-            exportActivityIndicator.IsVisible = true;
-            await _shareService.ShareDatabase();
-            exportActivityIndicator.IsVisible = false;
-            exportButton.IsEnabled = true;
+            try
+            {
+                exportButton.IsEnabled = false;
+                exportActivityIndicator.IsVisible = true;
+                await _shareService.ShareDatabase();
+                exportActivityIndicator.IsVisible = false;
+                exportButton.IsEnabled = true;
+            }
+            catch (Exception exception)
+            {
+                Logger.Exception(exception);
+                await DisplayAlert("Fehler!", "Ein Fehler ist aufgetreten", "OK");
+            }
         }
 
         private async void OnImportDataClicked(object sender, EventArgs e)

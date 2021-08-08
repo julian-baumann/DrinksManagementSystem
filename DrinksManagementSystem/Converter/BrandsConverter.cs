@@ -1,7 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.Linq;
 using Common.Core;
 using DrinksManagementSystem.Entities;
 using Xamarin.Forms;
@@ -15,9 +15,7 @@ namespace DrinksManagementSystem.Converter
         {
             if (value == null) return null;
 
-            Logger.Info(string.Join(", ", value as ObservableCollection<DrinkBrand>));
-
-            return string.Join(", ", value as ObservableCollection<DrinkBrand> ?? new ());
+            return string.Join(", ", (value as ObservableCollection<DrinkBrand>)!.Select(brand => brand.Name));
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

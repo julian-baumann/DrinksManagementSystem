@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Common.Core;
 using DrinksManagementSystem.Entities;
 using DrinksManagementSystem.Services.Drink;
@@ -36,7 +31,12 @@ namespace DrinksManagementSystem.Pages
 
         private void OnDrinkClicked(object sender, Drink drink)
         {
-            var page = new NavigationPage(new BuyDrinkPage(SelectedUser, drink));
+            var buyDrinkPage = new BuyDrinkPage(SelectedUser, drink);
+            buyDrinkPage.OnClose += (_, _) =>
+            {
+                Navigation.PopAsync();
+            };
+            var page = new NavigationPage(buyDrinkPage);
             page.On<iOS>().SetModalPresentationStyle(UIModalPresentationStyle.PageSheet);
             Navigation.PushModalAsync(page);
         }

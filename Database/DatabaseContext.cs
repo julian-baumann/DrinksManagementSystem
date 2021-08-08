@@ -1,22 +1,22 @@
-using Database.Entities;
+using Database.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Database
 {
-    public class DatabaseContext : DbContext
+    public sealed class DatabaseContext : DbContext
     {
         private static string _databasePath;
 
-        public DbSet<UserDto> Users { get; set; }
-        public DbSet<DrinkDto> Drinks { get; set; }
-        public DbSet<BoughtDrinkDto> BoughtDrinks { get; set; }
-        public DbSet<DrinkBrandDto> Brands { get; set; }
+        public DbSet<UserModel> Users { get; set; }
+        public DbSet<DrinkModel> Drinks { get; set; }
+        public DbSet<BoughtDrinkModel> BoughtDrinks { get; set; }
+        public DbSet<DrinkBrandModel> Brands { get; set; }
 
         public DatabaseContext()
         {
             SQLitePCL.Batteries_V2.Init();
             // Database.OpenConnection();
-            Database.EnsureCreated();
+            // Database.EnsureCreated();
             Database.Migrate();
         }
 

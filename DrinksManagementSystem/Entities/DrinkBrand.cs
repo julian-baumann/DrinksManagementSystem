@@ -1,5 +1,5 @@
 using System;
-using Database.Entities;
+using Database.Models;
 
 namespace DrinksManagementSystem.Entities
 {
@@ -12,20 +12,20 @@ namespace DrinksManagementSystem.Entities
         {
         }
 
-        public DrinkBrand(Database.Entities.DrinkBrandDto dto)
+        public DrinkBrand(DrinkBrandModel model)
         {
-            FromDto(dto);
+            FromDto(model);
         }
 
-        public void FromDto(Database.Entities.DrinkBrandDto dto)
+        public void FromDto(DrinkBrandModel model)
         {
-            Id = dto.Id;
-            Name = dto.Name;
+            Id = model?.Id;
+            Name = model?.Name;
         }
 
-        public Database.Entities.DrinkBrandDto ToDto()
+        public DrinkBrandModel ToDto()
         {
-            return new Database.Entities.DrinkBrandDto()
+            return new DrinkBrandModel()
             {
                 Id = Id,
                 Name = Name

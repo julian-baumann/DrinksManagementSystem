@@ -5,7 +5,7 @@
             xmlns:local="clr-namespace:DrinksManagementSystem.Pages;assembly=DrinksManagementSystem"
             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
-            ios:TabbedPage.TranslucencyMode="Translucent"
+            ios:TabbedPage.TranslucencyMode="Opaque"
             android:TabbedPage.ToolbarPlacement="Bottom"
             x:Class="DrinksManagementSystem.TabsPage">
 

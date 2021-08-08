@@ -1,16 +1,15 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Common.Core;
-using Database.Entities;
-using Database.Services.Database;
-using Microsoft.EntityFrameworkCore;
+using Database.Models;
 
 namespace Database.Services.BoughtDrinkDatabase
 {
     public class BoughtDrinkDatabaseService : IBoughtDrinkDatabaseService
     {
-        public BoughtDrinkDto[] GetAll()
+        public IEnumerable<BoughtDrinkModel> GetAll()
         {
             try
             {
@@ -24,7 +23,36 @@ namespace Database.Services.BoughtDrinkDatabase
             }
         }
 
-        public BoughtDrinkDto[] GetAllByUser(int userId)
+        public BoughtDrinkModel[] GetAllUnpaid()
+        {
+            try
+            {
+                using var database = new DatabaseContext();
+                return database.BoughtDrinks.Where(entry => entry.DatePayed == new DateTime()).ToArray();
+            }
+            catch (Exception exception)
+            {
+                Logger.Exception(exception);
+                return null;
+            }
+        }
+
+        public BoughtDrinkModel[] GetAllPaid()
+        {
+            try
+            {
+                using var database = new DatabaseContext();
+                return database.BoughtDrinks.Where(entry => entry.DatePayed != new DateTime()).ToArray();
+            }
+            catch (Exception exception)
+            {
+                Logger.Exception(exception);
+                return null;
+            }
+        }
+
+
+        public BoughtDrinkModel[] GetAllByUser(int userId)
         {
             try
             {
@@ -40,7 +68,43 @@ namespace Database.Services.BoughtDrinkDatabase
             }
         }
 
-        public BoughtDrinkDto Get(int id)
+
+        public BoughtDrinkModel[] GetAllUnpaidByUser(int userId)
+        {
+            try
+            {
+                using var database = new DatabaseContext();
+                return database.BoughtDrinks
+                    .Where(i => i.UserId == userId)
+                    .Where(entry => entry.DatePayed == new DateTime())
+                    .ToArray();
+            }
+            catch (Exception exception)
+            {
+                Logger.Exception(exception);
+                return null;
+            }
+        }
+
+
+        public BoughtDrinkModel[] GetAllPaidByUser(int userId)
+        {
+            try
+            {
+                using var database = new DatabaseContext();
+                return database.BoughtDrinks
+                    .Where(i => i.UserId == userId)
+                    .Where(entry => entry.DatePayed != new DateTime())
+                    .ToArray();
+            }
+            catch (Exception exception)
+            {
+                Logger.Exception(exception);
+                return null;
+            }
+        }
+
+        public BoughtDrinkModel Get(int id)
         {
             try
             {
@@ -58,12 +122,12 @@ namespace Database.Services.BoughtDrinkDatabase
         }
 
 
-        public async Task<int?> Create(BoughtDrinkDto boughtDrinkDto)
+        public async Task<int?> Create(BoughtDrinkModel boughtDrinkModel)
         {
             try
             {
                 await using var database = new DatabaseContext();
-                var result = database.BoughtDrinks.Add(boughtDrinkDto);
+                var result = database.BoughtDrinks.Add(boughtDrinkModel);
                 await database.SaveChangesAsync();
 
                 return result?.Entity?.Id;
@@ -75,12 +139,12 @@ namespace Database.Services.BoughtDrinkDatabase
             }
         }
 
-        public async Task<bool> Update(BoughtDrinkDto boughtDrinkDto)
+        public async Task<bool> Update(BoughtDrinkModel boughtDrinkModel)
         {
             try
             {
                 await using var database = new DatabaseContext();
-                database.BoughtDrinks.Update(boughtDrinkDto);
+                database.BoughtDrinks.Update(boughtDrinkModel);
                 var result = await database.SaveChangesAsync();
 
                 return result > 0;

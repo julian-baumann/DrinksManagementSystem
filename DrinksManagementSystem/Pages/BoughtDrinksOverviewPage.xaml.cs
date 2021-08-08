@@ -1,13 +1,9 @@
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Common.Core;
 using DrinksManagementSystem.Entities;
 using DrinksManagementSystem.Services.BoughtDrink;
-using DrinksManagementSystem.Services.Drink;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -40,19 +36,41 @@ namespace DrinksManagementSystem.Pages
                 var label = (Label)listViewItem.Children[0];
 
                 var id = int.Parse(label.Text);
-                var result = await _boughtDrinkService.Remove(id);
-
-                if (!result) return;
-
                 var drink = BoughtDrinks.FirstOrDefault(drink => drink.Id == id);
-                BoughtDrinks.Remove(drink);
 
+                if (drink != null)
+                {
+                    drink.DatePayed = DateTime.UtcNow;
+                    var result = await _boughtDrinkService.Update(drink);
+
+                    if (!result) return;
+
+                    BoughtDrinks.Remove(drink);
+                }
             }
             catch (Exception exception)
             {
                 Logger.Exception(exception);
+                await DisplayAlert("Fehler", "Ein Fehler ist aufgetreten", "Ok :(");
             }
+        }
 
+        private async void OnDelete(object sender, EventArgs e)
+        {
+            var menuItem = ((MenuItem)sender);
+
+            if (menuItem?.CommandParameter is BoughtDrink drink)
+            {
+                var result = await _boughtDrinkService.Remove(drink.Id);
+                if (result)
+                {
+                    BoughtDrinks.Remove(drink);
+                }
+                else
+                {
+                    await DisplayAlert("Fehler", "Ein Fehler ist aufgetreten", "Ok :(");
+                }
+            }
         }
     }
 }

@@ -9,6 +9,11 @@ namespace DrinksManagementSystem.Converter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            if (value is DateTime)
+            {
+                return (DateTime) value == new DateTime();
+            }
+
             return value != null;
         }
 

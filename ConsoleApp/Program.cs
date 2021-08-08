@@ -1,18 +1,16 @@
 ﻿using System;
-using System.IO;
-using Database;
+using System.Threading.Tasks;
 
 namespace ConsoleApp
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static async Task Main(string[] args)
         {
-            var path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            AppCore.Initialize();
 
-            var databaseLocation = Path.Combine(path, "DMSDB.db3");
-
-            DatabaseContext.SetDatabasePath(databaseLocation);
+            var migration = new Migration();
+            await migration.MigrateAll();
         }
     }
 }

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Common.Core;
-using Database.Entities;
+using Database.Models;
 
 namespace Database.Services.UserDatabase
 {
     public class UserDatabaseService : IUserDatabaseService
     {
-        public List<UserDto> GetUsers()
+        public List<UserModel> GetUsers()
         {
             try
             {
@@ -23,7 +23,7 @@ namespace Database.Services.UserDatabase
             }
         }
 
-        public UserDto GetUser(int id)
+        public UserModel GetUser(int id)
         {
             try
             {
@@ -37,12 +37,12 @@ namespace Database.Services.UserDatabase
             }
         }
 
-        public async Task<int?> CreateUser(UserDto userDto)
+        public async Task<int?> CreateUser(UserModel userModel)
         {
             try
             {
                 await using var database = new DatabaseContext();
-                var result = database.Users.Add(userDto);
+                var result = database.Users.Add(userModel);
                 await database.SaveChangesAsync();
 
                 return result?.Entity?.Id;
@@ -54,13 +54,13 @@ namespace Database.Services.UserDatabase
             }
         }
 
-        public async Task<bool> UpdateUser(UserDto userDto)
+        public async Task<bool> UpdateUser(UserModel userModel)
         {
 
             try
             {
                 await using var database = new DatabaseContext();
-                database.Users.Update(userDto);
+                database.Users.Update(userModel);
                 var result = await database.SaveChangesAsync();
 
                 return result > 0;

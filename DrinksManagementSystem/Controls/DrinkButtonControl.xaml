@@ -55,7 +55,7 @@
                     LineBreakMode="TailTruncation"
                     FontAttributes="Bold"
                     FontSize="12"
-                    Text="{Binding Source={x:Reference ThisDrinkButtonControl}, Path=Drink.Brand.Name}"
+                    Text="{Binding Source={x:Reference ThisDrinkButtonControl}, Path=Drink.Brands, Converter={converter:BrandsConverter}}"
                 >
                 </Label>
 

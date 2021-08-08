@@ -2,10 +2,10 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     xmlns:controls="clr-namespace:DrinksManagementSystem.Controls;assembly=DrinksManagementSystem"
-    xmlns:converters="clr-namespace:DrinksManagementSystem.Converter"
-    ios:Page.UseSafeArea="True"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    ios:Page.UseSafeArea="False"
+    ios:NavigationPage.IsNavigationBarTranslucent="True"
     ios:Page.LargeTitleDisplay="Never"
     x:Class="DrinksManagementSystem.Pages.UserDetailPage">
 
@@ -24,7 +24,7 @@
 
                 <controls:EditPictureControl x:Name="editPictureView" ImageChanged="OnImageChanged" />
 
-                <Entry FontSize="30" FontAttributes="Bold" BackgroundColor="Transparent" x:Name="Name" Placeholder="Name" Text="{Binding Path=User.Name, Mode=TwoWay}" ></Entry>
+                <Entry FontSize="30" FontAttributes="Bold" BackgroundColor="Transparent" x:Name="Name" Placeholder="Name" Text="{Binding Path=User.Name, Mode=TwoWay}" />
 
                 <Frame
                     Margin="0, 10, 0, 0"
@@ -36,23 +36,28 @@
                 >
                     <StackLayout Orientation="Horizontal">
                         <Label HorizontalOptions="StartAndExpand" VerticalTextAlignment="Center">Admin</Label>
-                        <Switch IsToggled="{Binding Path=IsAdmin}" Toggled="OnIsAdminToggled" HorizontalOptions="EndAndExpand"></Switch>
+                        <Switch IsToggled="{Binding Path=IsAdmin}" Toggled="OnIsAdminToggled" HorizontalOptions="EndAndExpand" />
                     </StackLayout>
                 </Frame>
 
                 <controls:UserUnpaidInfoControl
                     x:Name="unpaidInfoControl"
-                    Margin="0, 50, 0, 0"
+                    Margin="0, 5, 0, 0"
                     UserId="{Binding Id}"
                 />
 
+
                 <Button
-                    Margin="0, 50, 0, 0"
+                    Margin="0, 5, 0, 0"
+                    Style="{StaticResource ButtonStyle}"
+                    Text="Bezahlte Getränke"
+                    Clicked="OnShowPaidDrinksClicked" />
+
+                <Button
+                    Margin="0, 30, 0, 0"
                     TextColor="Red"
-                    Text=" Nutzer Löschen"
-                    Clicked="OnDeleteClicked"
-                >
-                </Button>
+                    Text="Nutzer Löschen"
+                    Clicked="OnDeleteClicked" />
             </StackLayout>
 
         </ScrollView>

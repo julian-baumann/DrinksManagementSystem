@@ -1,16 +1,11 @@
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using Common.Core;
 using DrinksManagementSystem.Entities;
 using DrinksManagementSystem.Pages;
 using DrinksManagementSystem.Services.BoughtDrink;
-using DrinksManagementSystem.Services.Drink;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -56,7 +51,7 @@ namespace DrinksManagementSystem.Controls
         {
             if (id is < 0) return;
 
-            _boughtDrinks = new ObservableCollection<BoughtDrink>(_boughtDrinkService.GetAllByUser((int)id));
+            _boughtDrinks = new ObservableCollection<BoughtDrink>(_boughtDrinkService.GetAllUnpaidDrinksByUser((int)id));
 
             _boughtDrinks.CollectionChanged += (sender, args) =>
             {

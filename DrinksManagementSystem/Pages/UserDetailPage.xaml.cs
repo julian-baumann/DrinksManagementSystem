@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using Common.Core;
 using DrinksManagementSystem.Entities;
+using DrinksManagementSystem.Services.BoughtDrink;
 using DrinksManagementSystem.Services.Storage;
 using DrinksManagementSystem.Services.User;
 using Xamarin.Essentials;
@@ -12,6 +14,7 @@ namespace DrinksManagementSystem.Pages
     {
         private readonly IUserService _userService;
         private readonly IStorageService _storageService;
+        private readonly IBoughtDrinkService _boughtDrinkService;
 
         private FileBase _newImageFile;
 
@@ -23,6 +26,7 @@ namespace DrinksManagementSystem.Pages
         {
             _userService = Ioc.Resolve<IUserService>();
             _storageService = Ioc.Resolve<IStorageService>();
+            _boughtDrinkService = Ioc.Resolve<IBoughtDrinkService>();
 
             User = user.Clone();
             IsAdmin = User.Role == UserRoles.Admin;
@@ -96,6 +100,12 @@ namespace DrinksManagementSystem.Pages
         {
             IsAdmin = e.Value;
             User.Role = e.Value ? UserRoles.Admin : UserRoles.Guest;
+        }
+
+        private void OnShowPaidDrinksClicked(System.Object sender, System.EventArgs e)
+        {
+            var drinks = _boughtDrinkService.GetAllPaidDrinksByUser(User.Id);
+            Navigation.PushAsync(new BoughtDrinksOverviewPage(new ObservableCollection<BoughtDrink>(drinks)));
         }
     }
 }

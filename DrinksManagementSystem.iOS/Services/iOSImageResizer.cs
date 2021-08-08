@@ -1,6 +1,5 @@
 using System;
 using System.Drawing;
-using System.Threading.Tasks;
 using CoreGraphics;
 using DrinksManagementSystem.iOS.Services;
 using DrinksManagementSystem.Services.ImageResizer;

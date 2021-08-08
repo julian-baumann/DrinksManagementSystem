@@ -51,8 +51,8 @@
                 </Frame>
                 <FlexLayout
                     Wrap="Wrap"
-                    AlignItems="Start"
-                    AlignContent="Start"
+                    AlignItems="Center"
+                    AlignContent="Stretch"
                     JustifyContent="Center"
                     BindableLayout.ItemsSource="{Binding Drinks}"
                 >

@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Database.Entities
+namespace Database.Models
 {
-    public class DrinkBrandDto
+    public class DrinkBrandModel
     {
         [Key]
         public string Id { get; set; }

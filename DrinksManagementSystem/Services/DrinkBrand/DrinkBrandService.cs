@@ -40,7 +40,7 @@ namespace DrinksManagementSystem.Services.DrinkBrand
         {
             if (Brands?.Count > 0)
             {
-                return Brands.First((brand) => brand.Id == id);
+                return Brands.FirstOrDefault((brand) => brand.Id == id);
             }
 
             var brandDto = _brandDatabaseService.GetDrinkBrand(id);

@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Database.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20210806190345_DateTime")]
-    partial class DateTime
+    [Migration("20210807130217_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,9 @@ namespace Database.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("DatePayed")
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("DatePurchased")
                         .HasColumnType("TEXT");
@@ -44,7 +47,7 @@ namespace Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BoughtDrink");
+                    b.ToTable("BoughtDrinks");
                 });
 
             modelBuilder.Entity("Database.Entities.DrinkBrandDto", b =>
@@ -57,7 +60,7 @@ namespace Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Brand");
+                    b.ToTable("Brands");
                 });
 
             modelBuilder.Entity("Database.Entities.DrinkDto", b =>
@@ -72,7 +75,7 @@ namespace Database.Migrations
                     b.Property<double?>("AlcoholContent")
                         .HasColumnType("REAL");
 
-                    b.Property<string>("BrandId")
+                    b.Property<string>("BrandIds")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("DateCreated")
@@ -98,7 +101,7 @@ namespace Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Drink");
+                    b.ToTable("Drinks");
                 });
 
             modelBuilder.Entity("Database.Entities.UserDto", b =>
@@ -124,7 +127,7 @@ namespace Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 #pragma warning restore 612, 618
         }

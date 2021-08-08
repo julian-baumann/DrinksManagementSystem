@@ -1,5 +1,3 @@
-using System.Threading.Tasks;
-
 namespace DrinksManagementSystem.Services.ImageResizer
 {
     public interface IImageResizerService

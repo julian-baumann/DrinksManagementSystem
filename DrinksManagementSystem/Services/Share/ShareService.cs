@@ -6,8 +6,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Common.Core;
 using DrinksManagementSystem.Core;
-using DrinksManagementSystem.Services.Drink;
-using DrinksManagementSystem.Services.User;
 using Xamarin.Essentials;
 
 namespace DrinksManagementSystem.Services.Share
@@ -41,7 +39,7 @@ namespace DrinksManagementSystem.Services.Share
 
         private void Extract(string zipPath)
         {
-            var databasePath = Path.Combine(AppCore.StoragePath, "DMSDB.db3");
+            var databasePath = Path.Combine(AppCore.StoragePath, "DMS.db3");
             var photosPath = Path.Combine(AppCore.StoragePath, "Pictures");
 
             if (Directory.Exists(photosPath))
@@ -62,16 +60,19 @@ namespace DrinksManagementSystem.Services.Share
 
             foreach (var entry in entries)
             {
-                var path = Path.Combine(AppCore.StoragePath, entry.FullName);
-                entry.ExtractToFile(path);
-                Logger.Info(path);
+                if (!entry.FullName.EndsWith("/"))
+                {
+                    var path = Path.Combine(AppCore.StoragePath, entry.FullName);
+                    entry.ExtractToFile(path);
+                    Logger.Info(path);
+                }
             }
         }
 
         public async Task ShareDatabase()
         {
             var zipPath = Path.Combine(FileSystem.CacheDirectory, "Database.dms");
-            var databasePath = Path.Combine(AppCore.StoragePath, "DMSDB.db3");
+            var databasePath = Path.Combine(AppCore.StoragePath, "DMS.db3");
             var photosPath = Path.Combine(AppCore.StoragePath, "Pictures");
 
             var directoryInfo = new DirectoryInfo(photosPath);
@@ -96,7 +97,7 @@ namespace DrinksManagementSystem.Services.Share
 
                 if (result == null) return null;
 
-                if (!result.FileName.EndsWith(".dms")) return null;
+                if (!result.FileName.EndsWith(".zip") && !result.FileName.EndsWith(".dms")) return null;
 
                 Extract(result.FullPath);
 

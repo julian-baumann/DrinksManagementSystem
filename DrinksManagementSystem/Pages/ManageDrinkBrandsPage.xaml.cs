@@ -1,8 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DrinksManagementSystem.Entities;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
@@ -30,6 +26,7 @@ namespace DrinksManagementSystem.Pages
             choosePage.Brand += (o, brand) =>
             {
                 Drink.Brands.Add(brand);
+                Drink.BrandIds.Add(brand.Id);
             };
 
             var page = new NavigationPage(choosePage);
@@ -44,6 +41,7 @@ namespace DrinksManagementSystem.Pages
             if (menuItem?.CommandParameter is DrinkBrand brand)
             {
                 Drink.Brands.Remove(brand);
+                Drink.BrandIds.Remove(brand.Id);
             }
         }
     }

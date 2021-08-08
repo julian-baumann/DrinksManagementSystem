@@ -124,10 +124,10 @@ namespace DrinksManagementSystem.Pages
             }
         }
 
-        private async void OnBackToHomeScreenClicked(object sender, EventArgs e)
+        private void OnBackToHomeScreenClicked(object sender, EventArgs e)
         {
-            Navigation.PopModalAsync();
             OnClose.Invoke(this, null);
+            Navigation.PopModalAsync();
         }
 
 

@@ -3,13 +3,16 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converter="clr-namespace:DrinksManagementSystem.Converter;assembly=DrinksManagementSystem"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="False"
+             ios:Page.LargeTitleDisplay="Always"
              x:Class="DrinksManagementSystem.Pages.BoughtDrinksOverviewPage"
              x:Name="ThisBoughtDrinksOverviewPage"
              Title="Gekaufte Getränke"
              >
     <ContentPage.Content>
         <ListView x:Name="userList"
-                  RowHeight="60"
+                  RowHeight="100"
                   SelectionMode="None"
                   BindingContext="{x:Reference ThisBoughtDrinksOverviewPage}"
                   ItemsSource="{Binding BoughtDrinks}"
@@ -31,6 +34,12 @@
                                     VerticalTextAlignment="Center"
                                     Text="{Binding FullPrice, Converter={converter:PriceConverter}}"
                                 />
+                                <Label
+                                    Opacity="0.7"
+                                    FontAttributes="Bold"
+                                    VerticalTextAlignment="Center"
+                                    Text="{Binding DatePurchased, Converter={converter:DateConverter}}"
+                                />
                             </StackLayout>
 
                             <StackLayout
@@ -39,11 +48,30 @@
                                 Padding="0, 0, 20, 0"
                             >
                                 <Button
+                                    IsVisible="{Binding DatePayed, Converter={converter:IsNotNullConverter}}"
                                     Text="Bezahlt"
                                     Clicked="Pay"
                                 />
+
+                                <Label
+                                    IsVisible="{Binding DatePayed, Converter={converter:IsNullConverter}}"
+                                    Opacity="0.7"
+                                    FontAttributes="Bold"
+                                    TextColor="Green"
+                                    VerticalTextAlignment="Center"
+                                    Text="{Binding DatePayed, Converter={converter:DateConverter}}"
+                                />
                             </StackLayout>
                         </StackLayout>
+
+
+                        <ViewCell.ContextActions>
+                            <MenuItem Clicked="OnDelete"
+                                      CommandParameter="{Binding .}"
+                                      Text="Löschen"
+                                      IsDestructive="True"
+                            />
+                        </ViewCell.ContextActions>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>

@@ -74,6 +74,7 @@
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Renderers\NativeNavigationBarRenderer.cs" />
+    <Compile Include="Renderers\NativeTabBarRenderer.cs" />
     <Compile Include="Services\iOSImageResizer.cs" />
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
@@ -149,16 +150,14 @@
     <BundleResource Include="Resources\beer@2x.png" />
     <BundleResource Include="Resources\beer@3x.png" />
     <BundleResource Include="Resources\camera.png" />
-    <BundleResource Include="Resources\camera@2x.png" />
-    <BundleResource Include="Resources\camera@3x.png" />
+    <BundleResource Include="Resources\cameraDark.png" />
     <BundleResource Include="Resources\checkmark_green.png" />
     <BundleResource Include="Resources\cog.png" />
     <BundleResource Include="Resources\cog@2x.png" />
     <BundleResource Include="Resources\cog@3x.png" />
     <BundleResource Include="Resources\home.png" />
-    <BundleResource Include="Resources\images.png" />
-    <BundleResource Include="Resources\images@2x.png" />
-    <BundleResource Include="Resources\images@3x.png" />
+    <BundleResource Include="Resources\image.png" />
+    <BundleResource Include="Resources\imageDark.png" />
     <BundleResource Include="Resources\people.png" />
     <BundleResource Include="Resources\home%402x.png" />
     <BundleResource Include="Resources\home%403x.png" />

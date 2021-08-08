@@ -1,16 +1,20 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Database.Entities;
+using Database.Models;
 
 namespace Database.Services.BoughtDrinkDatabase
 {
     public interface IBoughtDrinkDatabaseService
     {
-        BoughtDrinkDto[] GetAll();
-        BoughtDrinkDto[] GetAllByUser(int userId);
-        BoughtDrinkDto Get(int id);
-        Task<int?> Create(BoughtDrinkDto boughtDrinkDto);
-        Task<bool> Update(BoughtDrinkDto boughtDrinkDto);
+        IEnumerable<BoughtDrinkModel> GetAll();
+        BoughtDrinkModel[] GetAllUnpaid();
+        BoughtDrinkModel[] GetAllPaid();
+        BoughtDrinkModel[] GetAllByUser(int userId);
+        BoughtDrinkModel[] GetAllUnpaidByUser(int userId);
+        BoughtDrinkModel[] GetAllPaidByUser(int userId);
+        BoughtDrinkModel Get(int id);
+        Task<int?> Create(BoughtDrinkModel boughtDrinkModel);
+        Task<bool> Update(BoughtDrinkModel boughtDrinkModel);
         Task<bool> Remove(int id);
     }
 }

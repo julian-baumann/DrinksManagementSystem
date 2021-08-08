@@ -68,13 +68,17 @@
                         HasShadow="False"
                         Padding="5"
                         Style="{StaticResource TertiaryBackgroundStyle}">
-                        <StackLayout Orientation="Horizontal">
+                        <Grid
+                            ColumnDefinitions="70, Auto"
+                            >
                             <Frame
+                                Grid.Column="0"
                                 CornerRadius="30"
-                                WidthRequest="60"
                                 HeightRequest="60"
+                                WidthRequest="60"
                                 Margin="5"
                                 HasShadow="False"
+                                VerticalOptions="Center"
                                 HorizontalOptions="Center"
                                 BackgroundColor="Gray"
                                 IsClippedToBounds="True"
@@ -89,20 +93,25 @@
                                     </Image.Source>
                                 </Image>
                             </Frame>
-                            <StackLayout VerticalOptions="Center">
+                            <StackLayout
+                                Grid.Column="1"
+                                VerticalOptions="Center"
+                                HorizontalOptions="Center"
+                                Padding="5"
+                            >
                                 <Label
                                     Text="{Binding SelectedDrink.Name}"
                                     FontAttributes="Bold"
                                     VerticalTextAlignment="Center"
                                 />
                                 <Label
-                                    Text="{Binding SelectedDrink.Brand.Name}"
+                                    Text="{Binding SelectedDrink.Brands, Converter={converter:BrandsConverter}}"
                                     FontAttributes="Bold"
                                     Opacity="0.5"
                                     VerticalTextAlignment="Center"
                                 />
                             </StackLayout>
-                        </StackLayout>
+                        </Grid>
                     </Frame>
 
                     <Frame

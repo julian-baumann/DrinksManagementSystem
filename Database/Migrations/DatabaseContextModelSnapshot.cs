@@ -22,6 +22,9 @@ namespace Database.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<DateTime>("DatePayed")
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime>("DatePurchased")
                         .HasColumnType("TEXT");
 
@@ -42,7 +45,7 @@ namespace Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BoughtDrink");
+                    b.ToTable("BoughtDrinks");
                 });
 
             modelBuilder.Entity("Database.Entities.DrinkBrandDto", b =>
@@ -55,7 +58,7 @@ namespace Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Brand");
+                    b.ToTable("Brands");
                 });
 
             modelBuilder.Entity("Database.Entities.DrinkDto", b =>
@@ -70,7 +73,7 @@ namespace Database.Migrations
                     b.Property<double?>("AlcoholContent")
                         .HasColumnType("REAL");
 
-                    b.Property<string>("BrandId")
+                    b.Property<string>("BrandIds")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("DateCreated")
@@ -96,7 +99,7 @@ namespace Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Drink");
+                    b.ToTable("Drinks");
                 });
 
             modelBuilder.Entity("Database.Entities.UserDto", b =>
@@ -122,7 +125,7 @@ namespace Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 #pragma warning restore 612, 618
         }

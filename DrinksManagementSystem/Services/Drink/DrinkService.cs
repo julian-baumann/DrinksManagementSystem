@@ -161,7 +161,8 @@ namespace DrinksManagementSystem.Services.Drink
                 DrinkId = drink.Id,
                 DrinkName = drink.Name,
                 Quantity = quantity,
-                FullPrice = price
+                FullPrice = price,
+                DatePurchased = DateTime.UtcNow
             });
 
             if (!result) return false;

@@ -79,13 +79,15 @@
     <AndroidResource Include="Resources\drawable\add.png" />
     <AndroidResource Include="Resources\drawable\beer.png" />
     <AndroidResource Include="Resources\drawable\camera.png" />
+    <AndroidResource Include="Resources\drawable\cameraDark.png" />
     <AndroidResource Include="Resources\drawable\checkmark_green.png" />
     <AndroidResource Include="Resources\drawable\cog.png" />
     <AndroidResource Include="Resources\drawable\home.png">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\drawable\images.png" />
+    <AndroidResource Include="Resources\drawable\image.png" />
+    <AndroidResource Include="Resources\drawable\imageDark.png" />
     <AndroidResource Include="Resources\drawable\people.png" />
     <AndroidResource Include="Resources\drawable\remove.png" />
     <AndroidResource Include="Resources\values\styles.xml" />

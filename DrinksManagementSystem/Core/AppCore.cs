@@ -1,11 +1,8 @@
 using System;
 using System.IO;
-using System.Threading.Tasks;
 using Common.Core;
 using Database;
-using Database.Services;
 using Database.Services.BoughtDrinkDatabase;
-using Database.Services.Database;
 using Database.Services.DrinkBrandDatabase;
 using Database.Services.DrinksDatabase;
 using Database.Services.UserDatabase;
@@ -40,13 +37,10 @@ namespace DrinksManagementSystem.Core
             Logger.Info("Services Registered");
 
 
-            StoragePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-
-
             Logger.Info("Connecting to Database...");
 
-            var databaseLocation = Path.Combine(StoragePath, "DMSDB.db3");
-
+            StoragePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            var databaseLocation = Path.Combine(StoragePath, "DMS.db3");
             DatabaseContext.SetDatabasePath(databaseLocation);
 
             Logger.Success("Finished Setup");
