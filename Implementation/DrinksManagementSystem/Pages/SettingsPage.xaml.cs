@@ -43,7 +43,7 @@ namespace DrinksManagementSystem.Pages
 
             if (result == true)
             {
-                await DisplayAlert("Erfolg!", "Datenbank und Bilder erfolgreich importiert!", "OK");
+                await DisplayAlert("Datenbank und Bilder erfolgreich importiert!", "Bitte App neu starten", "OK");
             }
             else
             {

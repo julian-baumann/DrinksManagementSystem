@@ -164,5 +164,6 @@
     <BundleResource Include="Resources\people%402x.png" />
     <BundleResource Include="Resources\people%403x.png" />
     <BundleResource Include="Resources\remove.png" />
+    <BundleResource Include="Resources\IconRounded.png" />
   </ItemGroup>
 </Project>
