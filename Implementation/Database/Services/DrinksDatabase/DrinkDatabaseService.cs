@@ -9,7 +9,7 @@ namespace Database.Services.DrinksDatabase
 {
     public class DrinkDatabaseService : IDrinkDatabaseService
     {
-        public List<DrinkModel> GetDrinks()
+        public List<DrinkModel> GetAll()
         {
             try
             {
@@ -23,7 +23,7 @@ namespace Database.Services.DrinksDatabase
             }
         }
 
-        public DrinkModel GetDrink(int id)
+        public DrinkModel Get(int id)
         {
             try
             {
@@ -37,7 +37,7 @@ namespace Database.Services.DrinksDatabase
             }
         }
 
-        public async Task<int?> CreateDrink(DrinkModel drinkModel)
+        public async Task<int> Create(DrinkModel drinkModel)
         {
             try
             {
@@ -45,16 +45,22 @@ namespace Database.Services.DrinksDatabase
                 var result = database.Drinks.Add(drinkModel);
                 await database.SaveChangesAsync();
 
-                return result?.Entity?.Id;
+                if (result?.Entity?.Id != null)
+                {
+                    return result.Entity.Id;
+                }
+
+                return -1;
+
             }
             catch (Exception exception)
             {
                 Logger.Exception(exception);
-                return null;
+                return -1;
             }
         }
 
-        public async Task<bool> UpdateDrink(DrinkModel drinkModel)
+        public async Task<bool> Update(DrinkModel drinkModel)
         {
             try
             {
@@ -70,12 +76,12 @@ namespace Database.Services.DrinksDatabase
             }
         }
 
-        public async Task<bool> RemoveDrink(int id)
+        public async Task<bool> Remove(int id)
         {
             try
             {
                 await using var database = new DatabaseContext();
-                database.Drinks.Update(GetDrink(id));
+                database.Drinks.Update(Get(id));
                 var result = await database.SaveChangesAsync();
 
                 return result > 0;

@@ -26,7 +26,7 @@ namespace DrinksManagementSystem.Services.User
 
         public ObservableCollection<Entities.User> GetAll()
         {
-            var users = _userDatabaseService.GetUsers();
+            var users = _userDatabaseService.GetAll();
 
             if (users == null) return null;
 
@@ -45,7 +45,7 @@ namespace DrinksManagementSystem.Services.User
                 return Users.FirstOrDefault(drink => drink.Id == id);
             }
 
-            var userDto = _userDatabaseService.GetUser(id);
+            var userDto = _userDatabaseService.Get(id);
             return new Entities.User(userDto);
         }
 
@@ -53,9 +53,9 @@ namespace DrinksManagementSystem.Services.User
         {
             try
             {
-                var newId = await _userDatabaseService.CreateUser(user.ToDto());
+                var newId = await _userDatabaseService.Create(user.ToDto());
 
-                if (newId == null) return false;
+                if (newId == -1) return false;
 
                 user.Id = (int)newId;
                 Users.Add(user);
@@ -75,7 +75,7 @@ namespace DrinksManagementSystem.Services.User
         {
             try
             {
-                var result = await _userDatabaseService.UpdateUser(user.ToDto());
+                var result = await _userDatabaseService.Update(user.ToDto());
 
                 if (!result) return false;
 
@@ -104,7 +104,7 @@ namespace DrinksManagementSystem.Services.User
                 await _storageService.RemovePicture(user.ImagePath);
             }
 
-            var result = await _userDatabaseService.RemoveUser(user.Id);
+            var result = await _userDatabaseService.Remove(user.Id);
 
             if (!result) return false;
 

@@ -22,7 +22,7 @@ namespace DrinksManagementSystem.Services.DrinkBrand
 
         public ObservableCollection<Entities.DrinkBrand> GetAll()
         {
-            var drinks = _brandDatabaseService.GetDrinkBrands();
+            var drinks = _brandDatabaseService.GetAll();
 
             if (drinks == null) return null;
 
@@ -43,7 +43,7 @@ namespace DrinksManagementSystem.Services.DrinkBrand
                 return Brands.FirstOrDefault((brand) => brand.Id == id);
             }
 
-            var brandDto = _brandDatabaseService.GetDrinkBrand(id);
+            var brandDto = _brandDatabaseService.Get(id);
             return new Entities.DrinkBrand(brandDto);
         }
 
@@ -51,7 +51,7 @@ namespace DrinksManagementSystem.Services.DrinkBrand
         {
             try
             {
-                var result = await _brandDatabaseService.CreateDrinkBrand(drink.ToDto());
+                var result = await _brandDatabaseService.Create(drink.ToDto());
 
                 if (result != null)
                 {
@@ -72,7 +72,7 @@ namespace DrinksManagementSystem.Services.DrinkBrand
         {
             try
             {
-                var result = await _brandDatabaseService.UpdateDrinkBrand(brand.ToDto());
+                var result = await _brandDatabaseService.Update(brand.ToDto());
 
                 if (!result) return false;
 
@@ -96,7 +96,7 @@ namespace DrinksManagementSystem.Services.DrinkBrand
 
         public async Task<bool> Remove(string id)
         {
-            var result = await _brandDatabaseService.RemoveDrinkBrand(id);
+            var result = await _brandDatabaseService.Remove(id);
 
             if (!result) return false;
 

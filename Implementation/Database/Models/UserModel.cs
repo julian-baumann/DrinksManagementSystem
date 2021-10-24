@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Database.Models
 {
-    public class UserModel
+    public class UserModel : IModel<int>
     {
         [Key]
         public int Id { get; set; }

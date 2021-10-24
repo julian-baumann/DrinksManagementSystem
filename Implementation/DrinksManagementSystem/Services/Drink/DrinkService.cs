@@ -34,7 +34,7 @@ namespace DrinksManagementSystem.Services.Drink
 
         public ObservableCollection<Entities.Drink> GetAll()
         {
-            var drinks = _databaseService.GetDrinks();
+            var drinks = _databaseService.GetAll();
 
             if (drinks == null) return null;
 
@@ -63,7 +63,7 @@ namespace DrinksManagementSystem.Services.Drink
                 return Drinks.FirstOrDefault(drink => drink.Id == id);
             }
 
-            var drinkDto = _databaseService.GetDrink(id);
+            var drinkDto = _databaseService.Get(id);
             var drink = new Entities.Drink(drinkDto);
 
             foreach (var brandId in drink.BrandIds)
@@ -90,9 +90,9 @@ namespace DrinksManagementSystem.Services.Drink
         {
             try
             {
-                var newId = await _databaseService.CreateDrink(drink.ToDto());
+                var newId = await _databaseService.Create(drink.ToDto());
 
-                if (newId == null) return false;
+                if (newId == -1) return false;
 
                 drink.Id = (int) newId;
                 Drinks.Add(drink);
@@ -111,7 +111,7 @@ namespace DrinksManagementSystem.Services.Drink
         {
             try
             {
-                var result = await _databaseService.UpdateDrink(drink.ToDto());
+                var result = await _databaseService.Update(drink.ToDto());
 
                 if (!result) return false;
 
@@ -140,7 +140,7 @@ namespace DrinksManagementSystem.Services.Drink
                 await _storageService.RemovePicture(drink.ImagePath);
             }
 
-            var result = await _databaseService.RemoveDrink(drink.Id);
+            var result = await _databaseService.Remove(drink.Id);
 
             if (!result) return false;
 

@@ -53,7 +53,7 @@ namespace DrinksManagementSystem.Services.BoughtDrink
             {
                 var newId = await _databaseService.Create(boughtDrink.ToDto());
 
-                if (newId == null) return false;
+                if (newId == -1) return false;
 
                 boughtDrink.Id = (int) newId;
 

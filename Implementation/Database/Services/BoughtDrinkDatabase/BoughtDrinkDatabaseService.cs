@@ -9,12 +9,12 @@ namespace Database.Services.BoughtDrinkDatabase
 {
     public class BoughtDrinkDatabaseService : IBoughtDrinkDatabaseService
     {
-        public IEnumerable<BoughtDrinkModel> GetAll()
+        public List<BoughtDrinkModel> GetAll()
         {
             try
             {
                 using var database = new DatabaseContext();
-                return database.BoughtDrinks.ToArray();
+                return database.BoughtDrinks.ToList();
             }
             catch (Exception exception)
             {
@@ -37,7 +37,7 @@ namespace Database.Services.BoughtDrinkDatabase
             }
         }
 
-        public BoughtDrinkModel[] GetAllPaid()
+        public IEnumerable<BoughtDrinkModel> GetAllPaid()
         {
             try
             {
@@ -69,7 +69,7 @@ namespace Database.Services.BoughtDrinkDatabase
         }
 
 
-        public BoughtDrinkModel[] GetAllUnpaidByUser(int userId)
+        public IEnumerable<BoughtDrinkModel> GetAllUnpaidByUser(int userId)
         {
             try
             {
@@ -87,7 +87,7 @@ namespace Database.Services.BoughtDrinkDatabase
         }
 
 
-        public BoughtDrinkModel[] GetAllPaidByUser(int userId)
+        public IEnumerable<BoughtDrinkModel> GetAllPaidByUser(int userId)
         {
             try
             {
@@ -121,8 +121,23 @@ namespace Database.Services.BoughtDrinkDatabase
             }
         }
 
+        public DateTime? GetLatestChange(int id)
+        {
+            try
+            {
+                using var database = new DatabaseContext();
+                var user = database.Users.OrderByDescending(drink => drink.DateModified).FirstOrDefault();
 
-        public async Task<int?> Create(BoughtDrinkModel boughtDrinkModel)
+                return user?.DateModified;
+            }
+            catch (Exception exception)
+            {
+                Logger.Exception(exception);
+                return null;
+            }
+        }
+
+        public async Task<int> Create(BoughtDrinkModel boughtDrinkModel)
         {
             try
             {
@@ -130,12 +145,18 @@ namespace Database.Services.BoughtDrinkDatabase
                 var result = database.BoughtDrinks.Add(boughtDrinkModel);
                 await database.SaveChangesAsync();
 
-                return result?.Entity?.Id;
+                if (result?.Entity?.Id != null)
+                {
+                    return result.Entity.Id;
+                }
+
+                return -1;
+
             }
             catch (Exception exception)
             {
                 Logger.Exception(exception);
-                return null;
+                return -1;
             }
         }
 

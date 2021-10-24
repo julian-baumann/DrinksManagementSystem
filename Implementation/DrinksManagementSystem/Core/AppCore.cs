@@ -44,7 +44,6 @@ namespace DrinksManagementSystem.Core
             DatabaseContext.SetDatabasePath(databaseLocation);
 
             Logger.Success("Finished Setup");
-
         }
     }
 }

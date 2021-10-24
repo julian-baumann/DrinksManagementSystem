@@ -48,7 +48,7 @@ namespace ConsoleApp
 
             foreach (var oldUser in oldUsers)
             {
-                await _userDatabase.CreateUser(new UserModel
+                await _userDatabase.Create(new UserModel
                 {
                     Id = oldUser.Id,
                     Name = oldUser.Name,
@@ -68,7 +68,7 @@ namespace ConsoleApp
 
             foreach (var drink in drinks)
             {
-                await _drinkDatabase.CreateDrink(new DrinkModel
+                await _drinkDatabase.Create(new DrinkModel
                 {
                     Id = drink.Id,
                     Name = drink.Name,
@@ -115,7 +115,7 @@ namespace ConsoleApp
 
             foreach (var brand in brands)
             {
-                await _drinkBrandDatabase.CreateDrinkBrand(new DrinkBrandModel
+                await _drinkBrandDatabase.Create(new DrinkBrandModel
                 {
                     Id = brand.Id,
                     Name = brand.Name,

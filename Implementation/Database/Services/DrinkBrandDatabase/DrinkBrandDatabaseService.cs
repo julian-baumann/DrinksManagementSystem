@@ -9,7 +9,7 @@ namespace Database.Services.DrinkBrandDatabase
 {
     public class DrinkBrandDatabaseService : IDrinkBrandDatabaseService
     {
-        public List<DrinkBrandModel> GetDrinkBrands()
+        public List<DrinkBrandModel> GetAll()
         {
             try
             {
@@ -23,7 +23,7 @@ namespace Database.Services.DrinkBrandDatabase
             }
         }
 
-        public DrinkBrandModel GetDrinkBrand(string id)
+        public DrinkBrandModel Get(string id)
         {
             try
             {
@@ -38,7 +38,7 @@ namespace Database.Services.DrinkBrandDatabase
             }
         }
 
-        public async Task<string> CreateDrinkBrand(DrinkBrandModel brandModel)
+        public async Task<string> Create(DrinkBrandModel brandModel)
         {
             try
             {
@@ -55,7 +55,7 @@ namespace Database.Services.DrinkBrandDatabase
             }
         }
 
-        public async Task<bool> UpdateDrinkBrand(DrinkBrandModel brandModel)
+        public async Task<bool> Update(DrinkBrandModel brandModel)
         {
             try
             {
@@ -72,12 +72,12 @@ namespace Database.Services.DrinkBrandDatabase
             }
         }
 
-        public async Task<bool> RemoveDrinkBrand(string id)
+        public async Task<bool> Remove(string id)
         {
             try
             {
                 await using var database = new DatabaseContext();
-                database.Brands.Remove(GetDrinkBrand(id));
+                database.Brands.Remove(Get(id));
                 var result = await database.SaveChangesAsync();
 
                 return result > 0;

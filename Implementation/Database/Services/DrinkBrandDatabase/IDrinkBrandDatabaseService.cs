@@ -4,12 +4,12 @@ using Database.Models;
 
 namespace Database.Services.DrinkBrandDatabase
 {
-    public interface IDrinkBrandDatabaseService
+    public interface IDrinkBrandDatabaseService : IDatabaseService<DrinkBrandModel, string>
     {
-        List<DrinkBrandModel> GetDrinkBrands();
-        DrinkBrandModel GetDrinkBrand(string id);
-        Task<string> CreateDrinkBrand(DrinkBrandModel brandModel);
-        Task<bool> UpdateDrinkBrand(DrinkBrandModel brandModel);
-        Task<bool> RemoveDrinkBrand(string id);
+        List<DrinkBrandModel> GetAll();
+        DrinkBrandModel Get(string id);
+        Task<string> Create(DrinkBrandModel brandModel);
+        Task<bool> Update(DrinkBrandModel brandModel);
+        Task<bool> Remove(string id);
     }
 }

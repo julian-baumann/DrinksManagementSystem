@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <ReleaseVersion>0.1.1</ReleaseVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="RestApi\" />
+    <None Remove="RestApi\V1\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Helper" />
+    <Folder Include="RestApi\" />
+    <Folder Include="RestApi\V1\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj" />
+    <ProjectReference Include="..\Database\Database.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.11" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+  </ItemGroup>
+</Project>
