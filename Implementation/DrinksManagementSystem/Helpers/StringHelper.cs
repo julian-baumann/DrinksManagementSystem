@@ -22,7 +22,7 @@ namespace DrinksManagementSystem.Helpers
                 return default(TEnum);
             }
 
-            return Enum.TryParse<TEnum>(value, out var result) ? result : default(TEnum);
+            return Enum.TryParse<TEnum>(value, true, out var result) ? result : default(TEnum);
         }
     }
 }

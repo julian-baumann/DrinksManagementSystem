@@ -16,7 +16,6 @@ namespace DrinksManagementSystem.Services.Storage
         public StorageService()
         {
             _imageResizerService = DependencyService.Get<IImageResizerService>();
-            // _imageResizerService = imageResizerService;
         }
 
         public static byte[] ConvertStreamToByteArray(Stream input)

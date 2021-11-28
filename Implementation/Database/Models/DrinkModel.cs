@@ -12,6 +12,7 @@ namespace Database.Models
         public double? AlcoholContent { get; set; }
         public double? Price { get; set; }
         public double? AdminPrice { get; set; }
+        public double? FlatPrice { get; set; }
         public int? Quantity { get; set; }
         public string BrandIds { get; set; }
         public string Type { get; set; }

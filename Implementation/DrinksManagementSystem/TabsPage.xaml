@@ -5,15 +5,9 @@
             xmlns:local="clr-namespace:DrinksManagementSystem.Pages;assembly=DrinksManagementSystem"
             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
-            ios:TabbedPage.TranslucencyMode="Opaque"
             android:TabbedPage.ToolbarPlacement="Bottom"
+            Style="{StaticResource TabBarStyle}"
             x:Class="DrinksManagementSystem.TabsPage">
-
-    <TabbedPage.BarBackgroundColor>
-        <OnPlatform x:TypeArguments="Color">
-            <On Platform="Android">#FFFFFF</On>
-        </OnPlatform>
-    </TabbedPage.BarBackgroundColor>
 
     <NavigationPage Title="Start" IconImageSource="home.png" ios:NavigationPage.PrefersLargeTitles="true">
         <x:Arguments>
@@ -27,17 +21,15 @@
         </x:Arguments>
     </NavigationPage>
 
-
     <NavigationPage Title="Getränke" IconImageSource="beer.png" ios:NavigationPage.PrefersLargeTitles="true">
         <x:Arguments>
             <local:DrinksPage />
         </x:Arguments>
     </NavigationPage>
 
-
-    <NavigationPage Title="Einstellungen" IconImageSource="cog.png" ios:NavigationPage.PrefersLargeTitles="true">
+    <NavigationPage Title="Auswertung" IconImageSource="pieChart.png" ios:NavigationPage.PrefersLargeTitles="true">
         <x:Arguments>
-            <local:SettingsPage />
+            <local:EvaluationInputPage />
         </x:Arguments>
     </NavigationPage>
 </TabbedPage>

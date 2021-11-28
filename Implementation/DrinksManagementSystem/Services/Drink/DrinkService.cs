@@ -153,7 +153,7 @@ namespace DrinksManagementSystem.Services.Drink
             return true;
         }
 
-        public async Task<bool> Buy(Entities.User user, Entities.Drink drink, int quantity, double price)
+        public async Task<bool> Buy(Entities.User user, Entities.Drink drink, int quantity, double price, bool flat = false)
         {
             var result = await _boughtDrinkService.Create(new Entities.BoughtDrink()
             {
@@ -162,6 +162,7 @@ namespace DrinksManagementSystem.Services.Drink
                 DrinkName = drink.Name,
                 Quantity = quantity,
                 FullPrice = price,
+                Flat = flat,
                 DatePurchased = DateTime.UtcNow
             });
 

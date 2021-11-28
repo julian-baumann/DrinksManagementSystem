@@ -1,5 +1,6 @@
 using System;
 using Common.Core;
+using DrinksManagementSystem.Core;
 using DrinksManagementSystem.Services.Share;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -10,11 +11,29 @@ namespace DrinksManagementSystem.Pages
     public partial class SettingsPage : ContentPage
     {
         private readonly IShareService _shareService;
+        private bool _exportLoading;
+
+        public bool FlatActivated
+        {
+            get => AppCore.Flat;
+            set => AppCore.Flat = value;
+        }
+
+        public bool ExportLoading
+        {
+            get => _exportLoading;
+            set
+            {
+                _exportLoading = value;
+                OnPropertyChanged();
+            }
+        }
 
         public SettingsPage()
         {
             _shareService = Ioc.Resolve<IShareService>();
 
+            BindingContext = this;
             InitializeComponent();
         }
 
@@ -22,11 +41,11 @@ namespace DrinksManagementSystem.Pages
         {
             try
             {
-                exportButton.IsEnabled = false;
-                exportActivityIndicator.IsVisible = true;
+                ExportButton.IsEnabled = false;
+                ExportLoading = true;
                 await _shareService.ShareDatabase();
-                exportActivityIndicator.IsVisible = false;
-                exportButton.IsEnabled = true;
+                ExportLoading = false;
+                ExportButton.IsEnabled = true;
             }
             catch (Exception exception)
             {
@@ -49,6 +68,16 @@ namespace DrinksManagementSystem.Pages
             {
                 await DisplayAlert("Fehler!", "Ein Fehler ist aufgetreten", "OK");
             }
+        }
+
+        private void OnCloseClicked(object sender, EventArgs e)
+        {
+            Navigation.PopModalAsync();
+        }
+
+        private void OnOpenEvaluationClicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new EvaluationInputPage());
         }
     }
 }

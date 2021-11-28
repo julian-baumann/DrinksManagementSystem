@@ -16,6 +16,7 @@ namespace DrinksManagementSystem.Entities
         public double? AlcoholContent { get; set; }
         public double? Price { get; set; }
         public double? AdminPrice { get; set; }
+        public double? FlatPrice { get; set; }
         public int? Quantity { get; set; }
         public List<string> BrandIds { get; set; } = new ();
         public ObservableCollection<DrinkBrand> Brands { get; set; } = new ();
@@ -51,6 +52,7 @@ namespace DrinksManagementSystem.Entities
             AlcoholContent = model.AlcoholContent;
             Price = model.Price;
             AdminPrice = model.AdminPrice;
+            FlatPrice = model.FlatPrice;
             Quantity = model.Quantity;
             BrandIds = model.BrandIds?.Split(';').ToList();
             Type = model.Type;
@@ -70,6 +72,7 @@ namespace DrinksManagementSystem.Entities
                 AlcoholContent = AlcoholContent,
                 Price = Price,
                 AdminPrice = AdminPrice,
+                FlatPrice = FlatPrice,
                 Quantity = Quantity,
                 BrandIds = string.Join(";", brandIds),
                 Type = Type,
@@ -90,6 +93,7 @@ namespace DrinksManagementSystem.Entities
                 AlcoholContent = AlcoholContent,
                 Price = Price,
                 AdminPrice = AdminPrice,
+                FlatPrice = FlatPrice,
                 Quantity = Quantity,
                 BrandIds = BrandIds != null ? new List<string>(BrandIds) : new List<string>(),
                 Type = Type,

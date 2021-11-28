@@ -12,9 +12,9 @@ namespace DrinksManagementSystem.Entities
         public int Quantity { get; set; }
         public double FullPrice { get; set; }
         public string DrinkName { get; set; }
+        public bool Flat { get; set; }
         public DateTime DatePurchased { get; set; }
         public DateTime DatePayed { get; set; }
-
 
         public BoughtDrink() { }
 
@@ -31,6 +31,7 @@ namespace DrinksManagementSystem.Entities
             Quantity = model.Quantity;
             FullPrice = model.FullPrice;
             DrinkName = model.DrinkName;
+            Flat = model.Flat;
             DatePurchased = model.DatePurchased;
             DatePayed = model.DatePayed;
         }
@@ -45,6 +46,7 @@ namespace DrinksManagementSystem.Entities
                 Quantity = Quantity,
                 FullPrice = FullPrice,
                 DrinkName = DrinkName,
+                Flat = Flat,
                 DatePurchased = DatePurchased,
                 DatePayed = DatePayed
             };

@@ -27,6 +27,7 @@ namespace DrinksManagementSystem.Pages
 
         public string Price { get => GetPrice(Drink.Price); set => Drink.Price = SetPrice(value); }
         public string AdminPrice { get => GetPrice(Drink.AdminPrice); set => Drink.AdminPrice = SetPrice(value); }
+        public string FlatPrice { get => GetPrice(Drink.FlatPrice); set => Drink.FlatPrice = SetPrice(value); }
         public string AlcoholContent { get => GetPrice(Drink.AlcoholContent); set => Drink.AlcoholContent = SetPrice(value); }
 
         public IList<string> DrinkTypes { get; set; } = new List<string>()
@@ -94,13 +95,11 @@ namespace DrinksManagementSystem.Pages
 
         private static double? SetPrice(string value)
         {
-            if (value == null || value.Length <= 0) return null;
+            if (value is not {Length: > 0}) { return null; }
+
             try
             {
-                if (!value.Contains(",")) return double.Parse(value);
-
-                return double.Parse(value, new NumberFormatInfo() { NumberDecimalSeparator = "," });;
-
+                return !value.Contains(",") ? double.Parse(value) : double.Parse(value, new NumberFormatInfo() { NumberDecimalSeparator = "," });
             }
             catch (Exception e)
             {

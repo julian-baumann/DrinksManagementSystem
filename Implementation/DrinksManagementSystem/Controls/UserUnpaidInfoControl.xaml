@@ -3,11 +3,12 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converter="clr-namespace:DrinksManagementSystem.Converter;assembly=DrinksManagementSystem"
+             xmlns:controls="clr-namespace:DrinksManagementSystem.Controls;assembly=DrinksManagementSystem"
              x:Class="DrinksManagementSystem.Controls.UserUnpaidInfoControl"
              x:Name="ThisUserUnpaidInfoControl">
     <ContentView.Content>
         <Frame
-            x:Name="container"
+            x:Name="Container"
             IsVisible="True"
             CornerRadius="13"
             HasShadow="False"
@@ -17,20 +18,17 @@
             <StackLayout>
                 <Label Opacity="0.6">Noch zu zahlen:</Label>
                 <Label
-                    x:Name="totalCostsLabel"
                     FontAttributes="Bold"
                     FontSize="30"
                     Text="{Binding Source={x:Reference ThisUserUnpaidInfoControl}, Path=TotalCosts, Converter={converter:PriceConverter}}"
                 />
 
-                <Button
+                <controls:CustomButton
                     Margin="0, 20, 0, 0"
                     Text="Übersicht"
-                    Style="{StaticResource ButtonStyle}"
-                    BackgroundColor="Gray"
-                    FontAttributes="Bold"
-                    Clicked="OnClicked"
-                />
+                    Type="Tinted"
+                    Clicked="OnClicked" />
+
             </StackLayout>
         </Frame>
     </ContentView.Content>

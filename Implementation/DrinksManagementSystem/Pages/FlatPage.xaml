@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converter="clr-namespace:DrinksManagementSystem.Converter;assembly=DrinksManagementSystem"
+             x:Class="DrinksManagementSystem.Pages.FlatPage"
+             x:Name="ThisFlatPage"
+             Title="Flat">
+    <ContentPage.Content>
+         <ScrollView>
+            <StackLayout
+                Padding="10"
+                BindableLayout.ItemsSource="{Binding Drinks}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                       <Frame
+                        Margin="10, 10, 10, 0"
+                        CornerRadius="18"
+                        HasShadow="False"
+                        Padding="5"
+                        Style="{StaticResource TertiaryBackgroundStyle}">
+                        <Grid
+                            ColumnDefinitions="70, *, Auto"
+                            >
+                            <Frame
+                                Grid.Column="0"
+                                CornerRadius="30"
+                                HeightRequest="60"
+                                WidthRequest="60"
+                                Margin="5"
+                                HasShadow="False"
+                                VerticalOptions="Center"
+                                HorizontalOptions="Center"
+                                BackgroundColor="Gray"
+                                IsClippedToBounds="True"
+                                Padding="0"
+                            >
+                                <Image
+                                    Margin="0"
+                                    Aspect="AspectFill"
+                                >
+                                    <Image.Source>
+                                        <FileImageSource File="{Binding Drink.FullImagePath}" />
+                                    </Image.Source>
+                                </Image>
+                            </Frame>
+                            <StackLayout
+                                Grid.Column="1"
+                                VerticalOptions="Center"
+                                HorizontalOptions="Start"
+                                Padding="5"
+                            >
+                                <Label
+                                    Text="{Binding Drink.Name}"
+                                    FontAttributes="Bold"
+                                    VerticalTextAlignment="Center"
+                                />
+
+                                <StackLayout Orientation="Horizontal">
+                                    <Label
+                                        Text="à"
+                                        FontAttributes="Bold"
+                                        Opacity="0.7"
+                                        VerticalTextAlignment="Center"
+                                    />
+                                    <Label
+                                        Text="{Binding Drink.FlatPrice, Converter={converter:PriceConverter}}"
+                                        FontAttributes="Bold"
+                                        Opacity="0.7"
+                                        VerticalTextAlignment="Center"
+                                    />
+                                </StackLayout>
+
+                                <Label
+                                    Text="{Binding FullPrice, Converter={converter:PriceConverter}}"
+                                    FontAttributes="Bold"
+                                    FontSize="20"
+                                    VerticalTextAlignment="Center"
+                                />
+
+                            </StackLayout>
+
+                            <StackLayout
+                                Grid.Column="2"
+                                Orientation="Horizontal"
+                                Padding="0, 0, 5, 0"
+                                VerticalOptions="Center">
+
+                                <ImageButton
+                                    HeightRequest="40"
+                                    WidthRequest="40"
+                                    CornerRadius="20"
+                                    BackgroundColor="LightGray"
+                                    Source="remove.png"
+                                    BindingContext="{Binding }"
+                                    Clicked="DecreaseQuantity" />
+
+                                <Label
+                                    Text="{Binding Quantity}"
+                                    FontSize="20"
+                                    VerticalOptions="Center"
+                                    Opacity="0.7"
+                                    FontAttributes="Bold"
+                                    Margin="5" />
+
+                                <ImageButton
+                                    HeightRequest="40"
+                                    WidthRequest="40"
+                                    CornerRadius="20"
+                                    BackgroundColor="LightGray"
+                                    Source="add.png"
+                                    BindingContext="{Binding }"
+                                    Clicked="IncreaseQuantity" />
+
+                            </StackLayout>
+                        </Grid>
+                    </Frame>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

@@ -41,23 +41,24 @@
                 </Frame>
 
                 <controls:UserUnpaidInfoControl
-                    x:Name="unpaidInfoControl"
+                    x:Name="UnpaidInfoControl"
                     Margin="0, 5, 0, 0"
                     UserId="{Binding Id}"
                 />
 
-
-                <Button
+                <controls:CustomButton
                     Margin="0, 5, 0, 0"
-                    Style="{StaticResource ButtonStyle}"
                     Text="Bezahlte Getränke"
-                    Clicked="OnShowPaidDrinksClicked" />
+                    Clicked="OnShowPaidDrinksClicked"
+                    Type="Gray" />
 
-                <Button
+                <controls:CustomButton
                     Margin="0, 30, 0, 0"
-                    TextColor="Red"
+                    ButtonColor="#df4759"
                     Text="Nutzer Löschen"
+                    Type="Tinted"
                     Clicked="OnDeleteClicked" />
+
             </StackLayout>
 
         </ScrollView>

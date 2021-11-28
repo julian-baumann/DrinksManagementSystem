@@ -1,6 +1,5 @@
 using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Common.Core;
 using DrinksManagementSystem.Entities;
@@ -12,7 +11,7 @@ using Xamarin.Forms.Xaml;
 namespace DrinksManagementSystem.Controls
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class UserUnpaidInfoControl : ContentView, INotifyPropertyChanged
+    public partial class UserUnpaidInfoControl : ContentView
     {
         private readonly IBoughtDrinkService _boughtDrinkService;
 
@@ -72,7 +71,7 @@ namespace DrinksManagementSystem.Controls
 
             if (TotalCosts > 0)
             {
-                container.IsVisible = true;
+                Container.IsVisible = true;
             }
         }
 
@@ -86,9 +85,6 @@ namespace DrinksManagementSystem.Controls
             storage = value;
             OnPropertyChanged(propertyName);
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         private void OnClicked(object sender, EventArgs e)
         {

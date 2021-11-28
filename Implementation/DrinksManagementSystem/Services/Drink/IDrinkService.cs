@@ -13,6 +13,6 @@ namespace DrinksManagementSystem.Services.Drink
         Task<bool> Create(Entities.Drink drink);
         Task<bool> Update(Entities.Drink drink);
         Task<bool> Remove(Entities.Drink drink);
-        Task<bool> Buy(Entities.User user, Entities.Drink drink, int quantity, double price);
+        Task<bool> Buy(Entities.User user, Entities.Drink drink, int quantity, double price, bool flat = false);
     }
 }

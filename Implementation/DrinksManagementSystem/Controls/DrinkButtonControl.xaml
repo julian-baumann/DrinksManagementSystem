@@ -3,22 +3,19 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converter="clr-namespace:DrinksManagementSystem.Converter;assembly=DrinksManagementSystem"
+             xmlns:xamEffects="clr-namespace:XamEffects;assembly=XamEffects"
              x:Class="DrinksManagementSystem.Controls.DrinkButtonControl"
              x:Name="ThisDrinkButtonControl">
     <ContentView.Content>
-        <Frame
-            x:Name="outerFrame"
-            WidthRequest="120"
+        <xamEffects:BorderView
+            WidthRequest="160"
             Margin="10"
             CornerRadius="30"
-            HasShadow="False"
+            xamEffects:TouchEffect.Color="{Binding Source={x:Reference ThisDrinkButtonControl}, Path=Drink.Quantity, Converter={converter:DrinkSelectedColorConverter}}"
+            xamEffects:Commands.Tap="{Binding Source={x:Reference ThisDrinkButtonControl}, Path=Tapped}"
             Opacity="{Binding Source={x:Reference ThisDrinkButtonControl}, Path=Drink.Quantity, Converter={converter:ShowDrinkConverter}}"
-            Style="{StaticResource SecondaryBackgroundStyle}"
-        >
-            <Frame.GestureRecognizers>
-                <TapGestureRecognizer Tapped="OnClicked"></TapGestureRecognizer>
-            </Frame.GestureRecognizers>
-            <StackLayout VerticalOptions="Center">
+            Style="{StaticResource SecondaryBackgroundStyle}">
+            <StackLayout VerticalOptions="Center" Margin="10">
                 <Frame
                     CornerRadius="50"
                     HeightRequest="100"
@@ -32,7 +29,6 @@
                     <Image
                         Margin="0"
                         Aspect="AspectFill"
-                        x:Name="profileImage"
                     >
                         <Image.Source>
                             <FileImageSource File="{Binding Source={x:Reference ThisDrinkButtonControl}, Path=Drink.FullImagePath}" />
@@ -59,9 +55,7 @@
                 >
                 </Label>
 
-                <Label
-                    x:Name="priceLabel"
-                    Margin="0, 0, 0, 0"
+                <Label                    Margin="0, 0, 0, 0"
                     HorizontalTextAlignment="Center"
                     LineBreakMode="TailTruncation"
                     FontAttributes="Bold"
@@ -71,7 +65,7 @@
                 </Label>
 
             </StackLayout>
-        </Frame>
+        </xamEffects:BorderView>
 
     </ContentView.Content>
 </ContentView>

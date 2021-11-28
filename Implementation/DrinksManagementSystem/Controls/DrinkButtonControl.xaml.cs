@@ -1,4 +1,6 @@
 using System;
+using System.Diagnostics;
+using System.Windows.Input;
 using Common.Core;
 using DrinksManagementSystem.Entities;
 using DrinksManagementSystem.Services.DrinkBrand;
@@ -10,14 +12,12 @@ namespace DrinksManagementSystem.Controls
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class DrinkButtonControl : ContentView
     {
-        private readonly IDrinkBrandService _brandService;
-
         public static readonly BindableProperty DrinkProperty = BindableProperty.Create(
             propertyName: nameof(Drink),
             returnType: typeof(Drink),
             declaringType: typeof(DrinkButtonControl),
             defaultValue: new Drink(),
-            defaultBindingMode: BindingMode.TwoWay
+            defaultBindingMode: BindingMode.OneWay
         );
 
         public Drink Drink
@@ -26,22 +26,23 @@ namespace DrinksManagementSystem.Controls
             set => SetValue(DrinkProperty, value);
         }
 
+        public ICommand Tapped { get; set; }
+
         public event EventHandler<Drink> Clicked = delegate { };
 
         public DrinkButtonControl()
         {
-            _brandService = Ioc.Resolve<IDrinkBrandService>();
+            Tapped = new Command(() => OnClicked(null, null), () => IsEnabled);
+
             BindingContext = this;
             InitializeComponent();
         }
 
-        private async void OnClicked(object sender, EventArgs e)
+        private void OnClicked(object sender, EventArgs e)
         {
             if (Drink.Quantity > 0)
             {
                 Clicked.Invoke(this, Drink);
-                await outerFrame.ScaleTo(0.8, 100);
-                await outerFrame.ScaleTo(1, 100);
             }
         }
     }

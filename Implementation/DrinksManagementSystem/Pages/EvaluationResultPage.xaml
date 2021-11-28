@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converter="clr-namespace:DrinksManagementSystem.Converter;assembly=DrinksManagementSystem"
+             x:Class="DrinksManagementSystem.Pages.EvaluationResultPage"
+             x:Name="ThisEvaluationPage"
+             BindingContext="{x:Reference ThisEvaluationPage}"
+             Title="Auswertungen">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Padding="10">
+                <Frame
+                    CornerRadius="13"
+                    HasShadow="False"
+                    Padding="20"
+                    Style="{StaticResource SecondaryBackgroundStyle}">
+                    <Grid ColumnDefinitions="Auto, Auto" RowDefinitions="*, *">
+                        <Label Grid.Row="0" Grid.Column="1" Opacity="0.7" FontAttributes="Bold" Text="Flat:" />
+                        <Label Grid.Row="0" Grid.Column="2" Text="{Binding FlatPrice, Converter={converter:PriceConverter}}" />
+
+                        <Label Grid.Row="1" Grid.Column="1" Opacity="0.7" FontAttributes="Bold" Text="Leute:" />
+                        <Label Grid.Row="1" Grid.Column="2" Text="{Binding UsersCount}" />
+
+                        <Label Grid.Row="2" Grid.Column="1" Opacity="0.7" FontAttributes="Bold" Text="Gesamt:" />
+                        <Label Grid.Row="2" Grid.Column="2" Text="{Binding AllDrinksPrice, Converter={converter:PriceConverter}}" />
+
+                        <Label Grid.Row="3" Grid.Column="1" Opacity="0.7" FontAttributes="Bold" Text="Gewinn:" />
+                        <Label Grid.Row="3" Grid.Column="2" Text="{Binding DrinksMinusFlatPrice, Converter={converter:PriceConverter}}" />
+                    </Grid>
+                </Frame>
+
+                <StackLayout
+                    BindableLayout.ItemsSource="{Binding Source={x:Reference ThisEvaluationPage}, Path=BoughtDrinks}">
+
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Frame
+                                CornerRadius="13"
+                                HasShadow="False"
+                                Padding="20"
+                                Style="{StaticResource SecondaryBackgroundStyle}">
+                                <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                                    <Frame
+                                        CornerRadius="40"
+                                        HeightRequest="80"
+                                        WidthRequest="80"
+                                        BackgroundColor="DarkGray"
+                                        HasShadow="False"
+                                        HorizontalOptions="Center"
+                                        IsClippedToBounds="True"
+                                        Padding="0"
+                                    >
+                                        <Image
+                                            Margin="0"
+                                            Aspect="AspectFill"
+                                        >
+                                            <Image.Source>
+                                                <FileImageSource File="{Binding Drink.FullImagePath}" />
+                                            </Image.Source>
+                                        </Image>
+                                    </Frame>
+
+                                    <StackLayout Orientation="Vertical"
+                                                 Margin="5, 0, 0, 0">
+                                        <Label
+                                            FontSize="20"
+                                            FontAttributes="Bold"
+                                            Text="{Binding Drink.Name}" />
+
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label
+                                                Opacity="0.8"
+                                                Text="{Binding Quantity}" />
+                                            <Label
+                                                Opacity="0.8"
+                                                Text="x Gekauft" />
+                                        </StackLayout>
+
+                                        <Label
+                                            FontSize="20"
+                                            FontAttributes="Bold"
+                                            Text="{Binding FullPrice, Converter={converter:PriceConverter}}" />
+
+                                    </StackLayout>
+                                </StackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

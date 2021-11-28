@@ -2,21 +2,19 @@
 
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xamEffects="clr-namespace:XamEffects;assembly=XamEffects"
              x:Class="DrinksManagementSystem.Controls.UserButtonControl"
              x:Name="ThisUserButtonControl">
     <ContentView.Content>
-        <Frame
-            x:Name="outerFrame"
-            HeightRequest="150"
-            WidthRequest="120"
+        <xamEffects:BorderView
+            HeightRequest="180"
+            WidthRequest="160"
             Margin="10"
             CornerRadius="30"
-            HasShadow="False"
+            xamEffects:TouchEffect.Color="Gray"
+            xamEffects:Commands.Tap="{Binding Source={x:Reference ThisUserButtonControl}, Path=Tapped}"
             Style="{StaticResource SecondaryBackgroundStyle}"
             >
-            <Frame.GestureRecognizers>
-                <TapGestureRecognizer Tapped="OnClicked"></TapGestureRecognizer>
-            </Frame.GestureRecognizers>
             <StackLayout VerticalOptions="Center">
                 <Frame
                     CornerRadius="50"
@@ -49,7 +47,7 @@
                 </Label>
 
             </StackLayout>
-        </Frame>
+        </xamEffects:BorderView>
 
     </ContentView.Content>
 </ContentView>

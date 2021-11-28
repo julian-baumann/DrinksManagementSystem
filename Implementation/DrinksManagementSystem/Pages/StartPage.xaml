@@ -5,6 +5,10 @@
              xmlns:controls="clr-namespace:DrinksManagementSystem.Controls;assembly=DrinksManagementSystem"
              Title="Bestellen"
              x:Class="DrinksManagementSystem.Pages.StartPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="cog.png" Text="Settings" Clicked="OnSettingsClicked"/>
+    </ContentPage.ToolbarItems>
+
     <ContentPage.Content>
         <ScrollView>
             <FlexLayout

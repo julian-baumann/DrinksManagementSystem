@@ -6,6 +6,7 @@ namespace Database.Services.BoughtDrinkDatabase
 {
     public interface IBoughtDrinkDatabaseService : IDatabaseService<BoughtDrinkModel, int>
     {
+        List<BoughtDrinkModel> GetAll(DateTime fromDate, DateTime toDate, bool flat);
         BoughtDrinkModel[] GetAllUnpaid();
         IEnumerable<BoughtDrinkModel> GetAllPaid();
         BoughtDrinkModel[] GetAllByUser(int userId);

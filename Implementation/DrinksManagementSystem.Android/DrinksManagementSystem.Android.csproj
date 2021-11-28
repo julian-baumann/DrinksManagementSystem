@@ -62,6 +62,7 @@
     <PackageReference Include="System.Runtime.Loader" Version="4.3.0">
       <ExcludeAssets>all</ExcludeAssets>
     </PackageReference>
+    <PackageReference Include="XamEffects" Version="1.6.3" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
@@ -88,7 +89,9 @@
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\image.png" />
     <AndroidResource Include="Resources\drawable\imageDark.png" />
+    <AndroidResource Include="Resources\drawable\list.png" />
     <AndroidResource Include="Resources\drawable\people.png" />
+    <AndroidResource Include="Resources\drawable\pieChart.png" />
     <AndroidResource Include="Resources\drawable\remove.png" />
     <AndroidResource Include="Resources\values\styles.xml" />
     <AndroidResource Include="Resources\values\colors.xml" />

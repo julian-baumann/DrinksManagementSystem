@@ -136,6 +136,7 @@
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2083" />
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
+    <PackageReference Include="XamEffects" Version="1.6.3" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
@@ -158,11 +159,17 @@
     <BundleResource Include="Resources\home.png" />
     <BundleResource Include="Resources\image.png" />
     <BundleResource Include="Resources\imageDark.png" />
+    <BundleResource Include="Resources\list.png" />
+    <BundleResource Include="Resources\list@2x.png" />
+    <BundleResource Include="Resources\list@3x.png" />
     <BundleResource Include="Resources\people.png" />
     <BundleResource Include="Resources\home%402x.png" />
     <BundleResource Include="Resources\home%403x.png" />
     <BundleResource Include="Resources\people%402x.png" />
     <BundleResource Include="Resources\people%403x.png" />
+    <BundleResource Include="Resources\pieChart.png" />
+    <BundleResource Include="Resources\pieChart@2x.png" />
+    <BundleResource Include="Resources\pieChart@3x.png" />
     <BundleResource Include="Resources\remove.png" />
     <BundleResource Include="Resources\IconRounded.png" />
   </ItemGroup>

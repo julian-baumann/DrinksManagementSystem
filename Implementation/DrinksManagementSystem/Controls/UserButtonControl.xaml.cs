@@ -1,4 +1,5 @@
 using System;
+using System.Windows.Input;
 using DrinksManagementSystem.Entities;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -22,19 +23,20 @@ namespace DrinksManagementSystem.Controls
             set => SetValue(UserProperty, value);
         }
 
+        public ICommand Tapped { get; set; }
+
         public event EventHandler<User> Clicked = delegate { };
 
         public UserButtonControl()
         {
+            Tapped = new Command(() => OnClicked(null, null), () => IsEnabled);
             InitializeComponent();
             BindingContext = this;
         }
 
-        private async void OnClicked(object sender, EventArgs e)
+        private void OnClicked(object sender, EventArgs e)
         {
             Clicked.Invoke(this, User);
-            await outerFrame.ScaleTo(0.8, 100);
-            await outerFrame.ScaleTo(1, 100);
         }
     }
 }

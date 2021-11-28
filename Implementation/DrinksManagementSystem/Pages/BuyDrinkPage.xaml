@@ -4,6 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converter="clr-namespace:DrinksManagementSystem.Converter;assembly=DrinksManagementSystem"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:controls="clr-namespace:DrinksManagementSystem.Controls;assembly=DrinksManagementSystem"
              x:Class="DrinksManagementSystem.Pages.BuyDrinkPage"
              ios:Page.UseSafeArea="True"
              Title="Kaufen">
@@ -124,12 +125,24 @@
                         <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
                             <Label
                                 Text="{Binding Price, Converter={converter:PriceConverter}, Mode=OneWay}"
+                                IsVisible="{Binding FlatActivated, Converter={converter:InverseBooleanConverter}}"
                                 FontAttributes="Bold"
                                 VerticalTextAlignment="Center"
                                 HorizontalOptions="Center"
                                 Margin="20, 0, 0, 0"
                                 FontSize="40"
                             />
+
+                            <Label
+                                IsVisible="{Binding FlatActivated}"
+                                Text="Flat"
+                                FontAttributes="Bold"
+                                VerticalTextAlignment="Center"
+                                HorizontalOptions="Center"
+                                TextColor="#2dd36f"
+                                FontSize="40"
+                            />
+
                             <StackLayout Margin="0, 20, 0, 0" Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Center">
                                 <ImageButton
                                     HeightRequest="50"
@@ -159,12 +172,12 @@
                         </StackLayout>
                     </Frame>
 
-                    <Button
+                    <controls:CustomButton
+                        Type="Filled"
                         Margin="30"
-                        Style="{StaticResource ButtonStyle}"
                         Text="Kaufen"
-                        Clicked="OnBuyClicked"
-                    />
+                        Clicked="OnBuyClicked" />
+
                 </StackLayout>
 
                 <StackLayout
@@ -199,12 +212,12 @@
                         HorizontalTextAlignment="Center"
                     />
 
-                    <Button
-                        Style="{StaticResource ButtonStyle}"
+                    <controls:CustomButton
+                        Type="Tinted"
                         Margin="0, 50, 0, 0"
                         Text="Zurück zur Startseite"
-                        Clicked="OnBackToHomeScreenClicked"
-                    />
+                        Clicked="OnBackToHomeScreenClicked" />
+
                 </StackLayout>
             </StackLayout>
         </ScrollView>

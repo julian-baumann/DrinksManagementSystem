@@ -34,7 +34,7 @@ namespace DrinksManagementSystem.Pages
             BindingContext = this;
             InitializeComponent();
 
-            unpaidInfoControl.UserId = User.Id;
+            UnpaidInfoControl.UserId = User.Id;
             editPictureView.ImagePath = User.ImagePath;
         }
 

@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Common.Core;
+using DrinksManagementSystem.Core;
 using DrinksManagementSystem.Entities;
 using DrinksManagementSystem.Services.Drink;
 using Xamarin.Forms;
@@ -13,6 +14,12 @@ namespace DrinksManagementSystem.Pages
     public partial class BuyDrinkPage : ContentPage, INotifyPropertyChanged
     {
         private readonly IDrinkService _drinkService;
+
+        public bool FlatActivated
+        {
+            get => AppCore.Flat;
+            set => AppCore.Flat = value;
+        }
 
         public User SelectedUser { get; set; }
         public Drink SelectedDrink { get; set; }
@@ -109,7 +116,7 @@ namespace DrinksManagementSystem.Pages
         {
             baseContent.IsVisible = false;
             loadingScreen.IsVisible = true;
-            var result = await _drinkService.Buy(SelectedUser, SelectedDrink, Quantity, Price);
+            var result = await _drinkService.Buy(SelectedUser, SelectedDrink, Quantity, Price, FlatActivated);
 
             loadingScreen.IsVisible = false;
 

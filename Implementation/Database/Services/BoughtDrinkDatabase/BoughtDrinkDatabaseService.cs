@@ -23,6 +23,23 @@ namespace Database.Services.BoughtDrinkDatabase
             }
         }
 
+        public List<BoughtDrinkModel> GetAll(DateTime fromDate, DateTime toDate, bool flat)
+        {
+            try
+            {
+                using var database = new DatabaseContext();
+                return database.BoughtDrinks.Where(drink => drink.DatePurchased.Date >= fromDate.Date
+                                                            && drink.DatePurchased.Date <= toDate.Date
+                                                            && drink.Flat == flat).ToList();
+            }
+            catch (Exception exception)
+            {
+                Logger.Exception(exception);
+                return null;
+            }
+        }
+
+
         public BoughtDrinkModel[] GetAllUnpaid()
         {
             try

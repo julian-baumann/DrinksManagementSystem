@@ -10,7 +10,6 @@
     <None Remove="RestApi\V1\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Helper" />
     <Folder Include="RestApi\" />
     <Folder Include="RestApi\V1\" />
   </ItemGroup>

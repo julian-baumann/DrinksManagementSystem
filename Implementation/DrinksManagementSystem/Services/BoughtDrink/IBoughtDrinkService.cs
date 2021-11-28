@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 
 namespace DrinksManagementSystem.Services.BoughtDrink
@@ -5,6 +6,7 @@ namespace DrinksManagementSystem.Services.BoughtDrink
     public interface IBoughtDrinkService
     {
         Entities.BoughtDrink[] GetAll();
+        Entities.BoughtDrink[] GetAll(DateTime fromDate, DateTime toDate, bool flat);
         Entities.BoughtDrink[] GetAllUnpaidDrinksByUser(int userId);
         Entities.BoughtDrink[] GetAllPaidDrinks();
         Entities.BoughtDrink[] GetAllPaidDrinksByUser(int userId);
