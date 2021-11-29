@@ -23,9 +23,9 @@ namespace DrinksManagementSystem.Services.BoughtDrink
             return users.Select(dto => new Entities.BoughtDrink(dto)).ToArray();
         }
 
-        public Entities.BoughtDrink[] GetAll(DateTime fromDate, DateTime toDate, bool flat)
+        public Entities.BoughtDrink[] GetAll(DateTime fromDate, DateTime toDate, bool onlyFlat)
         {
-            var users = _databaseService.GetAll(fromDate, toDate, flat);
+            var users = _databaseService.GetAll(fromDate, toDate, onlyFlat);
             return users.Select(dto => new Entities.BoughtDrink(dto)).ToArray();
         }
 

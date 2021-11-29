@@ -3,35 +3,47 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converter="clr-namespace:DrinksManagementSystem.Converter;assembly=DrinksManagementSystem"
+             xmlns:controls="clr-namespace:DrinksManagementSystem.Controls"
              x:Class="DrinksManagementSystem.Pages.EvaluationResultPage"
              x:Name="ThisEvaluationPage"
              BindingContext="{x:Reference ThisEvaluationPage}"
              Title="Auswertungen">
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout Padding="10">
+            <StackLayout Padding="20">
                 <Frame
                     CornerRadius="13"
                     HasShadow="False"
                     Padding="20"
                     Style="{StaticResource SecondaryBackgroundStyle}">
                     <Grid ColumnDefinitions="Auto, Auto" RowDefinitions="*, *">
-                        <Label Grid.Row="0" Grid.Column="1" Opacity="0.7" FontAttributes="Bold" Text="Flat:" />
+                        <Label Grid.Row="0" Grid.Column="1" Opacity="0.7" FontAttributes="Bold" Text="Flat à:" />
                         <Label Grid.Row="0" Grid.Column="2" Text="{Binding FlatPrice, Converter={converter:PriceConverter}}" />
 
                         <Label Grid.Row="1" Grid.Column="1" Opacity="0.7" FontAttributes="Bold" Text="Leute:" />
                         <Label Grid.Row="1" Grid.Column="2" Text="{Binding UsersCount}" />
+                        
+                        <Label Grid.Row="2" Grid.Column="1" Opacity="0.7" FontAttributes="Bold" Text="Flat Gesamt:" />
+                        <Label Grid.Row="2" Grid.Column="2" Text="{Binding FlatSum, Converter={converter:PriceConverter}}" />
 
-                        <Label Grid.Row="2" Grid.Column="1" Opacity="0.7" FontAttributes="Bold" Text="Gesamt:" />
-                        <Label Grid.Row="2" Grid.Column="2" Text="{Binding AllDrinksPrice, Converter={converter:PriceConverter}}" />
+                        <Label Grid.Row="3" Grid.Column="1" Opacity="0.7" FontAttributes="Bold" Text="Gesamt:" />
+                        <Label Grid.Row="3" Grid.Column="2" Text="{Binding AllDrinksPrice, Converter={converter:PriceConverter}}" />
 
-                        <Label Grid.Row="3" Grid.Column="1" Opacity="0.7" FontAttributes="Bold" Text="Gewinn:" />
-                        <Label Grid.Row="3" Grid.Column="2" Text="{Binding DrinksMinusFlatPrice, Converter={converter:PriceConverter}}" />
+                        <Label Grid.Row="4" Grid.Column="1" Opacity="0.7" FontAttributes="Bold" Text="Gewinn:" />
+                        <Label Grid.Row="4" Grid.Column="2" Text="{Binding Profit, Converter={converter:PriceConverter}}" />
                     </Grid>
                 </Frame>
 
+                <controls:CustomButton
+                    Loading="{Binding UIInfo.Loading}"
+                    Margin="0, 5, 0, 10"
+                    ButtonColor="#df4759"
+                    Text="Alle Löschen"
+                    Type="Tinted"
+                    Clicked="OnDeleteClicked" />
+
                 <StackLayout
-                    BindableLayout.ItemsSource="{Binding Source={x:Reference ThisEvaluationPage}, Path=BoughtDrinks}">
+                    BindableLayout.ItemsSource="{Binding Source={x:Reference ThisEvaluationPage}, Path=BoughtDrinksCombined}">
 
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>

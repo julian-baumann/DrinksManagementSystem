@@ -63,7 +63,8 @@ namespace DrinksManagementSystem.Pages
 
         private void OnGenerateClicked(object sender, EventArgs e)
         {
-            var drinks = _boughtDrinkService.GetAll(StartDate, EndDate, true);
+            bool onlyFlat = _flatPrice > 0;
+            var drinks = _boughtDrinkService.GetAll(StartDate, EndDate, onlyFlat);
 
             var page = new EvaluationResultPage(drinks, _flatPrice);
             Navigation.PushAsync(page);

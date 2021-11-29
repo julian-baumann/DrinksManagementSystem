@@ -11,11 +11,12 @@ namespace DrinksManagementSystem.Controls
     public partial class CustomButton : ContentView
     {
         private ButtonTypes _type = ButtonTypes.Filled;
+        private bool _loading = false;
 
         public static readonly BindableProperty TextProperty = BindableProperty.Create(
             propertyName: nameof(Text),
             returnType: typeof(string),
-            declaringType: typeof(DrinkButtonControl),
+            declaringType: typeof(CustomButton),
             defaultValue: string.Empty,
             defaultBindingMode: BindingMode.TwoWay
         );
@@ -23,9 +24,10 @@ namespace DrinksManagementSystem.Controls
         public static readonly BindableProperty LoadingProperty = BindableProperty.Create(
             propertyName: nameof(Loading),
             returnType: typeof(bool),
-            declaringType: typeof(DrinkButtonControl),
+            declaringType: typeof(CustomButton),
             defaultValue: false,
-            defaultBindingMode: BindingMode.OneWay
+            defaultBindingMode: BindingMode.TwoWay,
+            propertyChanged: OnLoadingPropertyChanged
         );
 
         public string Text
@@ -42,8 +44,13 @@ namespace DrinksManagementSystem.Controls
 
         public bool Loading
         {
-            get => (bool)GetValue(LoadingProperty);
-            set => SetValue(LoadingProperty, value);
+            get => (bool) GetValue(LoadingProperty);
+            set
+            {
+                SetValue(LoadingProperty, value);
+                _loading = value;
+                OnPropertyChanged();
+            }
         }
 
         public event EventHandler Clicked = delegate { };
@@ -60,6 +67,13 @@ namespace DrinksManagementSystem.Controls
 
             BindingContext = this;
             InitializeComponent();
+        }
+
+        private static void OnLoadingPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            var isLoading = (bool)newValue;
+            var control = (CustomButton) bindable;
+            control.Loading = isLoading;
         }
 
         private void SetButtonStyle(ButtonTypes value)

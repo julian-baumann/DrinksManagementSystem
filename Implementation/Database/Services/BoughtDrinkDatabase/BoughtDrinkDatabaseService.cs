@@ -23,14 +23,14 @@ namespace Database.Services.BoughtDrinkDatabase
             }
         }
 
-        public List<BoughtDrinkModel> GetAll(DateTime fromDate, DateTime toDate, bool flat)
+        public List<BoughtDrinkModel> GetAll(DateTime fromDate, DateTime toDate, bool onlyFlat)
         {
             try
             {
                 using var database = new DatabaseContext();
                 return database.BoughtDrinks.Where(drink => drink.DatePurchased.Date >= fromDate.Date
                                                             && drink.DatePurchased.Date <= toDate.Date
-                                                            && drink.Flat == flat).ToList();
+                                                            && onlyFlat ? drink.Flat == true : (drink.Flat == true || drink.Flat == false)).ToList();
             }
             catch (Exception exception)
             {

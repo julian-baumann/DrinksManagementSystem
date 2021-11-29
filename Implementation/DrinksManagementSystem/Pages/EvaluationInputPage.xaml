@@ -11,7 +11,7 @@
              ios:Page.UseSafeArea="True"
              Title="Auswertungen">
     <ContentPage.Content>
-        <StackLayout Padding="10">
+        <StackLayout Padding="20">
             <Frame
                 CornerRadius="13"
                 HasShadow="False"
