@@ -25,12 +25,10 @@
                             HorizontalOptions="Center"
                             BackgroundColor="Gray"
                             IsClippedToBounds="True"
-                            Padding="0"
-                        >
+                            Padding="0">
                             <Image
                                 Margin="0"
-                                Aspect="AspectFill"
-                            >
+                                Aspect="AspectFill">
                                 <Image.Source>
                                     <FileImageSource File="{Binding SelectedUser.FullImagePath}" />
                                 </Image.Source>
@@ -54,14 +52,13 @@
                     AlignItems="Center"
                     AlignContent="Stretch"
                     JustifyContent="Center"
-                    BindableLayout.ItemsSource="{Binding Drinks}"
-                >
+                    BindableLayout.ItemsSource="{Binding Drinks}">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
                             <controls:DrinkButtonControl
                                 Drink="{Binding}"
-                                Clicked="OnDrinkClicked"
-                            />
+                                IsAdmin="{Binding Source={x:Reference ThisDrinkChooserPage}, Path=IsAdmin}"
+                                Clicked="OnDrinkClicked" />
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
                 </FlexLayout>

@@ -18,9 +18,22 @@
             <Color x:Key="SecondaryColorLight">#F2F1F6</Color>
             <Color x:Key="SecondaryColorDark">#1C1C1E</Color>
 
+            <Color x:Key="ForegroundColorLight">#000000</Color>
+            <Color x:Key="ForegroundColorDark">#FFFFFF</Color>
 
             <Color x:Key="TertiaryColorLight">#F2F1F6</Color>
             <Color x:Key="TertiaryColorDark">#2c2c2e</Color>
+
+
+            <Style TargetType="NavigationPage">
+                <Setter Property="BarBackgroundColor" Value="{OnPlatform Android={AppThemeBinding Light={StaticResource SecondaryColorLight}, Dark={StaticResource SecondaryColorDark}}}" />
+                <Setter Property="BarTextColor" Value="{OnPlatform Android={AppThemeBinding Light={StaticResource ForegroundColorLight}, Dark={StaticResource ForegroundColorDark}}}" />
+                <Setter Property="IconColor" Value="{OnPlatform Android={AppThemeBinding Light={StaticResource ForegroundColorLight}, Dark={StaticResource ForegroundColorDark}}}" />
+            </Style>
+
+            <Style TargetType="ToolbarItem">
+                <!-- <Setter Property="Color" Value="{OnPlatform Android={AppThemeBinding Light={StaticResource ForegroundColorLight}, Dark={StaticResource ForegroundColorDark}}}" /> -->
+            </Style>
 
 
             <Style x:Key="TabBarStyle" TargetType="TabbedPage">

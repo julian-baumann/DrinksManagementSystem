@@ -1,9 +1,6 @@
 using System;
-using System.Diagnostics;
 using System.Windows.Input;
-using Common.Core;
 using DrinksManagementSystem.Entities;
-using DrinksManagementSystem.Services.DrinkBrand;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -20,11 +17,34 @@ namespace DrinksManagementSystem.Controls
             defaultBindingMode: BindingMode.OneWay
         );
 
+        public static readonly BindableProperty IsAdminProperty = BindableProperty.Create(
+            propertyName: nameof(IsAdmin),
+            returnType: typeof(bool),
+            declaringType: typeof(DrinkButtonControl),
+            defaultValue: false,
+            defaultBindingMode: BindingMode.OneWay,
+            propertyChanged: IsAdminPropertyChanged
+        );
+
+        private static void IsAdminPropertyChanged(BindableObject bindable, object oldvalue, object newvalue)
+        {
+            var control = (DrinkButtonControl) bindable;
+            var priceLabel = control.FindByName<Label>("PriceLabel");
+            var adminPriceLabel = control.FindByName<Label>("AdminPriceLabel");
+
+            var value = (bool) newvalue;
+
+            priceLabel.IsVisible = !value;
+            adminPriceLabel.IsVisible = value;
+        }
+
         public Drink Drink
         {
             get => (Drink)GetValue(DrinkProperty);
             set => SetValue(DrinkProperty, value);
         }
+
+        public bool IsAdmin { get; set; }
 
         public ICommand Tapped { get; set; }
 

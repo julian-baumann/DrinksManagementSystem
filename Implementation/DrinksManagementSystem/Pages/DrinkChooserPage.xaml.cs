@@ -16,6 +16,7 @@ namespace DrinksManagementSystem.Pages
         private readonly IDrinkService _drinkService;
 
         public User SelectedUser { get; set; }
+        public bool IsAdmin { get; set; } = false;
         public ObservableCollection<Drink> Drinks { get; set; }
 
         public DrinkChooserPage(User user)
@@ -25,6 +26,7 @@ namespace DrinksManagementSystem.Pages
             Drinks = _drinkService.Drinks;
             SelectedUser = user;
             BindingContext = this;
+            IsAdmin = SelectedUser.Role == UserRoles.Admin;
 
             InitializeComponent();
         }

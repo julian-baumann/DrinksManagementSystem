@@ -42,12 +42,6 @@
                 Type="Tinted"
                 Clicked="OnImportDataClicked" />
 
-            <controls:CustomButton
-                Margin="0, 10, 0, 0"
-                Text="Auswertungen"
-                Type="Filled"
-                Clicked="OnOpenEvaluationClicked" />
-
 
         </StackLayout>
     </ContentPage.Content>

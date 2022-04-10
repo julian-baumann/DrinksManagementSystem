@@ -12,7 +12,6 @@
     <ContentPage.Content>
         <ScrollView>
             <FlexLayout
-                x:Name="userList"
                 Wrap="Wrap"
                 AlignItems="Start"
                 AlignContent="Start"

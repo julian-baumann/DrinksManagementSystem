@@ -2,7 +2,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
-using Common.Core;
 using DrinksManagementSystem.Entities;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

@@ -1,7 +1,5 @@
 using Xamarin.Forms;
-using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.Xaml;
-using Page = Xamarin.Forms.PlatformConfiguration.iOSSpecific.Page;
 
 namespace DrinksManagementSystem
 {

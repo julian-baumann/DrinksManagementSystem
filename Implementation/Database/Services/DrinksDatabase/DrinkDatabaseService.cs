@@ -81,8 +81,8 @@ namespace Database.Services.DrinksDatabase
             try
             {
                 await using var database = new DatabaseContext();
-                database.Drinks.Update(Get(id));
-                var result = await database.SaveChangesAsync();
+                database.Drinks.Remove(Get(id));
+                int result = await database.SaveChangesAsync();
 
                 return result > 0;
             }

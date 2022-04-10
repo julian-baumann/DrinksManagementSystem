@@ -3,7 +3,6 @@ using System.Windows.Input;
 using DrinksManagementSystem.Controls.Entities;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using XamEffects;
 
 namespace DrinksManagementSystem.Controls
 {

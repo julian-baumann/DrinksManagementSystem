@@ -1,7 +1,6 @@
 
 using DrinksManagementSystem;
 using DrinksManagementSystem.iOS.Renderers;
-using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 

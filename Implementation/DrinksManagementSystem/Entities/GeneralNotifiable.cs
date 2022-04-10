@@ -1,5 +1,4 @@
-﻿using System;
-namespace DrinksManagementSystem.Entities
+﻿namespace DrinksManagementSystem.Entities
 {
     public class GeneralNotifiable : Notifiable
     {

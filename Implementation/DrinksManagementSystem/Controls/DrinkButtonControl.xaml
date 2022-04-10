@@ -24,12 +24,10 @@
                     HasShadow="False"
                     HorizontalOptions="Center"
                     IsClippedToBounds="True"
-                    Padding="0"
-                >
+                    Padding="0">
                     <Image
                         Margin="0"
-                        Aspect="AspectFill"
-                    >
+                        Aspect="AspectFill">
                         <Image.Source>
                             <FileImageSource File="{Binding Source={x:Reference ThisDrinkButtonControl}, Path=Drink.FullImagePath}" />
                         </Image.Source>
@@ -41,8 +39,7 @@
                     HorizontalTextAlignment="Center"
                     FontAttributes="Bold"
                     FontSize="20"
-                    Text="{Binding Source={x:Reference ThisDrinkButtonControl}, Path=Drink.Name}"
-                >
+                    Text="{Binding Source={x:Reference ThisDrinkButtonControl}, Path=Drink.Name}">
                 </Label>
 
                 <Label
@@ -51,17 +48,29 @@
                     LineBreakMode="TailTruncation"
                     FontAttributes="Bold"
                     FontSize="12"
-                    Text="{Binding Source={x:Reference ThisDrinkButtonControl}, Path=Drink.Brands, Converter={converter:BrandsConverter}}"
-                >
+                    Text="{Binding Source={x:Reference ThisDrinkButtonControl}, Path=Drink.Brands, Converter={converter:BrandsConverter}}">
                 </Label>
 
-                <Label                    Margin="0, 0, 0, 0"
+                <Label
+                    Margin="0, 0, 0, 0"
                     HorizontalTextAlignment="Center"
                     LineBreakMode="TailTruncation"
                     FontAttributes="Bold"
                     Opacity="0.5"
-                    Text="{Binding Source={x:Reference ThisDrinkButtonControl}, Path=Drink.Price, Converter={converter:PriceConverter}}"
-                >
+                    x:Name="PriceLabel"
+                    IsVisible="True"
+                    Text="{Binding Source={x:Reference ThisDrinkButtonControl}, Path=Drink.Price, Converter={converter:PriceConverter}}">
+                </Label>
+
+                <Label
+                    Margin="0, 0, 0, 0"
+                    HorizontalTextAlignment="Center"
+                    LineBreakMode="TailTruncation"
+                    FontAttributes="Bold"
+                    Opacity="0.5"
+                    IsVisible="False"
+                    x:Name="AdminPriceLabel"
+                    Text="{Binding Source={x:Reference ThisDrinkButtonControl}, Path=Drink.AdminPrice, Converter={converter:PriceConverter}}">
                 </Label>
 
             </StackLayout>

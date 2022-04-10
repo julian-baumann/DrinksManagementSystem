@@ -1,5 +1,4 @@
 using System;
-using System.Threading;
 using Common.Core;
 using DrinksManagementSystem.Core;
 using DrinksManagementSystem.Services.Share;
@@ -74,11 +73,6 @@ namespace DrinksManagementSystem.Pages
         private void OnCloseClicked(object sender, EventArgs e)
         {
             Navigation.PopModalAsync();
-        }
-
-        private void OnOpenEvaluationClicked(object sender, EventArgs e)
-        {
-            Navigation.PushAsync(new EvaluationInputPage());
         }
     }
 }
