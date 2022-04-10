@@ -1,6 +1,6 @@
 <div align="center">
 <p align="center">
-<img align="center" src="https://gitlab.com/julianbaumann/DrinksManagementSystem/-/raw/master/Design/IconRounded.png" width="150" />
+<img align="center" src="./Design/IconRounded.png" width="150" />
 </p>
 </div>
 
